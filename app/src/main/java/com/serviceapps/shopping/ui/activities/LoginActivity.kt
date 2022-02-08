@@ -1,9 +1,11 @@
 package com.serviceapps.shopping.ui.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
 import com.serviceapps.shopping.R
+import kotlinx.android.synthetic.main.activity_login.*
 
 /**
  * Login Screen of the application.
@@ -20,15 +22,18 @@ class LoginActivity : AppCompatActivity() {
         // This is used to align the xml view to this class
         setContentView(R.layout.activity_login)
 
-        // TODO Step 1: Hide the status bar for the LoginActivity to make it full screen activity.
-        // START
         // This is used to hide the status bar and make the login screen as a full screen activity.
         // It is deprecated in the API level 30. I will update you with the alternate solution soon.
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
-       // END
 
+        tv_register.setOnClickListener {
+
+            // Launch the register screen when the user clicks on the text.
+            val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

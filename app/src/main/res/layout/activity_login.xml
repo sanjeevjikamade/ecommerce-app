@@ -30,8 +30,8 @@
             android:layout_gravity="center"
             android:contentDescription="@string/app_name"
             android:scaleType="fitCenter"
-            android:src="@drawable/tutorials_eu_logo"
-            app:tint="@color/colorWhite" />
+            android:src="@mipmap/ic_launcher"
+             />
     </FrameLayout>
 
     <com.serviceapps.shopping.utils.MSPTextViewBold
