@@ -1,5 +1,4 @@
-# Services
-# Services
+# Services App
 
 ## Project Setup
 
@@ -24,6 +23,5 @@ Target SDK version: 31
 ## Built With
 - Kotlin
 - Firebase
-- Room
 - Material
 - Glide

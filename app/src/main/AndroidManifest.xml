@@ -9,7 +9,10 @@ package="com.serviceapps.shopping">
     android:roundIcon="@mipmap/ic_launcher"
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
-    <activity android:name=".MainActivity"
+    <activity
+        android:name=".SplashActivity"
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme.NoActionBar"
         android:exported="true">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
@@ -17,6 +20,9 @@ package="com.serviceapps.shopping">
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
     </activity>
+    <activity
+        android:name=".MainActivity"
+        android:screenOrientation="portrait" />
 </application>
 
 </manifest>

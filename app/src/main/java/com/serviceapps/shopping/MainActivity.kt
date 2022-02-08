@@ -2,6 +2,7 @@ package com.serviceapps.shopping
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.serviceapps.shopping.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
