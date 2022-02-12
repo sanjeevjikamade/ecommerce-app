@@ -26,11 +26,8 @@ class SplashActivity : AppCompatActivity() {
         // It is deprecated in the API level 30.
         Handler().postDelayed(
             {
-                // TODO Step 5: Launch the Login Activity instead of Main Activity.
-                // START
                 // Launch the Login Activity
                 startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
-                // END
                 finish() // Call this when your activity is done and should be closed.
             },
             2500
