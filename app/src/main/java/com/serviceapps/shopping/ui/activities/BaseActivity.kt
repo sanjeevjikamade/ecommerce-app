@@ -14,13 +14,10 @@ import kotlinx.android.synthetic.main.dialog_progress.*
 open class BaseActivity : AppCompatActivity() {
 
 
-    // TODO Step 4: Create a global instance for progress dialog.
-    // START
     /**
      * This is a progress dialog instance which we will initialize later on.
      */
     private lateinit var mProgressDialog: Dialog
-    // END
 
     /**
      * A function to show the success and error messages in snack bar component.
@@ -48,8 +45,6 @@ open class BaseActivity : AppCompatActivity() {
         snackBar.show()
     }
 
-    // TODO Step 5: Create a function to load and show the progress dialog.
-    // START
     /**
      * This function is used to show the progress dialog with the title and message to user.
      */
@@ -60,7 +55,7 @@ open class BaseActivity : AppCompatActivity() {
         The resource will be inflated, adding all top-level views to the screen.*/
         mProgressDialog.setContentView(R.layout.dialog_progress)
 
-//        mProgressDialog.tv_progress_text.text = text
+        mProgressDialog.tv_progress_text.text = text
 
         mProgressDialog.setCancelable(false)
         mProgressDialog.setCanceledOnTouchOutside(false)
@@ -68,16 +63,11 @@ open class BaseActivity : AppCompatActivity() {
         //Start the dialog and display it on screen.
         mProgressDialog.show()
     }
-    // END
 
-    // TODO Step 6: Create a function to hide progress dialog.
-    // START
     /**
      * This function is used to dismiss the progress dialog if it is visible to user.
      */
     fun hideProgressDialog() {
         mProgressDialog.dismiss()
     }
-    // END
 }
-

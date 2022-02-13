@@ -36,6 +36,13 @@ class RegisterActivity : BaseActivity() {
 
             registerUser()
         }
+
+        // START
+        tv_login.setOnClickListener{
+            // Here when the user click on login text we can either call the login activity or call the onBackPressed function.
+            // We will call the onBackPressed function.
+            onBackPressed()
+        }
     }
 
     /**
@@ -116,25 +123,19 @@ class RegisterActivity : BaseActivity() {
         // Check with validate function if the entries are valid or not.
         if (validateRegisterDetails()) {
 
-            // TODO Step 7: Show the progress dialog once you are about to register the user.
-            // START
             // Show the progress dialog.
             showProgressDialog(resources.getString(R.string.please_wait))
-            // END
 
             val email: String = et_email.text.toString().trim { it <= ' ' }
-            val password: String = et_email.text.toString().trim { it <= ' ' }
+            val password: String = et_password.text.toString().trim { it <= ' ' }
 
             // Create an instance and create a register a user with email and password.
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(
                     OnCompleteListener<AuthResult> { task ->
 
-                        // TODO Step 8: Hide the progress dialog once the task is completed.
-                        // START
                         // Hide the progress dialog
                         hideProgressDialog()
-                        // END
 
                         // If the registration is successfully done
                         if (task.isSuccessful) {
@@ -146,6 +147,14 @@ class RegisterActivity : BaseActivity() {
                                 "You are registered successfully. Your user id is ${firebaseUser.uid}",
                                 false
                             )
+
+                            /**
+                             * Here the new user registered is automatically signed-in so we just sign-out the user from firebase
+                             * and send him to Login Screen.
+                             */
+                            FirebaseAuth.getInstance().signOut()
+                            // Finish the Register Screen
+                            finish()
                         } else {
                             // If the registering is not successful then show error message.
                             showErrorSnackBar(task.exception!!.message.toString(), true)
