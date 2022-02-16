@@ -3,11 +3,15 @@ package com.serviceapps.shopping.ui.activities
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.WindowManager
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.myshoppal.models.User
 import com.serviceapps.shopping.R
+import com.serviceapps.shopping.firestore.FirestoreClass
 import com.serviceapps.shopping.ui.activities.BaseActivity
 import kotlinx.android.synthetic.main.activity_register.*
 
@@ -23,12 +27,9 @@ class RegisterActivity : BaseActivity() {
         // This is used to align the xml view to this class
         setContentView(R.layout.activity_register)
 
-        // This is used to hide the status bar and make the splash screen as a full screen activity.
-        // It is deprecated in the API level 30. I will update you with the alternate solution soon.
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
 
         setupActionBar()
 
@@ -134,32 +135,56 @@ class RegisterActivity : BaseActivity() {
                 .addOnCompleteListener(
                     OnCompleteListener<AuthResult> { task ->
 
-                        // Hide the progress dialog
-                        hideProgressDialog()
-
                         // If the registration is successfully done
                         if (task.isSuccessful) {
 
                             // Firebase registered user
                             val firebaseUser: FirebaseUser = task.result!!.user!!
 
-                            showErrorSnackBar(
-                                "You are registered successfully. Your user id is ${firebaseUser.uid}",
-                                false
+                            // Instance of User data model class.
+                            val user = User(
+                                firebaseUser.uid,
+                                et_first_name.text.toString().trim { it <= ' ' },
+                                et_last_name.text.toString().trim { it <= ' ' },
+                                et_email.text.toString().trim { it <= ' ' }
                             )
 
-                            /**
-                             * Here the new user registered is automatically signed-in so we just sign-out the user from firebase
-                             * and send him to Login Screen.
-                             */
-                            FirebaseAuth.getInstance().signOut()
-                            // Finish the Register Screen
-                            finish()
+                            // Pass the required values in the constructor.
+                            FirestoreClass().registerUser(this@RegisterActivity, user)
                         } else {
+
+                            // Hide the progress dialog
+                            hideProgressDialog()
+
                             // If the registering is not successful then show error message.
                             showErrorSnackBar(task.exception!!.message.toString(), true)
                         }
                     })
         }
     }
+
+    /**
+     * A function to notify the success result of Firestore entry when the user is registered successfully.
+     */
+    fun userRegistrationSuccess() {
+
+        // Hide the progress dialog
+        hideProgressDialog()
+
+        Toast.makeText(
+            this@RegisterActivity,
+            resources.getString(R.string.register_success),
+            Toast.LENGTH_SHORT
+        ).show()
+
+
+        /**
+         * Here the new user registered is automatically signed-in so we just sign-out the user from firebase
+         * and send him to Intro Screen for Sign-In
+         */
+        FirebaseAuth.getInstance().signOut()
+        // Finish the Register Screen
+        finish()
+    }
+    // END
 }

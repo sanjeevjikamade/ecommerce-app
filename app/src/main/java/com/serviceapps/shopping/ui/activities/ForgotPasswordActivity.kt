@@ -2,7 +2,9 @@ package com.serviceapps.shopping.ui.activities
 
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.WindowManager
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.serviceapps.shopping.R
 import kotlinx.android.synthetic.main.activity_forgot_password.*
@@ -21,6 +23,10 @@ class ForgotPasswordActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         // This is used to align the xml view to this class
         setContentView(R.layout.activity_forgot_password)
+
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
 
         setupActionBar()
 
@@ -64,7 +70,6 @@ class ForgotPasswordActivity : BaseActivity() {
                     }
             }
         }
-        // END
     }
 
 

@@ -32,8 +32,14 @@ package="com.serviceapps.shopping">
             android:name=".ui.activities.RegisterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.activities.ForgotPasswordActivity"
+            android:label=""
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".ui.activities.ForgotPasswordActivity"
+        <activity
+            android:name=".ui.activities.UserProfileActivity"
             android:screenOrientation="portrait"
             android:label=""
             android:theme="@style/AppTheme.NoActionBar"/>

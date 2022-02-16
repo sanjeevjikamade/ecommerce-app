@@ -4,10 +4,15 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
+import com.myshoppal.models.User
 import com.serviceapps.shopping.R
+import com.serviceapps.shopping.firestore.FirestoreClass
+import com.serviceapps.shopping.utils.Constants
 import kotlinx.android.synthetic.main.activity_login.*
 
 /**
@@ -25,12 +30,10 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         // This is used to align the xml view to this class
         setContentView(R.layout.activity_login)
 
-        // This is used to hide the status bar and make the login screen as a full screen activity.
-        // It is deprecated in the API level 30. I will update you with the alternate solution soon.
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
+
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
 
         // Click event assigned to Forgot Password text.
         tv_forgot_password.setOnClickListener(this)
@@ -105,16 +108,39 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
 
-                    // Hide the progress dialog
-                    hideProgressDialog()
-
                     if (task.isSuccessful) {
-
-                        showErrorSnackBar("You are logged in successfully.", false)
+                        FirestoreClass().getUserDetails(this@LoginActivity)
                     } else {
+                        // Hide the progress dialog
+                        hideProgressDialog()
                         showErrorSnackBar(task.exception!!.message.toString(), true)
                     }
                 }
         }
+    }
+
+    /**
+     * A function to notify user that logged in success and get the user details from the FireStore database after authentication.
+     */
+    fun userLoggedInSuccess(user: User) {
+
+        // Hide the progress dialog.
+        hideProgressDialog()
+
+        // Print the user details in the log as of now.
+        Log.i("First Name: ", user.firstName)
+        Log.i("Last Name: ", user.lastName)
+        Log.i("Email: ", user.email)
+
+        if (user.profileCompleted == 0) {
+            // If the user profile is incomplete then launch the UserProfileActivity.
+            val intent = Intent(this@LoginActivity, UserProfileActivity::class.java)
+            intent.putExtra(Constants.EXTRA_USER_DETAILS, user)
+            startActivity(intent)
+        } else {
+            // Redirect the user to Main Screen after log in.
+            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+        }
+        finish()
     }
 }
