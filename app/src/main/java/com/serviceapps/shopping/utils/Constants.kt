@@ -2,7 +2,9 @@ package com.serviceapps.shopping.utils
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.provider.MediaStore
+import android.webkit.MimeTypeMap
 
 /**
  * A custom object to declare all the constant values in a single file. The constant values declared here is can be used in whole application.
@@ -26,15 +28,17 @@ object Constants {
     // A unique code of image selection from Phone Storage.
     const val PICK_IMAGE_REQUEST_CODE = 2
 
-    // TODO Step 3: Create constant variables as requirement.
     // Constant variables for Gender
-    // END
     const val MALE: String = "Male"
     const val FEMALE: String = "Female"
 
     // Firebase database field names
     const val MOBILE: String = "mobile"
     const val GENDER: String = "gender"
+
+    // TODO Step 4: Create a constant variable for User Profile Image.
+    // START
+    const val USER_PROFILE_IMAGE:String = "User_Profile_Image"
     // END
 
     /**
@@ -49,4 +53,27 @@ object Constants {
         // Launches the image selection of phone storage using the constant code.
         activity.startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST_CODE)
     }
+
+    // TODO Step 5: Create a function to get the extension of the selected image file.
+    // START
+    /**
+     * A function to get the image file extension of the selected image.
+     *
+     * @param activity Activity reference.
+     * @param uri Image file uri.
+     */
+    fun getFileExtension(activity: Activity, uri: Uri?): String? {
+        /*
+         * MimeTypeMap: Two-way map that maps MIME-types to file extensions and vice versa.
+         *
+         * getSingleton(): Get the singleton instance of MimeTypeMap.
+         *
+         * getExtensionFromMimeType: Return the registered extension for the given MIME type.
+         *
+         * contentResolver.getType: Return the MIME type of the given content URL.
+         */
+        return MimeTypeMap.getSingleton()
+            .getExtensionFromMimeType(activity.contentResolver.getType(uri!!))
+    }
+    // END
 }

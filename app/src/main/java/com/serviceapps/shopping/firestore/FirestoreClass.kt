@@ -3,10 +3,13 @@ package com.serviceapps.shopping.firestore
 import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.Uri
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.myshoppal.models.User
 import com.serviceapps.shopping.ui.activities.LoginActivity
 import com.serviceapps.shopping.ui.activities.RegisterActivity
@@ -21,8 +24,6 @@ class FirestoreClass {
     // Access a Cloud Firestore instance.
     private val mFireStore = FirebaseFirestore.getInstance()
 
-    // TODO Step 7: Create a function to access the Cloud Firestore and create a collection.
-    // START
     /**
      * A function to make an entry of the registered user in the FireStore database.
      */
@@ -120,8 +121,6 @@ class FirestoreClass {
     }
 
 
-    // TODO Step 5: Create a function to update user details in the database.
-    // START
     /**
      * A function to update the user profile data into the database.
      *
@@ -137,8 +136,6 @@ class FirestoreClass {
             .update(userHashMap)
             .addOnSuccessListener {
 
-                // TODO Step 9: Notify the success result to the base activity.
-                // START
                 // Notify the success result.
                 when (activity) {
                     is UserProfileActivity -> {
@@ -146,7 +143,6 @@ class FirestoreClass {
                         activity.userProfileUpdateSuccess()
                     }
                 }
-                // END
             }
             .addOnFailureListener { e ->
 
@@ -161,6 +157,62 @@ class FirestoreClass {
                     activity.javaClass.simpleName,
                     "Error while updating the user details.",
                     e
+                )
+            }
+    }
+
+    // TODO Step 6: Create a function to upload the image to the Cloud Storage.
+    // START
+    // A function to upload the image to the cloud storage.
+    fun uploadImageToCloudStorage(activity: Activity, imageFileURI: Uri?) {
+
+        //getting the storage reference
+        val sRef: StorageReference = FirebaseStorage.getInstance().reference.child(
+            Constants.USER_PROFILE_IMAGE + System.currentTimeMillis() + "."
+                    + Constants.getFileExtension(
+                activity,
+                imageFileURI
+            )
+        )
+
+        //adding the file to reference
+        sRef.putFile(imageFileURI!!)
+            .addOnSuccessListener { taskSnapshot ->
+                // The image upload is success
+                Log.e(
+                    "Firebase Image URL",
+                    taskSnapshot.metadata!!.reference!!.downloadUrl.toString()
+                )
+
+                // Get the downloadable url from the task snapshot
+                taskSnapshot.metadata!!.reference!!.downloadUrl
+                    .addOnSuccessListener { uri ->
+                        Log.e("Downloadable Image URL", uri.toString())
+
+                        // TODO Step 8: Pass the success result to base class.
+                        // START
+                        // Here call a function of base activity for transferring the result to it.
+                        when (activity) {
+                            is UserProfileActivity -> {
+                                activity.imageUploadSuccess(uri.toString())
+                            }
+                        }
+                        // END
+                    }
+            }
+            .addOnFailureListener { exception ->
+
+                // Hide the progress dialog if there is any error. And print the error in log.
+                when (activity) {
+                    is UserProfileActivity -> {
+                        activity.hideProgressDialog()
+                    }
+                }
+
+                Log.e(
+                    activity.javaClass.simpleName,
+                    exception.message,
+                    exception
                 )
             }
     }

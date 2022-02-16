@@ -3,7 +3,6 @@ package com.myshoppal.models
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
-// START
 /**
  * A data model class for User with required fields.
  */

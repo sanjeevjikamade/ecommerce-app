@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -29,6 +30,11 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
     // START
     // Instance of User data model class. We will initialize it later on.
     private lateinit var mUserDetails: User
+
+    // TODO Step 1: Create a global variable for URI of a selected image from phone storage.
+    // START
+    // Add a global variable for URI of a selected image from phone storage.
+    private var mSelectedImageFileUri: Uri? = null
     // END
 
     /**
@@ -93,10 +99,20 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
 
                 R.id.btn_save -> {
 
-                    if (validateUserProfileDetails()) {
+                    // TODO Step 9: Comment the validation and update code for the moment and check whether the profile image is uploading to cloud storage or not.
+                    // START
 
-                        // TODO Step 4: Create a HashMap of user details to be updated in the database and add the values init.
-                        // START
+                    // Show the progress dialog.
+                    showProgressDialog(resources.getString(R.string.please_wait))
+
+                    FirestoreClass().uploadImageToCloudStorage(
+                        this@UserProfileActivity,
+                        mSelectedImageFileUri
+                    )
+
+
+                    /*if (validateUserProfileDetails()) {
+
                         val userHashMap = HashMap<String, Any>()
 
                         // Here the field which are not editable needs no update. So, we will update user Mobile Number and Gender for now.
@@ -115,12 +131,7 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
                         }
 
                         userHashMap[Constants.GENDER] = gender
-                        // END
 
-
-                        // TODO Step 6: Remove the message and call the function to update user details.
-                        // START
-                        /*showErrorSnackBar("Your details are valid. You can update them.", false)*/
 
                         // Show the progress dialog.
                         showProgressDialog(resources.getString(R.string.please_wait))
@@ -130,8 +141,9 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
                             this@UserProfileActivity,
                             userHashMap
                         )
-                        // END
-                    }
+                    }*/
+
+                    // END
                 }
             }
         }
@@ -185,13 +197,18 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
             if (requestCode == Constants.PICK_IMAGE_REQUEST_CODE) {
                 if (data != null) {
                     try {
+
+                        // TODO Step 2: Replace the variable with global variable.
+                        // Replace the selectedImageFileUri variable with the global variable.
+                        // START
                         // The uri of selected image from phone storage.
-                        val selectedImageFileUri = data.data!!
+                        mSelectedImageFileUri = data.data!!
 
                         GlideLoader(this@UserProfileActivity).loadUserPicture(
-                            selectedImageFileUri,
+                            mSelectedImageFileUri!!,
                             iv_user_photo
                         )
+                        // END
                     } catch (e: IOException) {
                         e.printStackTrace()
                         Toast.makeText(
@@ -230,8 +247,6 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-    // TODO Step 7: Create a function to notify the success result and proceed further accordingly.
-    // START
     /**
      * A function to notify the success result and proceed further accordingly after updating the user details.
      */
@@ -250,6 +265,25 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
         // Redirect to the Main Screen after profile completion.
         startActivity(Intent(this@UserProfileActivity, MainActivity::class.java))
         finish()
+    }
+
+    // TODO Step 7: Create a function to notify the success result of image upload to the Cloud Storage.
+    // START
+    /**
+     * A function to notify the success result of image upload to the Cloud Storage.
+     *
+     * @param imageURL After successful upload the Firebase Cloud returns the URL.
+     */
+    fun imageUploadSuccess(imageURL: String) {
+
+        // Hide the progress dialog
+        hideProgressDialog()
+
+        Toast.makeText(
+            this@UserProfileActivity,
+            "Your image is uploaded successfully. Image URL is $imageURL",
+            Toast.LENGTH_SHORT
+        ).show()
     }
     // END
 }
