@@ -38,11 +38,8 @@ object Constants {
     const val IMAGE: String = "image"
     const val COMPLETE_PROFILE: String = "profileCompleted"
 
-    // TODO Step 4: Add the firestore database fields.
-    // START
     const val FIRST_NAME: String = "firstName"
     const val LAST_NAME: String = "lastName"
-    // END
 
     const val USER_PROFILE_IMAGE:String = "User_Profile_Image"
 

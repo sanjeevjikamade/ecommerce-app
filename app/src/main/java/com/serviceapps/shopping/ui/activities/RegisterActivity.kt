@@ -186,5 +186,4 @@ class RegisterActivity : BaseActivity() {
         // Finish the Register Screen
         finish()
     }
-    // END
 }
