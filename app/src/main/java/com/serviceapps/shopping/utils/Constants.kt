@@ -35,11 +35,15 @@ object Constants {
     // Firebase database field names
     const val MOBILE: String = "mobile"
     const val GENDER: String = "gender"
+    const val IMAGE: String = "image"
 
-    // TODO Step 4: Create a constant variable for User Profile Image.
+    // TODO Step 1: Add the constant database field for complete profile.
     // START
-    const val USER_PROFILE_IMAGE:String = "User_Profile_Image"
+    const val COMPLETE_PROFILE: String = "profileCompleted"
     // END
+
+    const val USER_PROFILE_IMAGE:String = "User_Profile_Image"
+
 
     /**
      * A function for user profile image selection from phone storage.
@@ -54,8 +58,6 @@ object Constants {
         activity.startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST_CODE)
     }
 
-    // TODO Step 5: Create a function to get the extension of the selected image file.
-    // START
     /**
      * A function to get the image file extension of the selected image.
      *
@@ -75,5 +77,4 @@ object Constants {
         return MimeTypeMap.getSingleton()
             .getExtensionFromMimeType(activity.contentResolver.getType(uri!!))
     }
-    // END
 }

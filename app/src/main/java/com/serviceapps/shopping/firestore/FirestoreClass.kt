@@ -216,5 +216,4 @@ class FirestoreClass {
                 )
             }
     }
-    // END
 }
