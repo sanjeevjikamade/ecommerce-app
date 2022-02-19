@@ -239,12 +239,9 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
 
         userHashMap[Constants.GENDER] = gender
 
-        // TODO Step 2: Update the field value that the profile is completed.
-        // START
         // 0: User profile is incomplete.
         // 1: User profile is completed.
         userHashMap[Constants.COMPLETE_PROFILE] = 1
-        // END
 
         // call the registerUser function of FireStore class to make an entry in the database.
         FirestoreClass().updateUserProfileData(

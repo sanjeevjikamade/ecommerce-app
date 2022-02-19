@@ -22,12 +22,11 @@ class SplashActivity : AppCompatActivity() {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
 
+        // Adding the handler to after the a task after some delay.
         // It is deprecated in the API level 30.
         Handler().postDelayed(
             {
 
-                // TODO Step 5: Update the code to implement the remember me feature.
-                // START
                 // If the user is logged in once and did not logged out manually from the app.
                 // So, next time when the user is coming into the app user will be redirected to MainScreen.
                 // If user is not logged in or logout manually then user will  be redirected to the Login screen as usual.
@@ -36,8 +35,8 @@ class SplashActivity : AppCompatActivity() {
                 val currentUserID = FirestoreClass().getCurrentUserID()
 
                 if (currentUserID.isNotEmpty()) {
-                    // Start the Main Activity
-                    startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                    // Launch dashboard screen.
+                    startActivity(Intent(this@SplashActivity, DashboardActivity::class.java))
                 } else {
                     // Launch the Login Activity
                     startActivity(Intent(this@SplashActivity, LoginActivity::class.java))

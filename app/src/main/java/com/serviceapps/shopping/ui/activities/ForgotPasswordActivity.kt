@@ -9,7 +9,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.serviceapps.shopping.R
 import kotlinx.android.synthetic.main.activity_forgot_password.*
 
-// TODO Step 1: Replace the AppCompactActivity with BaseActivity.
 /**
  * Forgot Password Screen of the application.
  */
@@ -30,11 +29,6 @@ class ForgotPasswordActivity : BaseActivity() {
 
         setupActionBar()
 
-        //TODO Step 2: Assign the click even to the submit button.
-        // In this screen there is only a one input field so we will not create the separate function what we have done in the Register and Login Screens.
-        // I will show you how to perform all the operations in the on click function it self.
-
-        // START
         btn_submit.setOnClickListener {
 
             // Get the email id from the input field.

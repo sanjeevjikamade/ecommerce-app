@@ -11,6 +11,7 @@ import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.myshoppal.models.User
+import com.serviceapps.shopping.ui.activities.SettingsActivity
 import com.serviceapps.shopping.ui.activities.LoginActivity
 import com.serviceapps.shopping.ui.activities.RegisterActivity
 import com.serviceapps.shopping.ui.activities.UserProfileActivity
@@ -102,6 +103,16 @@ class FirestoreClass {
                         // Call a function of base activity for transferring the result to it.
                         activity.userLoggedInSuccess(user)
                     }
+
+                    // TODO Step 5: Make the changes to send the success result to respective activity.
+                    // START
+                    is SettingsActivity ->{
+                        // TODO Step 7: Call the function of base class.
+                        // Call a function of base activity for transferring the result to it.
+                        activity.userDetailsSuccess(user)
+                        // END
+                    }
+                    // END
                 }
             }
             .addOnFailureListener { e ->
@@ -110,6 +121,13 @@ class FirestoreClass {
                     is LoginActivity -> {
                         activity.hideProgressDialog()
                     }
+
+                    // TODO Step 10: Hide the progress dialog if there is any error for the respective error.
+                    // START
+                    is SettingsActivity -> {
+                        activity.hideProgressDialog()
+                    }
+                    // END
                 }
 
                 Log.e(
@@ -161,8 +179,6 @@ class FirestoreClass {
             }
     }
 
-    // TODO Step 6: Create a function to upload the image to the Cloud Storage.
-    // START
     // A function to upload the image to the cloud storage.
     fun uploadImageToCloudStorage(activity: Activity, imageFileURI: Uri?) {
 
@@ -189,15 +205,12 @@ class FirestoreClass {
                     .addOnSuccessListener { uri ->
                         Log.e("Downloadable Image URL", uri.toString())
 
-                        // TODO Step 8: Pass the success result to base class.
-                        // START
                         // Here call a function of base activity for transferring the result to it.
                         when (activity) {
                             is UserProfileActivity -> {
                                 activity.imageUploadSuccess(uri.toString())
                             }
                         }
-                        // END
                     }
             }
             .addOnFailureListener { exception ->

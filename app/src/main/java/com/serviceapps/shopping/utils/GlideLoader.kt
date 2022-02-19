@@ -12,15 +12,17 @@ import java.io.IOException
  */
 class GlideLoader(val context: Context) {
 
+    // TODO Step 8: Update the function definition to load the image using Glide library. Earlier we used to load it from Uri but here it is URL so make the image type as Any. So, if we pass Uri or URL it will load it.
+    // START
     /**
      * A function to load image from URI for the user profile picture.
      */
-    fun loadUserPicture(imageURI: Uri, imageView: ImageView) {
+    fun loadUserPicture(image: Any, imageView: ImageView) {
         try {
             // Load the user image in the ImageView.
             Glide
                 .with(context)
-                .load(Uri.parse(imageURI.toString())) // URI of the image
+                .load(image) // Uri or URL of the image
                 .centerCrop() // Scale type of the image.
                 .placeholder(R.drawable.ic_user_placeholder) // A default place holder if image is failed to load.
                 .into(imageView) // the view in which the image will be loaded.
@@ -28,4 +30,5 @@ class GlideLoader(val context: Context) {
             e.printStackTrace()
         }
     }
+    // END
 }
