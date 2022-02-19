@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.google.firebase.auth.FirebaseAuth
-import com.myshoppal.models.User
+import com.serviceapps.shopping.models.User
 import com.serviceapps.shopping.R
 import com.serviceapps.shopping.firestore.FirestoreClass
 import com.serviceapps.shopping.utils.Constants

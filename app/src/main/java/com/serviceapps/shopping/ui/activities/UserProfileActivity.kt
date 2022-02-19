@@ -13,7 +13,7 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.myshoppal.models.User
+import com.serviceapps.shopping.models.User
 import com.serviceapps.shopping.R
 import com.serviceapps.shopping.firestore.FirestoreClass
 import com.serviceapps.shopping.utils.Constants
@@ -136,7 +136,8 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
 
                             FirestoreClass().uploadImageToCloudStorage(
                                 this@UserProfileActivity,
-                                mSelectedImageFileUri
+                                mSelectedImageFileUri,
+                                Constants.USER_PROFILE_IMAGE
                             )
                         } else {
 

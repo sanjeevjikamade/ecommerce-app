@@ -9,10 +9,9 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.myshoppal.models.User
+import com.serviceapps.shopping.models.User
 import com.serviceapps.shopping.R
 import com.serviceapps.shopping.firestore.FirestoreClass
-import com.serviceapps.shopping.ui.activities.BaseActivity
 import kotlinx.android.synthetic.main.activity_register.*
 
 @Suppress("DEPRECATION")
