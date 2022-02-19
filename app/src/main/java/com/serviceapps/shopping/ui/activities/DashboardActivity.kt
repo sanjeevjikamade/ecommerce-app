@@ -22,7 +22,7 @@ class DashboardActivity : BaseActivity() {
         supportActionBar!!.setBackgroundDrawable(
             ContextCompat.getDrawable(
                 this@DashboardActivity,
-                R.drawable.app_gradient_color_background
+                R.color.colorPrimary
             )
         )
         // END
