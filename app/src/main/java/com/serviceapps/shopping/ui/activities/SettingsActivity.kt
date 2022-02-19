@@ -1,17 +1,23 @@
 package com.serviceapps.shopping.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import com.google.firebase.auth.FirebaseAuth
 import com.myshoppal.models.User
 import com.serviceapps.shopping.R
 import com.serviceapps.shopping.firestore.FirestoreClass
+import com.serviceapps.shopping.utils.Constants
 import com.serviceapps.shopping.utils.GlideLoader
 import kotlinx.android.synthetic.main.activity_settings.*
 
 /**
  * Setting screen of the app.
  */
-// TODO Step 1: Replace the AppCompactActivity with BaseActivity.
-class SettingsActivity : BaseActivity() {
+class SettingsActivity : BaseActivity(), View.OnClickListener {
+
+    // A variable for user details which will be initialized later on.
+    private lateinit var mUserDetails: User
 
     /**
      * This function is auto created by Android when the Activity Class is created.
@@ -22,23 +28,42 @@ class SettingsActivity : BaseActivity() {
         // This is used to align the xml view to this class
         setContentView(R.layout.activity_settings)
 
-        // TODO Step 3: Call the function to setup action bar.
-        // START
         setupActionBar()
-        // END
+
+
+        tv_edit.setOnClickListener(this@SettingsActivity)
+        btn_logout.setOnClickListener(this@SettingsActivity)
     }
 
-    // TODO Step 11: Override the onResume function and call the getUserDetails function init.
-    // START
     override fun onResume() {
         super.onResume()
 
         getUserDetails()
     }
-    // END
 
-    // TODO Step 2: Create a function to setup action bar.
-    // START
+    override fun onClick(v: View?) {
+        if (v != null) {
+            when (v.id) {
+
+                R.id.tv_edit -> {
+                    val intent = Intent(this@SettingsActivity, UserProfileActivity::class.java)
+                    intent.putExtra(Constants.EXTRA_USER_DETAILS, mUserDetails)
+                    startActivity(intent)
+                }
+
+                R.id.btn_logout -> {
+
+                    FirebaseAuth.getInstance().signOut()
+
+                    val intent = Intent(this@SettingsActivity, LoginActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                    finish()
+                }
+            }
+        }
+    }
+
     /**
      * A function for actionBar Setup.
      */
@@ -54,10 +79,7 @@ class SettingsActivity : BaseActivity() {
 
         toolbar_settings_activity.setNavigationOnClickListener { onBackPressed() }
     }
-    // END
 
-    // TODO Step 4: Create a function to get the user details from firestore.
-    // START
     /**
      * A function to get the user details from firestore.
      */
@@ -69,17 +91,14 @@ class SettingsActivity : BaseActivity() {
         // Call the function of Firestore class to get the user details from firestore which is already created.
         FirestoreClass().getUserDetails(this@SettingsActivity)
     }
-    // END
 
-    // TODO Step 6: Create a function to receive the success result.
-    // START
     /**
      * A function to receive the user details and populate it in the UI.
      */
     fun userDetailsSuccess(user: User) {
 
-        // TODO Step 9: Set the user details to UI.
-        // START
+        mUserDetails = user
+
         // Hide the progress dialog
         hideProgressDialog()
 
@@ -90,7 +109,5 @@ class SettingsActivity : BaseActivity() {
         tv_gender.text = user.gender
         tv_email.text = user.email
         tv_mobile_number.text = "${user.mobile}"
-        // END
     }
-    // END
 }
