@@ -105,7 +105,7 @@ class FirestoreClass {
                         activity.userLoggedInSuccess(user)
                     }
 
-                    is SettingsActivity ->{
+                    is SettingsActivity -> {
                         // Call a function of base activity for transferring the result to it.
                         activity.userDetailsSuccess(user)
                     }
@@ -333,7 +333,6 @@ class FirestoreClass {
             }
     }
 
-    // TODO Step 1: Create a function to delete the product from the cloud firestore.
     /**
      * A function to delete the product from the cloud firestore.
      */
@@ -344,11 +343,8 @@ class FirestoreClass {
             .delete()
             .addOnSuccessListener {
 
-                // TODO Step 4: Notify the success result to the base class.
-                // START
                 // Notify the success result to the base class.
                 fragment.productDeleteSuccess()
-                // END
             }
             .addOnFailureListener { e ->
 
@@ -362,5 +358,4 @@ class FirestoreClass {
                 )
             }
     }
-    // END
 }

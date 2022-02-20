@@ -24,7 +24,6 @@ class ProductsFragment : BaseFragment() {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
     }
-    // END
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -97,22 +96,9 @@ class ProductsFragment : BaseFragment() {
      */
     fun deleteProduct(productID: String) {
 
-        // TODO Step 6: Remove the toast message and call the function to ask for confirmation to delete the product.
-        // START
-        // Here we will call the delete function of the FirestoreClass. But, for now lets display the Toast message and call this function from adapter class.
-
-        /*Toast.makeText(
-            requireActivity(),
-            "You can now delete the product. $productID",
-            Toast.LENGTH_SHORT
-        ).show()*/
-
         showAlertDialogToDeleteProduct(productID)
-        // END
     }
 
-    // TODO Step 2: Create a function to notify the success result of product deleted from cloud firestore.
-    // START
     /**
      * A function to notify the success result of product deleted from cloud firestore.
      */
@@ -132,8 +118,6 @@ class ProductsFragment : BaseFragment() {
     }
     // END
 
-    // TODO Step 5: Create a function to show the alert dialog for the confirmation of delete product from cloud firestore.
-    // START
     /**
      * A function to show the alert dialog for the confirmation of delete product from cloud firestore.
      */
@@ -149,14 +133,11 @@ class ProductsFragment : BaseFragment() {
         //performing positive action
         builder.setPositiveButton(resources.getString(R.string.yes)) { dialogInterface, _ ->
 
-            // TODO Step 7: Call the function to delete the product from cloud firestore.
-            // START
             // Show the progress dialog.
             showProgressDialog(resources.getString(R.string.please_wait))
 
             // Call the function of Firestore class.
             FirestoreClass().deleteProduct(this@ProductsFragment, productID)
-            // END
 
             dialogInterface.dismiss()
         }

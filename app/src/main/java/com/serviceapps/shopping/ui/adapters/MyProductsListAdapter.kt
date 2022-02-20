@@ -1,12 +1,14 @@
 package com.serviceapps.shopping.ui.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.serviceapps.shopping.R
 import com.serviceapps.shopping.models.Product
+import com.serviceapps.shopping.ui.activities.ProductDetailsActivity
 import com.serviceapps.shopping.ui.fragments.ProductsFragment
 import com.serviceapps.shopping.utils.GlideLoader
 import kotlinx.android.synthetic.main.item_list_layout.view.*
@@ -59,6 +61,11 @@ open class MyProductsListAdapter(
             holder.itemView.ib_delete_product.setOnClickListener {
 
                 fragment.deleteProduct(model.product_id)
+            }
+            holder.itemView.setOnClickListener {
+                // Launch Product details screen.
+                val intent = Intent(context, ProductDetailsActivity::class.java)
+                context.startActivity(intent)
             }
         }
     }
