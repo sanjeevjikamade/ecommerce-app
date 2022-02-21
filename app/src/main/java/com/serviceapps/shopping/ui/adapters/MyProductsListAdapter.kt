@@ -10,6 +10,7 @@ import com.serviceapps.shopping.R
 import com.serviceapps.shopping.models.Product
 import com.serviceapps.shopping.ui.activities.ProductDetailsActivity
 import com.serviceapps.shopping.ui.fragments.ProductsFragment
+import com.serviceapps.shopping.utils.Constants
 import com.serviceapps.shopping.utils.GlideLoader
 import kotlinx.android.synthetic.main.item_list_layout.view.*
 
@@ -65,6 +66,8 @@ open class MyProductsListAdapter(
             holder.itemView.setOnClickListener {
                 // Launch Product details screen.
                 val intent = Intent(context, ProductDetailsActivity::class.java)
+                intent.putExtra(Constants.EXTRA_PRODUCT_ID, model.product_id)
+                intent.putExtra(Constants.EXTRA_PRODUCT_OWNER_ID, model.user_id)
                 context.startActivity(intent)
             }
         }
