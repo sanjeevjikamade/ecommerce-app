@@ -1,11 +1,15 @@
 package com.serviceapps.shopping.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.serviceapps.shopping.models.Cart
+import com.serviceapps.shopping.ui.activities.CartListActivity
 import com.serviceapps.shopping.R
 import com.serviceapps.shopping.firestore.FirestoreClass
 import com.serviceapps.shopping.models.Product
@@ -16,7 +20,9 @@ import kotlinx.android.synthetic.main.activity_product_details.*
 /**
  * Product Details Screen.
  */
-class ProductDetailsActivity : BaseActivity() {
+class ProductDetailsActivity : BaseActivity(), View.OnClickListener {
+
+    private lateinit var mProductDetails: Product
 
     // A global variable for product id.
     private var mProductId: String = ""
@@ -39,28 +45,64 @@ class ProductDetailsActivity : BaseActivity() {
                 intent.getStringExtra(Constants.EXTRA_PRODUCT_ID)!!
         }
 
-        // TODO Step 7: Get the product owner id through intent.
-        // START
         var productOwnerId: String = ""
 
         if (intent.hasExtra(Constants.EXTRA_PRODUCT_OWNER_ID)) {
             productOwnerId =
                 intent.getStringExtra(Constants.EXTRA_PRODUCT_OWNER_ID)!!
         }
-        // END
 
         setupActionBar()
 
-        // TODO Step 8: Now we have the product owner id so if the product which is added by owner himself should not see the button Add To Cart.
-        // START
         if (FirestoreClass().getCurrentUserID() == productOwnerId) {
             btn_add_to_cart.visibility = View.GONE
+            btn_go_to_cart.visibility = View.GONE
         } else {
             btn_add_to_cart.visibility = View.VISIBLE
         }
-        // END
+
+        btn_add_to_cart.setOnClickListener(this)
+        btn_go_to_cart.setOnClickListener(this)
 
         getProductDetails()
+    }
+
+    override fun onClick(v: View?) {
+        if (v != null) {
+            when (v.id) {
+
+                R.id.btn_add_to_cart -> {
+                    addToCart()
+                }
+
+                // TODO Step 6: Handle the click event of the GoToCart button and launch the CartListActivity.
+                // START
+                R.id.btn_go_to_cart->{
+                    startActivity(Intent(this@ProductDetailsActivity, CartListActivity::class.java))
+                }
+                // END
+            }
+        }
+    }
+
+    /**
+     * A function to prepare the cart item to add it to the cart in cloud firestore.
+     */
+    private fun addToCart() {
+
+        val addToCart = Cart(
+            FirestoreClass().getCurrentUserID(),
+            mProductId,
+            mProductDetails.title,
+            mProductDetails.price,
+            mProductDetails.image,
+            Constants.DEFAULT_CART_QUANTITY
+        )
+
+        // Show the progress dialog
+        showProgressDialog(resources.getString(R.string.please_wait))
+
+        FirestoreClass().addCartItems(this@ProductDetailsActivity, addToCart)
     }
 
     /**
@@ -98,8 +140,7 @@ class ProductDetailsActivity : BaseActivity() {
      */
     fun productDetailsSuccess(product: Product) {
 
-        // Hide Progress dialog.
-        hideProgressDialog()
+        mProductDetails = product
 
         // Populate the product details in the UI.
         GlideLoader(this@ProductDetailsActivity).loadProductPicture(
@@ -108,8 +149,49 @@ class ProductDetailsActivity : BaseActivity() {
         )
 
         tv_product_details_title.text = product.title
-        tv_product_details_price.text = "$${product.price}"
+        tv_product_details_price.text = "₹${product.price}"
         tv_product_details_description.text = product.description
         tv_product_details_stock_quantity.text = product.stock_quantity
+
+        // There is no need to check the cart list if the product owner himself is seeing the product details.
+        if (FirestoreClass().getCurrentUserID() == product.user_id) {
+            // Hide Progress dialog.
+            hideProgressDialog()
+        } else {
+            FirestoreClass().checkIfItemExistInCart(this@ProductDetailsActivity, mProductId)
+        }
+    }
+
+    /**
+     * A function to notify the success result of item exists in the cart.
+     */
+    fun productExistsInCart() {
+
+        // Hide the progress dialog.
+        hideProgressDialog()
+
+        // Hide the AddToCart button if the item is already in the cart.
+        btn_add_to_cart.visibility = View.GONE
+        // Show the GoToCart button if the item is already in the cart. User can update the quantity from the cart list screen if he wants.
+        btn_go_to_cart.visibility = View.VISIBLE
+    }
+
+    /**
+     * A function to notify the success result of item added to the to cart.
+     */
+    fun addToCartSuccess() {
+        // Hide the progress dialog.
+        hideProgressDialog()
+
+        Toast.makeText(
+            this@ProductDetailsActivity,
+            resources.getString(R.string.success_message_item_added_to_cart),
+            Toast.LENGTH_SHORT
+        ).show()
+
+        // Hide the AddToCart button if the item is already in the cart.
+        btn_add_to_cart.visibility = View.GONE
+        // Show the GoToCart button if the item is already in the cart. User can update the quantity from the cart list screen if he wants.
+        btn_go_to_cart.visibility = View.VISIBLE
     }
 }

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.serviceapps.shopping.R
 import com.serviceapps.shopping.firestore.FirestoreClass
 import com.serviceapps.shopping.models.Product
+import com.serviceapps.shopping.ui.activities.CartListActivity
 import com.serviceapps.shopping.ui.activities.ProductDetailsActivity
 import com.serviceapps.shopping.ui.activities.SettingsActivity
 import com.serviceapps.shopping.ui.adapters.DashboardItemsListAdapter
@@ -47,6 +48,14 @@ class DashboardFragment : BaseFragment() {
                 startActivity(Intent(activity, SettingsActivity::class.java))
                 return true
             }
+
+            // TODO Step 9: Handle the click event of Cart action item.
+            // START
+            R.id.action_cart -> {
+                startActivity(Intent(activity, CartListActivity::class.java))
+                return true
+            }
+            // END
         }
         return super.onOptionsItemSelected(item)
     }
@@ -88,21 +97,13 @@ class DashboardFragment : BaseFragment() {
             val adapter = DashboardItemsListAdapter(requireActivity(), dashboardItemsList)
             rv_dashboard_items.adapter = adapter
 
-            //TODO Step 6: Define the onclick listener here that is defined in the adapter class and handle the click on an item in the base class.
-            // Earlier we have done is a different way of creating the function and calling it from the adapter class based on the instance of the class.
-
-            // START
             adapter.setOnClickListener(object :
                 DashboardItemsListAdapter.OnClickListener {
                 override fun onClick(position: Int, product: Product) {
 
-                    // TODO Step 7: Launch the product details screen from the dashboard.
-                    // START
                     val intent = Intent(context, ProductDetailsActivity::class.java)
                     intent.putExtra(Constants.EXTRA_PRODUCT_ID, product.product_id)
-                    startActivity(intent)
                     intent.putExtra(Constants.EXTRA_PRODUCT_OWNER_ID, product.user_id)
-                    // END
                     startActivity(intent)
                 }
             })
