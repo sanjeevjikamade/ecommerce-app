@@ -3,6 +3,7 @@ package com.serviceapps.shopping.ui.activities
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.core.content.ContextCompat

@@ -16,6 +16,7 @@ import com.serviceapps.shopping.models.Product
 import com.serviceapps.shopping.utils.Constants
 import com.serviceapps.shopping.utils.GlideLoader
 import kotlinx.android.synthetic.main.activity_product_details.*
+import kotlinx.android.synthetic.main.item_cart_layout.view.*
 
 /**
  * Product Details Screen.
@@ -150,13 +151,37 @@ class ProductDetailsActivity : BaseActivity(), View.OnClickListener {
         tv_product_details_description.text = product.description
         tv_product_details_stock_quantity.text = product.stock_quantity
 
-        // There is no need to check the cart list if the product owner himself is seeing the product details.
-        if (FirestoreClass().getCurrentUserID() == product.user_id) {
+
+        // TODO Step 8: Update the UI if the stock quantity is 0.
+        // START
+        if(product.stock_quantity.toInt() == 0){
+
             // Hide Progress dialog.
             hideProgressDialog()
-        } else {
-            FirestoreClass().checkIfItemExistInCart(this@ProductDetailsActivity, mProductId)
+
+            // Hide the AddToCart button if the item is already in the cart.
+            btn_add_to_cart.visibility = View.GONE
+
+            tv_product_details_stock_quantity.text =
+                resources.getString(R.string.lbl_out_of_stock)
+
+            tv_product_details_stock_quantity.setTextColor(
+                ContextCompat.getColor(
+                    this@ProductDetailsActivity,
+                    R.color.colorSnackBarError
+                )
+            )
+        }else{
+
+            // There is no need to check the cart list if the product owner himself is seeing the product details.
+            if (FirestoreClass().getCurrentUserID() == product.user_id) {
+                // Hide Progress dialog.
+                hideProgressDialog()
+            } else {
+                FirestoreClass().checkIfItemExistInCart(this@ProductDetailsActivity, mProductId)
+            }
         }
+        // END
     }
 
     /**

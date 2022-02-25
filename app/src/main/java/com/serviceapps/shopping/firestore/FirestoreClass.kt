@@ -297,7 +297,44 @@ class FirestoreClass {
                         fragment.hideProgressDialog()
                     }
                 }
+
                 Log.e("Get Product List", "Error while getting product list.", e)
+            }
+    }
+
+    /**
+     * A function to get all the product list from the cloud firestore.
+     *
+     * @param activity The activity is passed as parameter to the function because it is called from activity and need to the success result.
+     */
+    fun getAllProductsList(activity: CartListActivity) {
+        // The collection name for PRODUCTS
+        mFireStore.collection(Constants.PRODUCTS)
+            .get() // Will get the documents snapshots.
+            .addOnSuccessListener { document ->
+
+                // Here we get the list of boards in the form of documents.
+                Log.e("Products List", document.documents.toString())
+
+                // Here we have created a new instance for Products ArrayList.
+                val productsList: ArrayList<Product> = ArrayList()
+
+                // A for loop as per the list of documents to convert them into Products ArrayList.
+                for (i in document.documents) {
+
+                    val product = i.toObject(Product::class.java)
+                    product!!.product_id = i.id
+
+                    productsList.add(product)
+                }
+
+                activity.successProductsListFromFireStore(productsList)
+            }
+            .addOnFailureListener { e ->
+                // Hide the progress dialog if there is any error based on the base class instance.
+                activity.hideProgressDialog()
+
+                Log.e("Get Product List", "Error while getting all product list.", e)
             }
     }
 
@@ -493,4 +530,47 @@ class FirestoreClass {
                 Log.e(activity.javaClass.simpleName, "Error while getting the cart list items.", e)
             }
     }
+
+    // TODO Step 4: Create a function to remove the cart item from the cloud firestore.
+    // START
+    /**
+     * A function to remove the cart item from the cloud firestore.
+     *
+     * @param activity activity class.
+     * @param cart_id cart id of the item.
+     */
+    fun removeItemFromCart(context: Context, cart_id: String) {
+
+        // Cart items collection name
+        mFireStore.collection(Constants.CART_ITEMS)
+            .document(cart_id) // cart id
+            .delete()
+            .addOnSuccessListener {
+
+                // TODO Step 6: Notify the success result of the removed cart item from the list to the base class.
+                // START
+                // Notify the success result of the removed cart item from the list to the base class.
+                when (context) {
+                    is CartListActivity -> {
+                        context.itemRemovedSuccess()
+                    }
+                }
+                // END
+            }
+            .addOnFailureListener { e ->
+
+                // Hide the progress dialog if there is any error.
+                when (context) {
+                    is CartListActivity -> {
+                        context.hideProgressDialog()
+                    }
+                }
+                Log.e(
+                    context.javaClass.simpleName,
+                    "Error while removing the item from the cart list.",
+                    e
+                )
+            }
+    }
+    // END
 }

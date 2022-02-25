@@ -2,12 +2,14 @@ package com.serviceapps.shopping.ui.activities
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.serviceapps.shopping.R
 import com.serviceapps.shopping.firestore.FirestoreClass
 import com.serviceapps.shopping.models.Cart
+import com.serviceapps.shopping.models.Product
 import com.serviceapps.shopping.ui.adapters.CartItemsListAdapter
 import kotlinx.android.synthetic.main.activity_cart_list.*
 
@@ -15,6 +17,13 @@ import kotlinx.android.synthetic.main.activity_cart_list.*
  * Cart list activity of the application.
  */
 class CartListActivity : BaseActivity() {
+
+    // A global variable for the product list.
+    private lateinit var mProductsList: ArrayList<Product>
+
+    // A global variable for the cart list items.
+    private lateinit var mCartListItems: ArrayList<Cart>
+
     /**
      * This function is auto created by Android when the Activity Class is created.
      */
@@ -34,9 +43,8 @@ class CartListActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
 
-        getCartItemsList()
+        getProductList()
     }
-
 
     /**
      * A function for actionBar Setup.
@@ -55,12 +63,32 @@ class CartListActivity : BaseActivity() {
     }
 
     /**
-     * A function to get the list of cart items in the activity.
+     * A function to get product list to compare the current stock with the cart items.
      */
-    private fun getCartItemsList() {
+    private fun getProductList() {
 
         // Show the progress dialog.
         showProgressDialog(resources.getString(R.string.please_wait))
+
+        FirestoreClass().getAllProductsList(this@CartListActivity)
+    }
+
+    /**
+     * A function to get the success result of product list.
+     *
+     * @param productsList
+     */
+    fun successProductsListFromFireStore(productsList: ArrayList<Product>) {
+
+        mProductsList = productsList
+
+        getCartItemsList()
+    }
+
+    /**
+     * A function to get the list of cart items in the activity.
+     */
+    private fun getCartItemsList() {
 
         FirestoreClass().getCartList(this@CartListActivity)
     }
@@ -75,16 +103,22 @@ class CartListActivity : BaseActivity() {
         // Hide progress dialog.
         hideProgressDialog()
 
-        // TODO Step 2: Remove the for loop and display the list of cart items in the recycler view along with total amount.
-        // START
+        for (product in mProductsList) {
+            for (cart in cartList) {
+                if (product.product_id == cart.product_id) {
 
-        /*for (i in cartList) {
+                    cart.stock_quantity = product.stock_quantity
 
-            Log.i("Cart Item Title", i.title)
+                    if (product.stock_quantity.toInt() == 0) {
+                        cart.cart_quantity = product.stock_quantity
+                    }
+                }
+            }
+        }
 
-        }*/
+        mCartListItems = cartList
 
-        if (cartList.size > 0) {
+        if (mCartListItems.size > 0) {
 
             rv_cart_items_list.visibility = View.VISIBLE
             ll_checkout.visibility = View.VISIBLE
@@ -93,17 +127,21 @@ class CartListActivity : BaseActivity() {
             rv_cart_items_list.layoutManager = LinearLayoutManager(this@CartListActivity)
             rv_cart_items_list.setHasFixedSize(true)
 
-            val cartListAdapter = CartItemsListAdapter(this@CartListActivity, cartList)
+            val cartListAdapter = CartItemsListAdapter(this@CartListActivity, mCartListItems)
             rv_cart_items_list.adapter = cartListAdapter
 
             var subTotal: Double = 0.0
 
-            for (item in cartList) {
+            for (item in mCartListItems) {
 
-                val price = item.price.toDouble()
-                val quantity = item.cart_quantity.toInt()
+                val availableQuantity = item.stock_quantity.toInt()
 
-                subTotal += (price * quantity)
+                if (availableQuantity > 0) {
+                    val price = item.price.toDouble()
+                    val quantity = item.cart_quantity.toInt()
+
+                    subTotal += (price * quantity)
+                }
             }
 
             tv_sub_total.text = "$$subTotal"
@@ -124,6 +162,24 @@ class CartListActivity : BaseActivity() {
             ll_checkout.visibility = View.GONE
             tv_no_cart_item_found.visibility = View.VISIBLE
         }
+    }
+
+    // TODO Step 5: Create a function to notify the user about the item removed from the cart list.
+    // START
+    /**
+     * A function to notify the user about the item removed from the cart list.
+     */
+    fun itemRemovedSuccess() {
+
+        hideProgressDialog()
+
+        Toast.makeText(
+            this@CartListActivity,
+            resources.getString(R.string.msg_item_removed_successfully),
+            Toast.LENGTH_SHORT
+        ).show()
+
+        getCartItemsList()
     }
     // END
 }
