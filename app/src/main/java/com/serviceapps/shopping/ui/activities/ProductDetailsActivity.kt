@@ -152,8 +152,6 @@ class ProductDetailsActivity : BaseActivity(), View.OnClickListener {
         tv_product_details_stock_quantity.text = product.stock_quantity
 
 
-        // TODO Step 8: Update the UI if the stock quantity is 0.
-        // START
         if(product.stock_quantity.toInt() == 0){
 
             // Hide Progress dialog.
@@ -181,7 +179,6 @@ class ProductDetailsActivity : BaseActivity(), View.OnClickListener {
                 FirestoreClass().checkIfItemExistInCart(this@ProductDetailsActivity, mProductId)
             }
         }
-        // END
     }
 
     /**

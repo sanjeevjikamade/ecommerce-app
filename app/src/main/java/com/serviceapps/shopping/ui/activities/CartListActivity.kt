@@ -164,8 +164,6 @@ class CartListActivity : BaseActivity() {
         }
     }
 
-    // TODO Step 5: Create a function to notify the user about the item removed from the cart list.
-    // START
     /**
      * A function to notify the user about the item removed from the cart list.
      */
@@ -178,6 +176,18 @@ class CartListActivity : BaseActivity() {
             resources.getString(R.string.msg_item_removed_successfully),
             Toast.LENGTH_SHORT
         ).show()
+
+        getCartItemsList()
+    }
+
+    // TODO Step 3: Create a function to notify the user about the item quantity updated in the cart list.
+    // START
+    /**
+     * A function to notify the user about the item quantity updated in the cart list.
+     */
+    fun itemUpdateSuccess() {
+
+        hideProgressDialog()
 
         getCartItemsList()
     }
