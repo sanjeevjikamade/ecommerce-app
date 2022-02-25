@@ -49,13 +49,10 @@ class DashboardFragment : BaseFragment() {
                 return true
             }
 
-            // TODO Step 9: Handle the click event of Cart action item.
-            // START
             R.id.action_cart -> {
                 startActivity(Intent(activity, CartListActivity::class.java))
                 return true
             }
-            // END
         }
         return super.onOptionsItemSelected(item)
     }

@@ -75,12 +75,9 @@ class ProductDetailsActivity : BaseActivity(), View.OnClickListener {
                     addToCart()
                 }
 
-                // TODO Step 6: Handle the click event of the GoToCart button and launch the CartListActivity.
-                // START
                 R.id.btn_go_to_cart->{
                     startActivity(Intent(this@ProductDetailsActivity, CartListActivity::class.java))
                 }
-                // END
             }
         }
     }
