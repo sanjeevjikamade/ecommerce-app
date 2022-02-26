@@ -87,12 +87,8 @@ open class CartItemsListAdapter(
                 )
             }
 
-            // TODO Step 1: Assign the click event to the ib_remove_cart_item.
-            // START
             holder.itemView.ib_remove_cart_item.setOnClickListener {
 
-                // TODO Step 6: Call the update or remove function of firestore class based on the cart quantity.
-                // START
                 if (model.cart_quantity == "1") {
                     FirestoreClass().removeItemFromCart(context, model.id)
                 } else {
@@ -111,16 +107,10 @@ open class CartItemsListAdapter(
 
                     FirestoreClass().updateMyCart(context, model.id, itemHashMap)
                 }
-                // END
             }
-            // END
 
-            // TODO Step 7: Assign the click event to the ib_add_cart_item.
-            // START
             holder.itemView.ib_add_cart_item.setOnClickListener {
 
-                // TODO Step 8: Call the update function of firestore class based on the cart quantity.
-                // START
                 val cartQuantity: Int = model.cart_quantity.toInt()
 
                 if (cartQuantity < model.stock_quantity.toInt()) {
@@ -146,10 +136,7 @@ open class CartItemsListAdapter(
                         )
                     }
                 }
-                // END
             }
-            // END
-
 
             holder.itemView.ib_delete_cart_item.setOnClickListener {
 

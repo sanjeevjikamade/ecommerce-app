@@ -11,6 +11,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.serviceapps.shopping.models.Address
 import com.serviceapps.shopping.models.Cart
 import com.serviceapps.shopping.models.Product
 import com.serviceapps.shopping.models.User
@@ -568,8 +569,6 @@ class FirestoreClass {
             }
     }
 
-    // TODO Step 2: Create a function to update the cart item in the cloud firestore.
-    // START
     /**
      * A function to update the cart item in the cloud firestore.
      *
@@ -585,15 +584,12 @@ class FirestoreClass {
             .update(itemHashMap) // A HashMap of fields which are to be updated.
             .addOnSuccessListener {
 
-                // TODO Step 4: Notify the success result of the updated cart items list to the base class.
-                // START
                 // Notify the success result of the updated cart items list to the base class.
                 when (context) {
                     is CartListActivity -> {
                         context.itemUpdateSuccess()
                     }
                 }
-                // END
             }
             .addOnFailureListener { e ->
 
@@ -607,6 +603,39 @@ class FirestoreClass {
                 Log.e(
                     context.javaClass.simpleName,
                     "Error while updating the cart item.",
+                    e
+                )
+            }
+    }
+
+    // TODO Step 2: Create a function to add address to the cloud firestore.
+    // START
+    /**
+     * A function to add address to the cloud firestore.
+     *
+     * @param activity
+     * @param addressInfo
+     */
+    fun addAddress(activity: AddEditAddressActivity, addressInfo: Address) {
+
+        // Collection name address.
+        mFireStore.collection(Constants.ADDRESSES)
+            .document()
+            // Here the userInfo are Field and the SetOption is set to merge. It is for if we wants to merge
+            .set(addressInfo, SetOptions.merge())
+            .addOnSuccessListener {
+
+                // TODO Step 5: Notify the success result to the base class.
+                // START
+                // Here call a function of base activity for transferring the result to it.
+                activity.addUpdateAddressSuccess()
+                // END
+            }
+            .addOnFailureListener { e ->
+                activity.hideProgressDialog()
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while adding the address.",
                     e
                 )
             }
