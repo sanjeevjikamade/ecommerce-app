@@ -15,6 +15,11 @@ import kotlinx.android.synthetic.main.activity_add_edit_address.*
  */
 class AddEditAddressActivity : BaseActivity() {
 
+    // TODO Step 8: Create a global variable for Address data model class to get the address details through intent to edit.
+    // START
+    private var mAddressDetails: Address? = null
+    // END
+
     /**
      * This function is auto created by Android when the Activity Class is created.
      */
@@ -24,10 +29,16 @@ class AddEditAddressActivity : BaseActivity() {
         // This is used to align the xml view to this class
         setContentView(R.layout.activity_add_edit_address)
 
+        // TODO Step 9: Receive the address details through intent and initialize the global variable.
+        // START
+        if (intent.hasExtra(Constants.EXTRA_ADDRESS_DETAILS)) {
+            mAddressDetails =
+                intent.getParcelableExtra(Constants.EXTRA_ADDRESS_DETAILS)!!
+        }
+        // END
+
         setupActionBar()
 
-        // TODO Step 8: Assign the checked change listener on click of radio buttons for the address type.
-        //START
         rg_type.setOnCheckedChangeListener { _, checkedId ->
             if (checkedId == R.id.rb_other) {
                 til_other_details.visibility = View.VISIBLE
@@ -35,9 +46,7 @@ class AddEditAddressActivity : BaseActivity() {
                 til_other_details.visibility = View.GONE
             }
         }
-        // END
 
-        // TODO Step 7: Assign the on click event of submit button and save the address.
         btn_submit_address.setOnClickListener {
             saveAddressToFirestore()
         }
@@ -145,16 +154,10 @@ class AddEditAddressActivity : BaseActivity() {
             )
 
 
-            // TODO Step 6: Call the function to save the address.
-            // START
             FirestoreClass().addAddress(this@AddEditAddressActivity, addressModel)
-            // END
         }
     }
-    // END
 
-     // TODO Step 3: Create a function to notify the success result of address saved.
-    // START
     /**
      * A function to notify the success result of address saved.
      */
@@ -171,5 +174,4 @@ class AddEditAddressActivity : BaseActivity() {
 
         finish()
     }
-// END
 }
