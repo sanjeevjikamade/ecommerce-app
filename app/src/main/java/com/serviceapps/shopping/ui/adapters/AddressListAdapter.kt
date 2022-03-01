@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.serviceapps.shopping.R
 import com.serviceapps.shopping.models.Address
 import com.serviceapps.shopping.ui.activities.AddEditAddressActivity
+import com.serviceapps.shopping.ui.activities.CheckoutActivity
 import com.serviceapps.shopping.utils.Constants
 import kotlinx.android.synthetic.main.item_address_layout.view.*
 
@@ -61,18 +62,14 @@ open class AddressListAdapter(
             holder.itemView.tv_address_details.text = "${model.address}, ${model.zipCode}"
             holder.itemView.tv_address_mobile_number.text = model.mobileNumber
 
-            // TODO Step 10: Assign the click event to the address item when user is about to select the address.
-            // START
             if (selectAddress) {
                 holder.itemView.setOnClickListener {
-                    Toast.makeText(
-                        context,
-                        "Selected address : ${model.address}, ${model.zipCode}",
-                        Toast.LENGTH_SHORT
-                    ).show()
+
+                    val intent = Intent(context, CheckoutActivity::class.java)
+                    intent.putExtra(Constants.EXTRA_SELECTED_ADDRESS, model)
+                    context.startActivity(intent)
                 }
             }
-            // END
         }
     }
 
@@ -92,14 +89,7 @@ open class AddressListAdapter(
     fun notifyEditItem(activity: Activity, position: Int) {
         val intent = Intent(context, AddEditAddressActivity::class.java)
         intent.putExtra(Constants.EXTRA_ADDRESS_DETAILS, list[position])
-
-        // TODO Step 15: Make it startActivityForResult instead of startActivity.
-        // START
-        // activity.startActivity (intent)
-
         activity.startActivityForResult(intent, Constants.ADD_ADDRESS_REQUEST_CODE)
-        // END
-
         notifyItemChanged(position) // Notify any registered observers that the item at position has changed.
     }
 

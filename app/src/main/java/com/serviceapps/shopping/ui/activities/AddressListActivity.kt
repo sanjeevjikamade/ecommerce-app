@@ -25,11 +25,7 @@ import kotlinx.android.synthetic.main.activity_address_list.*
  */
 class AddressListActivity : BaseActivity() {
 
-    // TODO Step 3: Declare a global variable to select the address.
-    // START
     private var mSelectAddress: Boolean = false
-    // END
-
 
     /**
      * This function is auto created by Android when the Activity Class is created.
@@ -44,38 +40,25 @@ class AddressListActivity : BaseActivity() {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
 
-        // TODO Step 4: Receive the value and initialize the variable to select the address.
-        // START
         if (intent.hasExtra(Constants.EXTRA_SELECT_ADDRESS)) {
             mSelectAddress =
                 intent.getBooleanExtra(Constants.EXTRA_SELECT_ADDRESS, false)
         }
-        // END
 
         setupActionBar()
 
-        // TODO Step 5: If it is about to select the address then update the title.
-        // START
         if (mSelectAddress) {
             tv_title.text = resources.getString(R.string.title_select_address)
         }
-        // END
 
         tv_add_address.setOnClickListener {
             val intent = Intent(this@AddressListActivity, AddEditAddressActivity::class.java)
-
-            // TODO Step 12: Now to notify the address list about the latest address added we need to make neccessary changes as below.
-            // START
-            // startActivity(intent)
             startActivityForResult(intent, Constants.ADD_ADDRESS_REQUEST_CODE)
-            // END
         }
 
         getAddressList()
     }
 
-    // TODO Step 14: Override the onActivityResult function and get the latest address list based on the result code.
-    // START
     /**
      * Receive the result from a previous call to
      * {@link #startActivityForResult(Intent, int)}.  This follows the
@@ -102,7 +85,6 @@ class AddressListActivity : BaseActivity() {
             Log.e("Request Cancelled", "To add the address.")
         }
     }
-    // END
 
     /**
      * A function for actionBar Setup.
@@ -150,14 +132,9 @@ class AddressListActivity : BaseActivity() {
             rv_address_list.layoutManager = LinearLayoutManager(this@AddressListActivity)
             rv_address_list.setHasFixedSize(true)
 
-            // TODO Step 9: Pass the address selection value.
-            // START
             val addressAdapter = AddressListAdapter(this@AddressListActivity, addressList, mSelectAddress)
-            // END
             rv_address_list.adapter = addressAdapter
 
-            // TODO Step 7: Don't allow user to edit or delete the address when user is about to select the address.
-            // START
             if (!mSelectAddress) {
                 val editSwipeHandler = object : SwipeToEditCallback(this) {
                     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {

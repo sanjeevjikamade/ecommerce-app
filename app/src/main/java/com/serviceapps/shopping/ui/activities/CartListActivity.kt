@@ -41,14 +41,11 @@ class CartListActivity : BaseActivity() {
 
         setupActionBar()
 
-        // TODO Step 2: Assign the click event to the checkout button and proceed to the next screen.
-        // START
         btn_checkout.setOnClickListener {
             val intent = Intent(this@CartListActivity, AddressListActivity::class.java)
             intent.putExtra(Constants.EXTRA_SELECT_ADDRESS, true)
             startActivity(intent)
         }
-        // END
     }
 
     override fun onResume() {

@@ -145,9 +145,7 @@
                     tools:text="5" />
             </LinearLayout>
 
-            <!--TODO Step 1: Add the add to cart button in the product details screen.-->
-            <!--START-->
-            <com.serviceapps.shopping.utils.MSPButton
+            <com.myshoppal.utils.MSPButton
                 android:id="@+id/btn_add_to_cart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -193,4 +191,3 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
-    <!--END-->
