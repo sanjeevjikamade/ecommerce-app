@@ -213,7 +213,6 @@ class AddEditAddressActivity : BaseActivity() {
             Toast.LENGTH_SHORT
         ).show()
 
-        // TODO Step 13: Now se the result to OK.
         setResult(RESULT_OK)
         finish()
     }

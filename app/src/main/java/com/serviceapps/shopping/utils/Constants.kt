@@ -18,6 +18,11 @@ object Constants {
     const val CART_ITEMS: String = "cart_items"
     const val ADDRESSES: String = "addresses"
 
+    // TODO Step 6: A constant for Orders collection.
+    // START
+    const val ORDERS: String = "orders"
+    // END
+
     const val MYSHOPPAL_PREFERENCES: String = "MyShopPalPrefs"
     const val LOGGED_IN_USERNAME: String = "logged_in_username"
 
