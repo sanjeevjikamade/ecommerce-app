@@ -20,6 +20,7 @@
 
     <string name="already_have_an_account">Already have an account?</string>
     <string name="login"><u>Login</u></string>
+
     <string name="err_msg_enter_first_name">Please enter first name.</string>
     <string name="err_msg_enter_last_name">Please enter last name.</string>
     <string name="err_msg_enter_email">Please enter email.</string>
@@ -35,7 +36,7 @@
     <string name="btn_lbl_submit">Submit</string>
 
     <string name="email_sent_success">Email sent successfully to reset your password!</string>
-    
+
     <string name="register_success">You are registered successfully.</string>
 
     <string name="title_complete_profile">COMPLETE PROFILE</string>
@@ -50,10 +51,8 @@
 
     <string name="err_msg_enter_mobile_number">Please enter mobile number.</string>
 
-    <!--TODO Step 8: Add the string resources in the strings.xml file-->
-    <!--START-->
     <string name="msg_profile_update_success">Your profile is updated successfully.</string>
-    <!--END-->
+
 
     <string name="title_activity_dashboard">MainActivity</string>
 
@@ -91,8 +90,6 @@
     <string name="no_products_added_yet">No products added yet!</string>
     <string name="no_dashboard_item_found">No items found!</string>
 
-    <!--TODO Step 3: Add the string resources to the strings.xml file-->
-    <!--START-->
     <string name="product_delete_success_message">Your product is deleted successfully.</string>
     <string name="delete_dialog_title">Delete</string>
     <string name="delete_dialog_message">Are you sure you want to delete the product?</string>
@@ -102,9 +99,11 @@
     <string name="title_product_details">PRODUCT DETAILS</string>
     <string name="lbl_product_description">Product Description</string>
     <string name="lbl_product_details_stock_quantity">Stock Quantity</string>
+
     <string name="btn_lbl_add_to_cart">ADD TO CART</string>
     <string name="success_message_item_added_to_cart">Product is added to your cart.</string>
     <string name="btn_lbl_go_to_cart">GO TO CART</string>
+
     <string name="title_my_cart">MY CART</string>
     <string name="no_cart_item_found">No item found in cart!</string>
     <string name="lbl_subtotal">Subtotal</string>
@@ -112,8 +111,10 @@
     <string name="lbl_total_amount">Total Amount</string>
     <string name="btn_lbl_checkout">Checkout</string>
     <string name="action_cart">My Cart</string>
+
     <string name="lbl_out_of_stock">OUT OF STOCK</string>
     <string name="msg_item_removed_successfully">Item removed successfully.</string>
+
     <string name="msg_for_available_stock">Available stock is %1$s!. You can not add more than stock quantity.</string>
 
     <string name="title_address_list">ADDRESS LIST</string>
@@ -138,8 +139,13 @@
     <string name="err_msg_please_enter_zip_code">Please enter zip-code.</string>
     <string name="err_msg_please_enter_other_details">Please enter other details.</string>
 
-    <!--TODO Step 4: Add the string resources file to the strings.xml file.-->
-    <!--START-->
     <string name="err_your_address_added_successfully">Your address is added successfully.</string>
+
+    <string name="title_edit_address">EDIT ADDRESS</string>
+    <string name="btn_lbl_update">UPDATE</string>
+    <string name="msg_your_address_updated_successfully">Your address is updated successfully.</string>
+
+    <string name="err_your_address_deleted_successfully">Your address is deleted successfully.</string>
+    <string name="title_select_address">SELECT ADDRESS</string>
     <!--END-->
 </resources>

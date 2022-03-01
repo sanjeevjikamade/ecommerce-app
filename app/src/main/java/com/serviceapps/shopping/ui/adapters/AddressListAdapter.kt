@@ -7,6 +7,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.serviceapps.shopping.R
 import com.serviceapps.shopping.models.Address
@@ -19,7 +20,8 @@ import kotlinx.android.synthetic.main.item_address_layout.view.*
  */
 open class AddressListAdapter(
     private val context: Context,
-    private var list: ArrayList<Address>
+    private var list: ArrayList<Address>,
+    private val selectAddress: Boolean
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     /**
@@ -58,6 +60,19 @@ open class AddressListAdapter(
             holder.itemView.tv_address_type.text = model.type
             holder.itemView.tv_address_details.text = "${model.address}, ${model.zipCode}"
             holder.itemView.tv_address_mobile_number.text = model.mobileNumber
+
+            // TODO Step 10: Assign the click event to the address item when user is about to select the address.
+            // START
+            if (selectAddress) {
+                holder.itemView.setOnClickListener {
+                    Toast.makeText(
+                        context,
+                        "Selected address : ${model.address}, ${model.zipCode}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            // END
         }
     }
 
@@ -68,7 +83,6 @@ open class AddressListAdapter(
         return list.size
     }
 
-    // TODO Step 4: Create a function to function to edit the address details and pass the existing details through intent.
     /**
      * A function to edit the address details and pass the existing details through intent.
      *
@@ -77,11 +91,14 @@ open class AddressListAdapter(
      */
     fun notifyEditItem(activity: Activity, position: Int) {
         val intent = Intent(context, AddEditAddressActivity::class.java)
-        // TODO Step 6: Pass the address details through intent to edit the address.
-        // START
         intent.putExtra(Constants.EXTRA_ADDRESS_DETAILS, list[position])
+
+        // TODO Step 15: Make it startActivityForResult instead of startActivity.
+        // START
+        // activity.startActivity (intent)
+
+        activity.startActivityForResult(intent, Constants.ADD_ADDRESS_REQUEST_CODE)
         // END
-        activity.startActivity(intent)
 
         notifyItemChanged(position) // Notify any registered observers that the item at position has changed.
     }

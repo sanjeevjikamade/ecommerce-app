@@ -1,5 +1,6 @@
 package com.serviceapps.shopping.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -11,6 +12,7 @@ import com.serviceapps.shopping.firestore.FirestoreClass
 import com.serviceapps.shopping.models.Cart
 import com.serviceapps.shopping.models.Product
 import com.serviceapps.shopping.ui.adapters.CartItemsListAdapter
+import com.serviceapps.shopping.utils.Constants
 import kotlinx.android.synthetic.main.activity_cart_list.*
 
 /**
@@ -38,6 +40,15 @@ class CartListActivity : BaseActivity() {
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
 
         setupActionBar()
+
+        // TODO Step 2: Assign the click event to the checkout button and proceed to the next screen.
+        // START
+        btn_checkout.setOnClickListener {
+            val intent = Intent(this@CartListActivity, AddressListActivity::class.java)
+            intent.putExtra(Constants.EXTRA_SELECT_ADDRESS, true)
+            startActivity(intent)
+        }
+        // END
     }
 
     override fun onResume() {

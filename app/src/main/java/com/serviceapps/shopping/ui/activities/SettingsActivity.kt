@@ -39,6 +39,7 @@ class SettingsActivity : BaseActivity(), View.OnClickListener {
 
         tv_edit.setOnClickListener(this@SettingsActivity)
         btn_logout.setOnClickListener(this@SettingsActivity)
+        ll_address.setOnClickListener(this@SettingsActivity)
     }
 
     override fun onResume() {
