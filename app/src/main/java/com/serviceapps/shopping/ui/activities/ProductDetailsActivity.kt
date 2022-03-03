@@ -28,6 +28,11 @@ class ProductDetailsActivity : BaseActivity(), View.OnClickListener {
     // A global variable for product id.
     private var mProductId: String = ""
 
+    // TODO Step 3: Make the product owner id variable as global and rename it.
+    // START
+    private var mProductOwnerId: String = ""
+    // END
+
     /**
      * This function is auto created by Android when the Activity Class is created.
      */
@@ -46,16 +51,19 @@ class ProductDetailsActivity : BaseActivity(), View.OnClickListener {
                 intent.getStringExtra(Constants.EXTRA_PRODUCT_ID)!!
         }
 
-        var productOwnerId: String = ""
+        // TODO Step 2: Make the product owner id variable as global.
+        // START
+        //var productOwnerId: String = ""
+        // END
 
         if (intent.hasExtra(Constants.EXTRA_PRODUCT_OWNER_ID)) {
-            productOwnerId =
+            mProductOwnerId =
                 intent.getStringExtra(Constants.EXTRA_PRODUCT_OWNER_ID)!!
         }
 
         setupActionBar()
 
-        if (FirestoreClass().getCurrentUserID() == productOwnerId) {
+        if (FirestoreClass().getCurrentUserID() == mProductOwnerId) {
             btn_add_to_cart.visibility = View.GONE
             btn_go_to_cart.visibility = View.GONE
         } else {
@@ -90,6 +98,10 @@ class ProductDetailsActivity : BaseActivity(), View.OnClickListener {
 
         val addToCart = Cart(
             FirestoreClass().getCurrentUserID(),
+            // TODO Step 4: Pass the required param here.
+            // START
+            mProductOwnerId,
+            // END
             mProductId,
             mProductDetails.title,
             mProductDetails.price,

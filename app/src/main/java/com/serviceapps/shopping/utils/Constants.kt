@@ -17,8 +17,12 @@ object Constants {
     const val PRODUCTS: String = "products"
     const val CART_ITEMS: String = "cart_items"
     const val ADDRESSES: String = "addresses"
-
     const val ORDERS: String = "orders"
+
+    // TODO Step 11: Create a constant for Sold Products collections.
+    // START
+    const val SOLD_PRODUCTS: String = "sold_products"
+    // END
 
     const val MYSHOPPAL_PREFERENCES: String = "MyShopPalPrefs"
     const val LOGGED_IN_USERNAME: String = "logged_in_username"

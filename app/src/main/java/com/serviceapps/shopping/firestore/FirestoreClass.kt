@@ -776,15 +776,47 @@ class FirestoreClass {
             }
     }
 
+    // TODO Step 8: Add one more param for Order Details.
+    // START
     /**
      * A function to update all the required details in the cloud firestore after placing the order successfully.
      *
      * @param activity Base class.
      * @param cartList List of cart items.
      */
-    fun updateAllDetails(activity: CheckoutActivity, cartList: ArrayList<Cart>) {
+    fun updateAllDetails(activity: CheckoutActivity, cartList: ArrayList<Cart>, order: Order) {
+        // END
 
         val writeBatch = mFireStore.batch()
+
+        // TODO Step 10: Prepare the sold product details
+        // START
+        // Prepare the sold product details
+        for (cart in cartList) {
+
+            val soldProduct = SoldProduct(
+                // Here the user id will be of product owner.
+                cart.product_owner_id,
+                cart.title,
+                cart.price,
+                cart.cart_quantity,
+                cart.image,
+                order.title,
+                order.order_datetime,
+                order.sub_total_amount,
+                order.shipping_charge,
+                order.total_amount,
+                order.address
+            )
+
+            // TODO Step 12: Make an entry for sold product in cloud firestore.
+            // START
+            val documentReference = mFireStore.collection(Constants.SOLD_PRODUCTS)
+                .document()
+            writeBatch.set(documentReference, soldProduct)
+            // END
+        }
+        // END
 
         // Here we will update the product stock in the products collection based to cart quantity.
         for (cart in cartList) {
@@ -816,7 +848,11 @@ class FirestoreClass {
             // Here call a function of base activity for transferring the result to it.
             activity.hideProgressDialog()
 
-            Log.e(activity.javaClass.simpleName, "Error while updating all the details after order placed.", e)
+            Log.e(
+                activity.javaClass.simpleName,
+                "Error while updating all the details after order placed.",
+                e
+            )
         }
     }
 

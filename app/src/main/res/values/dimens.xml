@@ -156,6 +156,7 @@
     <dimen name="checkout_content_paddingTopBottom">10dp</dimen>
     <dimen name="ll_checkout_place_order_padding">16dp</dimen>
     <dimen name="ll_checkout_items_receipt">16dp</dimen>
+
     <dimen name="my_order_details_content_marginStartEnd">16dp</dimen>
     <dimen name="my_order_details_content_marginTopBottom">10dp</dimen>
     <dimen name="my_order_details_content_lbl_padding">2dp</dimen>
