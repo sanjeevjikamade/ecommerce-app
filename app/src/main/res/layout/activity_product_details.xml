@@ -145,7 +145,7 @@
                     tools:text="5" />
             </LinearLayout>
 
-            <com.myshoppal.utils.MSPButton
+            <com.serviceapps.shopping.utils.MSPButton
                 android:id="@+id/btn_add_to_cart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -155,6 +155,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="20dp"
                 android:background="@color/colorPrimary"
+                android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
                 android:paddingTop="@dimen/btn_padding"
                 android:paddingBottom="@dimen/btn_padding"
@@ -176,7 +177,8 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="20dp"
-                android:background="@color/colorPrimary"
+		android:background="@color/colorPrimary"
+                android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
                 android:paddingTop="@dimen/btn_padding"
                 android:paddingBottom="@dimen/btn_padding"

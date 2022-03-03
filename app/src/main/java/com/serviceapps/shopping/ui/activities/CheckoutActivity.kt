@@ -15,7 +15,6 @@ import com.serviceapps.shopping.models.Order
 import com.serviceapps.shopping.models.Product
 import com.serviceapps.shopping.ui.adapters.CartItemsListAdapter
 import com.serviceapps.shopping.utils.Constants
-import kotlinx.android.synthetic.main.activity_cart_list.*
 import kotlinx.android.synthetic.main.activity_checkout.*
 
 /**
@@ -32,14 +31,11 @@ class CheckoutActivity : BaseActivity() {
     // A global variable for the cart list.
     private lateinit var mCartItemsList: ArrayList<Cart>
 
-    // TODO Step 3: Create a global variables for SubTotal and Total Amount.
-    // START
     // A global variable for the SubTotal Amount.
     private var mSubTotal: Double = 0.0
 
     // A global variable for the Total Amount.
     private var mTotalAmount: Double = 0.0
-    // END
 
     /**
      * This function is auto created by Android when the Activity Class is created.
@@ -73,12 +69,9 @@ class CheckoutActivity : BaseActivity() {
             tv_checkout_mobile_number.text = mAddressDetails?.mobileNumber
         }
 
-        // TODO Step 11: Assign a click event to the btn place order and call the function.
-        // START
         btn_place_order.setOnClickListener {
             placeAnOrder()
         }
-        // END
 
         getProductList()
     }
@@ -156,8 +149,6 @@ class CheckoutActivity : BaseActivity() {
         val cartListAdapter = CartItemsListAdapter(this@CheckoutActivity, mCartItemsList, false)
         rv_cart_list_items.adapter = cartListAdapter
 
-        // TODO Step 4: Replace the subTotal and totalAmount variables with the global variables.
-        // START
         for (item in mCartItemsList) {
 
             val availableQuantity = item.stock_quantity.toInt()
@@ -182,11 +173,8 @@ class CheckoutActivity : BaseActivity() {
         } else {
             ll_checkout_place_order.visibility = View.GONE
         }
-        // END
     }
 
-    // TODO Step 2: Create a function to prepare the Order details to place an order.
-    // START
     /**
      * A function to prepare the Order details to place an order.
      */
@@ -195,8 +183,6 @@ class CheckoutActivity : BaseActivity() {
         // Show the progress dialog.
         showProgressDialog(resources.getString(R.string.please_wait))
 
-        // TODO Step 5: Now prepare the order details based on all the required details.
-        // START
         val order = Order(
             FirestoreClass().getCurrentUserID(),
             mCartItemsList,
@@ -207,23 +193,24 @@ class CheckoutActivity : BaseActivity() {
             "10.0", // The Shipping Charge is fixed as $10 for now in our case.
             mTotalAmount.toString(),
         )
-        // END
 
-        // TODO Step 10: Call the function to place the order in the cloud firestore.
-        // START
         FirestoreClass().placeOrder(this@CheckoutActivity, order)
-        // END
     }
-    // END
 
-
-    // TODO Step 8: Create a function to notify the success result of the order placed.
-    // START
     /**
      * A function to notify the success result of the order placed.
      */
     fun orderPlacedSuccess() {
 
+        FirestoreClass().updateAllDetails(this@CheckoutActivity, mCartItemsList)
+    }
+
+    /**
+     * A function to notify the success result after updating all the required details.
+     */
+    fun allDetailsUpdatedSuccessfully() {
+
+        // Hide the progress dialog.
         hideProgressDialog()
 
         Toast.makeText(this@CheckoutActivity, "Your order placed successfully.", Toast.LENGTH_SHORT)
@@ -234,5 +221,4 @@ class CheckoutActivity : BaseActivity() {
         startActivity(intent)
         finish()
     }
-    // END
 }

@@ -15,6 +15,7 @@ import com.serviceapps.shopping.models.*
 import com.serviceapps.shopping.ui.activities.CheckoutActivity
 import com.serviceapps.shopping.ui.activities.*
 import com.serviceapps.shopping.ui.fragments.DashboardFragment
+import com.serviceapps.shopping.ui.fragments.OrdersFragment
 import com.serviceapps.shopping.ui.fragments.ProductsFragment
 import com.serviceapps.shopping.utils.Constants
 
@@ -746,8 +747,6 @@ class FirestoreClass {
     }
 
 
-    // TODO Step 7: Create a function to place an order of the user in the cloud firestore.
-    // START
     /**
      * A function to place an order of the user in the cloud firestore.
      *
@@ -762,11 +761,8 @@ class FirestoreClass {
             .set(order, SetOptions.merge())
             .addOnSuccessListener {
 
-                // TODO Step 9: Notify the success result.
-                // START
                 // Here call a function of base activity for transferring the result to it.
                 activity.orderPlacedSuccess()
-                // END
             }
             .addOnFailureListener { e ->
 
@@ -779,5 +775,78 @@ class FirestoreClass {
                 )
             }
     }
-    // END
+
+    /**
+     * A function to update all the required details in the cloud firestore after placing the order successfully.
+     *
+     * @param activity Base class.
+     * @param cartList List of cart items.
+     */
+    fun updateAllDetails(activity: CheckoutActivity, cartList: ArrayList<Cart>) {
+
+        val writeBatch = mFireStore.batch()
+
+        // Here we will update the product stock in the products collection based to cart quantity.
+        for (cart in cartList) {
+
+            val productHashMap = HashMap<String, Any>()
+
+            productHashMap[Constants.STOCK_QUANTITY] =
+                (cart.stock_quantity.toInt() - cart.cart_quantity.toInt()).toString()
+
+            val documentReference = mFireStore.collection(Constants.PRODUCTS)
+                .document(cart.product_id)
+
+            writeBatch.update(documentReference, productHashMap)
+        }
+
+        // Delete the list of cart items
+        for (cart in cartList) {
+
+            val documentReference = mFireStore.collection(Constants.CART_ITEMS)
+                .document(cart.id)
+            writeBatch.delete(documentReference)
+        }
+
+        writeBatch.commit().addOnSuccessListener {
+
+            activity.allDetailsUpdatedSuccessfully()
+
+        }.addOnFailureListener { e ->
+            // Here call a function of base activity for transferring the result to it.
+            activity.hideProgressDialog()
+
+            Log.e(activity.javaClass.simpleName, "Error while updating all the details after order placed.", e)
+        }
+    }
+
+    /**
+     * A function to get the list of orders from cloud firestore.
+     */
+    fun getMyOrdersList(fragment: OrdersFragment) {
+        mFireStore.collection(Constants.ORDERS)
+            .whereEqualTo(Constants.USER_ID, getCurrentUserID())
+            .get() // Will get the documents snapshots.
+            .addOnSuccessListener { document ->
+                Log.e(fragment.javaClass.simpleName, document.documents.toString())
+                val list: ArrayList<Order> = ArrayList()
+
+                for (i in document.documents) {
+
+                    val orderItem = i.toObject(Order::class.java)!!
+                    orderItem.id = i.id
+
+                    list.add(orderItem)
+                }
+
+                fragment.populateOrdersListInUI(list)
+            }
+            .addOnFailureListener { e ->
+                // Here call a function of base activity for transferring the result to it.
+
+                fragment.hideProgressDialog()
+
+                Log.e(fragment.javaClass.simpleName, "Error while getting the orders list.", e)
+            }
+    }
 }
