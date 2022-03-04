@@ -77,6 +77,10 @@ package="com.serviceapps.shopping">
             android:name=".ui.activities.MyOrderDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.activities.SoldProductDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

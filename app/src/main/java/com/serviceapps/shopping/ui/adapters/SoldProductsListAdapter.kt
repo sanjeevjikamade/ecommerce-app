@@ -1,17 +1,18 @@
 package com.serviceapps.shopping.ui.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.myshoppal.ui.activities.SoldProductDetailsActivity
 import com.serviceapps.shopping.R
 import com.serviceapps.shopping.models.SoldProduct
+import com.serviceapps.shopping.utils.Constants
 import com.serviceapps.shopping.utils.GlideLoader
 import kotlinx.android.synthetic.main.item_list_layout.view.*
 
-// TODO Step 6: Create an adapter class for Sold Products list.
-// START
 /**
  * A adapter class for sold products list items.
  */
@@ -58,9 +59,15 @@ open class SoldProductsListAdapter(
             )
 
             holder.itemView.tv_item_name.text = model.title
-            holder.itemView.tv_item_price.text = "$${model.price}"
+            holder.itemView.tv_item_price.text = "₹${model.price}"
 
             holder.itemView.ib_delete_product.visibility = View.GONE
+
+            holder.itemView.setOnClickListener {
+                val intent = Intent(context, SoldProductDetailsActivity::class.java)
+                intent.putExtra(Constants.EXTRA_SOLD_PRODUCT_DETAILS, model)
+                context.startActivity(intent)
+            }
         }
     }
 
@@ -76,4 +83,3 @@ open class SoldProductsListAdapter(
      */
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)
 }
-// END

@@ -877,8 +877,6 @@ class FirestoreClass {
             }
     }
 
-    // TODO Step 1: Create a function to get the list of sold products.
-    // START
     /**
      * A function to get the list of sold products from the cloud firestore.
      *
@@ -905,10 +903,7 @@ class FirestoreClass {
                     list.add(soldProduct)
                 }
 
-                // TODO Step 3: Notify the success result to the base class.
-                // START
                 fragment.successSoldProductsList(list)
-                // END
             }
             .addOnFailureListener { e ->
                 // Hide the progress dialog if there is any error.
@@ -921,5 +916,4 @@ class FirestoreClass {
                 )
             }
     }
-    // END
 }
