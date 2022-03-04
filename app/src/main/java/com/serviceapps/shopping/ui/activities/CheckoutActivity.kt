@@ -37,11 +37,8 @@ class CheckoutActivity : BaseActivity() {
     // A global variable for the Total Amount.
     private var mTotalAmount: Double = 0.0
 
-    // TODO Step 6: Create a global variable for Order details.
-    // START
     // A global variable for Order details.
     private lateinit var mOrderDetails: Order
-    // END
 
     /**
      * This function is auto created by Android when the Activity Class is created.
@@ -189,7 +186,6 @@ class CheckoutActivity : BaseActivity() {
         // Show the progress dialog.
         showProgressDialog(resources.getString(R.string.please_wait))
 
-        // TODO Step 7: Make the variable global.
         mOrderDetails = Order(
             FirestoreClass().getCurrentUserID(),
             mCartItemsList,
@@ -210,10 +206,7 @@ class CheckoutActivity : BaseActivity() {
      */
     fun orderPlacedSuccess() {
 
-        // TODO Step 9: Pass the order details.
-        // START
         FirestoreClass().updateAllDetails(this@CheckoutActivity, mCartItemsList, mOrderDetails)
-        // END
     }
 
     /**

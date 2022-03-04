@@ -17,6 +17,7 @@ import com.serviceapps.shopping.ui.activities.*
 import com.serviceapps.shopping.ui.fragments.DashboardFragment
 import com.serviceapps.shopping.ui.fragments.OrdersFragment
 import com.serviceapps.shopping.ui.fragments.ProductsFragment
+import com.serviceapps.shopping.ui.fragments.SoldProductsFragment
 import com.serviceapps.shopping.utils.Constants
 
 /**
@@ -776,8 +777,6 @@ class FirestoreClass {
             }
     }
 
-    // TODO Step 8: Add one more param for Order Details.
-    // START
     /**
      * A function to update all the required details in the cloud firestore after placing the order successfully.
      *
@@ -785,18 +784,14 @@ class FirestoreClass {
      * @param cartList List of cart items.
      */
     fun updateAllDetails(activity: CheckoutActivity, cartList: ArrayList<Cart>, order: Order) {
-        // END
 
         val writeBatch = mFireStore.batch()
 
-        // TODO Step 10: Prepare the sold product details
-        // START
         // Prepare the sold product details
         for (cart in cartList) {
 
             val soldProduct = SoldProduct(
-                // Here the user id will be of product owner.
-                cart.product_owner_id,
+                FirestoreClass().getCurrentUserID(),
                 cart.title,
                 cart.price,
                 cart.cart_quantity,
@@ -809,14 +804,10 @@ class FirestoreClass {
                 order.address
             )
 
-            // TODO Step 12: Make an entry for sold product in cloud firestore.
-            // START
             val documentReference = mFireStore.collection(Constants.SOLD_PRODUCTS)
                 .document()
             writeBatch.set(documentReference, soldProduct)
-            // END
         }
-        // END
 
         // Here we will update the product stock in the products collection based to cart quantity.
         for (cart in cartList) {
@@ -885,4 +876,50 @@ class FirestoreClass {
                 Log.e(fragment.javaClass.simpleName, "Error while getting the orders list.", e)
             }
     }
+
+    // TODO Step 1: Create a function to get the list of sold products.
+    // START
+    /**
+     * A function to get the list of sold products from the cloud firestore.
+     *
+     *  @param fragment Base class
+     */
+    fun getSoldProductsList(fragment: SoldProductsFragment) {
+        // The collection name for SOLD PRODUCTS
+        mFireStore.collection(Constants.SOLD_PRODUCTS)
+            .whereEqualTo(Constants.USER_ID, getCurrentUserID())
+            .get() // Will get the documents snapshots.
+            .addOnSuccessListener { document ->
+                // Here we get the list of sold products in the form of documents.
+                Log.e(fragment.javaClass.simpleName, document.documents.toString())
+
+                // Here we have created a new instance for Sold Products ArrayList.
+                val list: ArrayList<SoldProduct> = ArrayList()
+
+                // A for loop as per the list of documents to convert them into Sold Products ArrayList.
+                for (i in document.documents) {
+
+                    val soldProduct = i.toObject(SoldProduct::class.java)!!
+                    soldProduct.id = i.id
+
+                    list.add(soldProduct)
+                }
+
+                // TODO Step 3: Notify the success result to the base class.
+                // START
+                fragment.successSoldProductsList(list)
+                // END
+            }
+            .addOnFailureListener { e ->
+                // Hide the progress dialog if there is any error.
+                fragment.hideProgressDialog()
+
+                Log.e(
+                    fragment.javaClass.simpleName,
+                    "Error while getting the list of sold products.",
+                    e
+                )
+            }
+    }
+    // END
 }
