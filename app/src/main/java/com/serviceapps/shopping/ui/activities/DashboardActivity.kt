@@ -36,8 +36,9 @@ class DashboardActivity : BaseActivity() {
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_products,
                 R.id.navigation_dashboard,
+                R.id.navigation_products,
+                R.id.navigation_campaigns,
                 R.id.navigation_orders,
                 R.id.navigation_sold_products
             )
@@ -49,6 +50,7 @@ class DashboardActivity : BaseActivity() {
         if(FirestoreClass().getCurrentUserType(this@DashboardActivity) == "customer") {
             navView.getMenu().removeItem(R.id.navigation_products);
             navView.getMenu().removeItem(R.id.navigation_sold_products);
+            navView.getMenu().removeItem(R.id.navigation_campaigns);
         }
     }
 

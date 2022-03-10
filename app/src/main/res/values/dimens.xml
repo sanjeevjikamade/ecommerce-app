@@ -181,4 +181,5 @@
     <dimen name="sold_details_content_paddingTopBottom">10dp</dimen>
     <dimen name="sold_details_items_receipt">16dp</dimen>
     <dimen name="sold_details_label_value_textSize">18sp</dimen>
+    <dimen name="item_image_height_campaign">350px</dimen>
 </resources>

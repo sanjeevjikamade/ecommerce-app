@@ -19,9 +19,9 @@
 
     <fragment
         android:id="@+id/navigation_campaigns"
-        android:name="com.serviceapps.shopping.ui.fragments.ProductsFragment"
+        android:name="com.serviceapps.shopping.ui.fragments.CampaignsFragment"
         android:label="@string/title_campaigns"
-        tools:layout="@layout/fragment_products" />
+        tools:layout="@layout/fragment_campaigns" />
 
     <fragment
         android:id="@+id/navigation_orders"

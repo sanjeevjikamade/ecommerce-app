@@ -14,14 +14,8 @@ import com.google.firebase.storage.StorageReference
 import com.serviceapps.shopping.models.*
 import com.serviceapps.shopping.ui.activities.CheckoutActivity
 import com.serviceapps.shopping.ui.activities.*
-import com.serviceapps.shopping.ui.fragments.DashboardFragment
-import com.serviceapps.shopping.ui.fragments.OrdersFragment
-import com.serviceapps.shopping.ui.fragments.ProductsFragment
-import com.serviceapps.shopping.ui.fragments.SoldProductsFragment
 import com.serviceapps.shopping.utils.Constants
-import android.preference.PreferenceManager
-
-
+import com.serviceapps.shopping.ui.fragments.*
 
 
 /**
@@ -229,6 +223,10 @@ class FirestoreClass {
                             is AddProductActivity -> {
                                 activity.imageUploadSuccess(uri.toString())
                             }
+
+                            is AddCampaignActivity -> {
+                                activity.imageUploadSuccess(uri.toString())
+                            }
                         }
                     }
             }
@@ -428,6 +426,32 @@ class FirestoreClass {
                 Log.e(
                     fragment.requireActivity().javaClass.simpleName,
                     "Error while deleting the product.",
+                    e
+                )
+            }
+    }
+
+    /**
+     * A function to delete the campaign from the cloud firestore.
+     */
+    fun deleteCampaign(fragment: CampaignsFragment, campaignId: String) {
+
+        mFireStore.collection(Constants.CAMPAIGNS)
+            .document(campaignId)
+            .delete()
+            .addOnSuccessListener {
+
+                // Notify the success result to the base class.
+                fragment.campaignDeleteSuccess()
+            }
+            .addOnFailureListener { e ->
+
+                // Hide the progress dialog if there is an error.
+                fragment.hideProgressDialog()
+
+                Log.e(
+                    fragment.requireActivity().javaClass.simpleName,
+                    "Error while deleting the campaign.",
                     e
                 )
             }
@@ -963,6 +987,79 @@ class FirestoreClass {
                 Log.e(
                     fragment.javaClass.simpleName,
                     "Error while getting the list of sold products.",
+                    e
+                )
+            }
+    }
+
+
+    /**
+     * A function to get the campaign list from cloud firestore.
+     *
+     * @param fragment The fragment is passed as parameter as the function is called from fragment and need to the success result.
+     */
+    fun getCampaignssList(fragment: Fragment) {
+        // The collection name for PRODUCTS
+        mFireStore.collection(Constants.CAMPAIGNS)
+            .whereEqualTo(Constants.USER_ID, getCurrentUserID())
+            .get() // Will get the documents snapshots.
+            .addOnSuccessListener { document ->
+
+                // Here we get the list of boards in the form of documents.
+                Log.e("Campaigns List", document.documents.toString())
+
+                // Here we have created a new instance for Campaign ArrayList.
+                val campaignList: ArrayList<Campaign> = ArrayList()
+
+                // A for loop as per the list of documents to convert them into Products ArrayList.
+                for (i in document.documents) {
+
+                    val campaign = i.toObject(Campaign::class.java)
+                    campaign!!.campaign_id = i.id
+
+                    campaignList.add(campaign)
+                }
+
+                when (fragment) {
+                    is CampaignsFragment -> {
+                        fragment.successCampaignListFromFireStore(campaignList)
+                    }
+                }
+            }
+            .addOnFailureListener { e ->
+                // Hide the progress dialog if there is any error based on the base class instance.
+                when (fragment) {
+                    is ProductsFragment -> {
+                        fragment.hideProgressDialog()
+                    }
+                }
+
+                Log.e("Get Product List", "Error while getting product list.", e)
+            }
+    }
+
+
+    /**
+     * A function to make an entry of the user's campaigns in the cloud firestore database.
+     */
+    fun uploadCampaignDetails(activity: AddCampaignActivity, campaignInfo: Campaign) {
+
+        mFireStore.collection(Constants.CAMPAIGNS)
+            .document()
+            // Here the userInfo are Field and the SetOption is set to merge. It is for if we wants to merge
+            .set(campaignInfo, SetOptions.merge())
+            .addOnSuccessListener {
+
+                // Here call a function of base activity for transferring the result to it.
+                activity.campaignUploadSuccess()
+            }
+            .addOnFailureListener { e ->
+
+                activity.hideProgressDialog()
+
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while uploading the campaign details.",
                     e
                 )
             }
