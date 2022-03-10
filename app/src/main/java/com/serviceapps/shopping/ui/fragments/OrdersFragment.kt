@@ -1,5 +1,7 @@
 package com.serviceapps.shopping.ui.fragments
 
+import android.app.PendingIntent.getActivity
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
 import com.serviceapps.shopping.R
 import com.serviceapps.shopping.firestore.FirestoreClass
 import com.serviceapps.shopping.models.Order
@@ -17,6 +20,7 @@ import kotlinx.android.synthetic.main.fragment_orders.*
  * Order listing fragment.
  */
 class OrdersFragment : BaseFragment() {
+    private var mContext: Context? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,14 +37,22 @@ class OrdersFragment : BaseFragment() {
         getMyOrdersList()
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mContext = context
+    }
+
     /**
      * A function to get the list of my orders.
      */
     private fun getMyOrdersList() {
         // Show the progress dialog.
         showProgressDialog(resources.getString(R.string.please_wait))
-
-        FirestoreClass().getMyOrdersList(this@OrdersFragment)
+        //TODO: SID Testing
+        if(getActivity()?.let { FirestoreClass().getCurrentUserType(it) } == "seller")
+            FirestoreClass().getMyOrdersListSeller(this@OrdersFragment)
+        else
+            FirestoreClass().getMyOrdersList(this@OrdersFragment)
     }
 
     /**

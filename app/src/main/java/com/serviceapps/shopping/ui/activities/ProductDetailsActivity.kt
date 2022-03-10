@@ -94,7 +94,8 @@ class ProductDetailsActivity : BaseActivity(), View.OnClickListener {
             mProductDetails.title,
             mProductDetails.price,
             mProductDetails.image,
-            Constants.DEFAULT_CART_QUANTITY
+            Constants.DEFAULT_CART_QUANTITY,
+            seller_id=mProductDetails.user_id
         )
 
         // Show the progress dialog

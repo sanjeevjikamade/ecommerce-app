@@ -19,6 +19,10 @@ import com.serviceapps.shopping.ui.fragments.OrdersFragment
 import com.serviceapps.shopping.ui.fragments.ProductsFragment
 import com.serviceapps.shopping.ui.fragments.SoldProductsFragment
 import com.serviceapps.shopping.utils.Constants
+import android.preference.PreferenceManager
+
+
+
 
 /**
  * A custom class where we will add the operation performed for the FireStore database.
@@ -71,6 +75,19 @@ class FirestoreClass {
     }
 
     /**
+     * A function to get the user type of current logged user.
+     */
+    fun getCurrentUserType(activity: Activity): String? {
+        val sharedPreferences =
+            activity.getSharedPreferences(
+                Constants.MYSHOPPAL_PREFERENCES,
+                Context.MODE_PRIVATE
+            )
+
+        return sharedPreferences.getString(Constants.USER_TYPE, null);
+    }
+
+    /**
      * A function to get the logged user details from from FireStore Database.
      */
     fun getUserDetails(activity: Activity) {
@@ -98,6 +115,10 @@ class FirestoreClass {
                 editor.putString(
                     Constants.LOGGED_IN_USERNAME,
                     "${user.firstName} ${user.lastName}"
+                )
+                editor.putString(
+                    Constants.USER_TYPE,
+                    "${user.userType}"
                 )
                 editor.apply()
 
@@ -853,6 +874,36 @@ class FirestoreClass {
     fun getMyOrdersList(fragment: OrdersFragment) {
         mFireStore.collection(Constants.ORDERS)
             .whereEqualTo(Constants.USER_ID, getCurrentUserID())
+            .get() // Will get the documents snapshots.
+            .addOnSuccessListener { document ->
+                Log.e(fragment.javaClass.simpleName, document.documents.toString())
+                val list: ArrayList<Order> = ArrayList()
+
+                for (i in document.documents) {
+
+                    val orderItem = i.toObject(Order::class.java)!!
+                    orderItem.id = i.id
+
+                    list.add(orderItem)
+                }
+
+                fragment.populateOrdersListInUI(list)
+            }
+            .addOnFailureListener { e ->
+                // Here call a function of base activity for transferring the result to it.
+
+                fragment.hideProgressDialog()
+
+                Log.e(fragment.javaClass.simpleName, "Error while getting the orders list.", e)
+            }
+    }
+
+    /**
+     * A function to get the list of orders from cloud firestore.
+     */
+    fun getMyOrdersListSeller(fragment: OrdersFragment) {
+        mFireStore.collection(Constants.ORDERS)
+            .whereEqualTo(Constants.SELLER_ID, getCurrentUserID())
             .get() // Will get the documents snapshots.
             .addOnSuccessListener { document ->
                 Log.e(fragment.javaClass.simpleName, document.documents.toString())

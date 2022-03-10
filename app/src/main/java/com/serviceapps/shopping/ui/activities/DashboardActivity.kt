@@ -8,6 +8,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.serviceapps.shopping.R
+import com.serviceapps.shopping.firestore.FirestoreClass
 
 /**
  *  Dashboard Screen of the app.
@@ -32,6 +33,7 @@ class DashboardActivity : BaseActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
+
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_products,
@@ -43,6 +45,11 @@ class DashboardActivity : BaseActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         navView.setupWithNavController(navController)
+
+        if(FirestoreClass().getCurrentUserType(this@DashboardActivity) == "customer") {
+            navView.getMenu().removeItem(R.id.navigation_products);
+            navView.getMenu().removeItem(R.id.navigation_sold_products);
+        }
     }
 
     override fun onBackPressed() {

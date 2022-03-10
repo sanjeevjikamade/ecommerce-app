@@ -128,6 +128,7 @@ class RegisterActivity : BaseActivity() {
 
             val email: String = et_email.text.toString().trim { it <= ' ' }
             val password: String = et_password.text.toString().trim { it <= ' ' }
+            val userType: String = if (cb_register_as_seller.isChecked) "seller" else "customer"
 
             // Create an instance and create a register a user with email and password.
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
@@ -145,7 +146,8 @@ class RegisterActivity : BaseActivity() {
                                 firebaseUser.uid,
                                 et_first_name.text.toString().trim { it <= ' ' },
                                 et_last_name.text.toString().trim { it <= ' ' },
-                                et_email.text.toString().trim { it <= ' ' }
+                                et_email.text.toString().trim { it <= ' ' },
+                                userType = userType
                             )
 
                             // Pass the required values in the constructor.

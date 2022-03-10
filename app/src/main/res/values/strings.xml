@@ -59,6 +59,7 @@
 
     <string name="title_dashboard">Dashboard</string>
     <string name="title_products">Products</string>
+    <string name="title_campaigns">Campaigns</string>
     <string name="title_orders">Orders</string>
 
     <string name="please_click_back_again_to_exit">Please click back again to exit.</string>
@@ -173,5 +174,6 @@
     <string name="no_products_sold_out_yet">No products sold out yet!</string>
 
     <string name="title_sold_product_details">SOLD PRODUCT DETAILS</string>
+    <string name="register_as_seller">Register as a Seller</string>
 
 </resources>

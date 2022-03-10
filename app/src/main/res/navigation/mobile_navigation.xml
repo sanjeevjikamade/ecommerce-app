@@ -18,6 +18,12 @@
         tools:layout="@layout/fragment_products" />
 
     <fragment
+        android:id="@+id/navigation_campaigns"
+        android:name="com.serviceapps.shopping.ui.fragments.ProductsFragment"
+        android:label="@string/title_campaigns"
+        tools:layout="@layout/fragment_products" />
+
+    <fragment
         android:id="@+id/navigation_orders"
         android:name="com.serviceapps.shopping.ui.fragments.OrdersFragment"
         android:label="@string/title_orders"
