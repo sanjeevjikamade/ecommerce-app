@@ -1,0 +1,292 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.serviceapps.shopping"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+8-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="31" />
+9-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+11-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:5:5-80
+11-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:5:22-77
+12
+13    <!-- Although the *SdkVersion is captured in gradle build files, this is required for non gradle builds -->
+14    <!-- <uses-sdk android:minSdkVersion="14"/> -->
+15    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+15-->[com.google.firebase:firebase-storage:19.2.0] /Users/sanju/.gradle/caches/transforms-3/1df58e631478cd2cf06d4c15c8b1a6f1/transformed/jetified-firebase-storage-19.2.0/AndroidManifest.xml:26:5-79
+15-->[com.google.firebase:firebase-storage:19.2.0] /Users/sanju/.gradle/caches/transforms-3/1df58e631478cd2cf06d4c15c8b1a6f1/transformed/jetified-firebase-storage-19.2.0/AndroidManifest.xml:26:22-76
+16    <uses-permission android:name="android.permission.INTERNET" />
+16-->[com.google.firebase:firebase-storage:19.2.0] /Users/sanju/.gradle/caches/transforms-3/1df58e631478cd2cf06d4c15c8b1a6f1/transformed/jetified-firebase-storage-19.2.0/AndroidManifest.xml:27:5-67
+16-->[com.google.firebase:firebase-storage:19.2.0] /Users/sanju/.gradle/caches/transforms-3/1df58e631478cd2cf06d4c15c8b1a6f1/transformed/jetified-firebase-storage-19.2.0/AndroidManifest.xml:27:22-64
+17
+18    <application
+18-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:7:5-93:19
+19        android:allowBackup="true"
+19-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:8:9-35
+20        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+20-->[androidx.core:core:1.3.2] /Users/sanju/.gradle/caches/transforms-3/498f24b227007f356e80c0186c89fc9f/transformed/core-1.3.2/AndroidManifest.xml:24:18-86
+21        android:debuggable="true"
+22        android:icon="@mipmap/ic_launcher"
+22-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:9:9-43
+23        android:label="@string/app_name"
+23-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:10:9-41
+24        android:roundIcon="@mipmap/ic_launcher"
+24-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:11:9-48
+25        android:supportsRtl="true"
+25-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:12:9-35
+26        android:testOnly="true"
+27        android:theme="@style/AppTheme" >
+27-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:13:9-40
+28        <activity
+28-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:14:9-18:59
+29            android:name="com.serviceapps.shopping.ui.activities.SellerProductsActivity"
+29-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:15:13-65
+30            android:exported="false"
+30-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:16:13-37
+31            android:label="@string/title_activity_seller_products"
+31-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:17:13-67
+32            android:theme="@style/AppTheme.NoActionBar" />
+32-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:18:13-56
+33        <activity
+33-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:19:9-21:48
+34            android:name="com.serviceapps.shopping.ui.activities.DashboardActivity"
+34-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:20:13-60
+35            android:label="@string/app_name" />
+35-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:21:13-45
+36        <activity
+36-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:22:9-32:20
+37            android:name="com.serviceapps.shopping.ui.activities.SplashActivity"
+37-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:23:13-57
+38            android:exported="true"
+38-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:24:13-36
+39            android:screenOrientation="portrait"
+39-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:25:13-49
+40            android:theme="@style/AppTheme.NoActionBar" >
+40-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:26:13-56
+41            <intent-filter>
+41-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:27:13-31:29
+42                <action android:name="android.intent.action.MAIN" />
+42-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:28:17-69
+42-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:28:25-66
+43
+44                <category android:name="android.intent.category.LAUNCHER" />
+44-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:30:17-77
+44-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:30:27-74
+45            </intent-filter>
+46        </activity>
+47        <activity
+47-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:33:9-35:52
+48            android:name="com.serviceapps.shopping.ui.activities.MainActivity"
+48-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:34:13-55
+49            android:screenOrientation="portrait" />
+49-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:35:13-49
+50        <activity
+50-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:36:9-39:59
+51            android:name="com.serviceapps.shopping.ui.activities.LoginActivity"
+51-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:37:13-56
+52            android:screenOrientation="portrait"
+52-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:38:13-49
+53            android:theme="@style/AppTheme.NoActionBar" />
+53-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:39:13-56
+54        <activity
+54-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:40:9-43:59
+55            android:name="com.serviceapps.shopping.ui.activities.RegisterActivity"
+55-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:41:13-59
+56            android:screenOrientation="portrait"
+56-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:42:13-49
+57            android:theme="@style/AppTheme.NoActionBar" />
+57-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:43:13-56
+58        <activity
+58-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:44:9-48:59
+59            android:name="com.serviceapps.shopping.ui.activities.ForgotPasswordActivity"
+59-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:45:13-65
+60            android:label=""
+60-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:46:13-29
+61            android:screenOrientation="portrait"
+61-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:47:13-49
+62            android:theme="@style/AppTheme.NoActionBar" />
+62-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:48:13-56
+63        <activity
+63-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:49:9-52:59
+64            android:name="com.serviceapps.shopping.ui.activities.UserProfileActivity"
+64-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:50:13-62
+65            android:screenOrientation="portrait"
+65-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:51:13-49
+66            android:theme="@style/AppTheme.NoActionBar" />
+66-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:52:13-56
+67        <activity
+67-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:53:9-56:59
+68            android:name="com.serviceapps.shopping.ui.activities.SettingsActivity"
+68-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:54:13-59
+69            android:screenOrientation="portrait"
+69-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:55:13-49
+70            android:theme="@style/AppTheme.NoActionBar" />
+70-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:56:13-56
+71        <activity
+71-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:57:9-60:59
+72            android:name="com.serviceapps.shopping.ui.activities.AddProductActivity"
+72-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:58:13-61
+73            android:screenOrientation="portrait"
+73-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:59:13-49
+74            android:theme="@style/AppTheme.NoActionBar" />
+74-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:60:13-56
+75        <activity
+75-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:61:9-64:59
+76            android:name="com.serviceapps.shopping.ui.activities.AddCampaignActivity"
+76-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:62:13-62
+77            android:screenOrientation="portrait"
+77-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:63:13-49
+78            android:theme="@style/AppTheme.NoActionBar" />
+78-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:64:13-56
+79        <activity
+79-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:65:9-68:59
+80            android:name="com.serviceapps.shopping.ui.activities.ProductDetailsActivity"
+80-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:66:13-65
+81            android:screenOrientation="portrait"
+81-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:67:13-49
+82            android:theme="@style/AppTheme.NoActionBar" />
+82-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:68:13-56
+83        <activity
+83-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:69:9-72:59
+84            android:name="com.serviceapps.shopping.ui.activities.CartListActivity"
+84-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:70:13-59
+85            android:screenOrientation="portrait"
+85-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:71:13-49
+86            android:theme="@style/AppTheme.NoActionBar" />
+86-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:72:13-56
+87        <activity
+87-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:73:9-76:59
+88            android:name="com.serviceapps.shopping.ui.activities.AddressListActivity"
+88-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:74:13-62
+89            android:screenOrientation="portrait"
+89-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:75:13-49
+90            android:theme="@style/AppTheme.NoActionBar" />
+90-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:76:13-56
+91        <activity
+91-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:77:9-80:59
+92            android:name="com.serviceapps.shopping.ui.activities.AddEditAddressActivity"
+92-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:78:13-65
+93            android:screenOrientation="portrait"
+93-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:79:13-49
+94            android:theme="@style/AppTheme.NoActionBar" />
+94-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:80:13-56
+95        <activity
+95-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:81:9-84:59
+96            android:name="com.serviceapps.shopping.ui.activities.CheckoutActivity"
+96-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:82:13-59
+97            android:screenOrientation="portrait"
+97-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:83:13-49
+98            android:theme="@style/AppTheme.NoActionBar" />
+98-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:84:13-56
+99        <activity
+99-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:85:9-88:59
+100            android:name="com.serviceapps.shopping.ui.activities.MyOrderDetailsActivity"
+100-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:86:13-65
+101            android:screenOrientation="portrait"
+101-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:87:13-49
+102            android:theme="@style/AppTheme.NoActionBar" />
+102-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:88:13-56
+103        <activity
+103-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:89:9-92:59
+104            android:name="com.serviceapps.shopping.ui.activities.SoldProductDetailsActivity"
+104-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:90:13-69
+105            android:screenOrientation="portrait"
+105-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:91:13-49
+106            android:theme="@style/AppTheme.NoActionBar" />
+106-->/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/AndroidManifest.xml:92:13-56
+107
+108        <service
+108-->[com.google.firebase:firebase-firestore-ktx:21.7.0] /Users/sanju/.gradle/caches/transforms-3/536f95efd02613bcb1b8651e3b174ac8/transformed/jetified-firebase-firestore-ktx-21.7.0/AndroidManifest.xml:12:9-18:19
+109            android:name="com.google.firebase.components.ComponentDiscoveryService"
+109-->[com.google.firebase:firebase-firestore-ktx:21.7.0] /Users/sanju/.gradle/caches/transforms-3/536f95efd02613bcb1b8651e3b174ac8/transformed/jetified-firebase-firestore-ktx-21.7.0/AndroidManifest.xml:13:13-84
+110            android:directBootAware="true"
+110-->[com.google.firebase:firebase-common:19.3.1] /Users/sanju/.gradle/caches/transforms-3/c3424ff5b953f2bc3d029f0580b59fe9/transformed/jetified-firebase-common-19.3.1/AndroidManifest.xml:35:13-43
+111            android:exported="false" >
+111-->[com.google.firebase:firebase-firestore-ktx:21.7.0] /Users/sanju/.gradle/caches/transforms-3/536f95efd02613bcb1b8651e3b174ac8/transformed/jetified-firebase-firestore-ktx-21.7.0/AndroidManifest.xml:14:13-37
+112            <meta-data
+112-->[com.google.firebase:firebase-firestore-ktx:21.7.0] /Users/sanju/.gradle/caches/transforms-3/536f95efd02613bcb1b8651e3b174ac8/transformed/jetified-firebase-firestore-ktx-21.7.0/AndroidManifest.xml:15:13-17:85
+113                android:name="com.google.firebase.components:com.google.firebase.firestore.ktx.FirebaseFirestoreKtxRegistrar"
+113-->[com.google.firebase:firebase-firestore-ktx:21.7.0] /Users/sanju/.gradle/caches/transforms-3/536f95efd02613bcb1b8651e3b174ac8/transformed/jetified-firebase-firestore-ktx-21.7.0/AndroidManifest.xml:16:17-126
+114                android:value="com.google.firebase.components.ComponentRegistrar" />
+114-->[com.google.firebase:firebase-firestore-ktx:21.7.0] /Users/sanju/.gradle/caches/transforms-3/536f95efd02613bcb1b8651e3b174ac8/transformed/jetified-firebase-firestore-ktx-21.7.0/AndroidManifest.xml:17:17-82
+115            <meta-data
+115-->[com.google.firebase:firebase-storage-ktx:19.2.0] /Users/sanju/.gradle/caches/transforms-3/8b5483622f7ab8b3803c351fa2c68556/transformed/jetified-firebase-storage-ktx-19.2.0/AndroidManifest.xml:15:13-17:85
+116                android:name="com.google.firebase.components:com.google.firebase.storage.ktx.FirebaseStorageKtxRegistrar"
+116-->[com.google.firebase:firebase-storage-ktx:19.2.0] /Users/sanju/.gradle/caches/transforms-3/8b5483622f7ab8b3803c351fa2c68556/transformed/jetified-firebase-storage-ktx-19.2.0/AndroidManifest.xml:16:17-122
+117                android:value="com.google.firebase.components.ComponentRegistrar" />
+117-->[com.google.firebase:firebase-storage-ktx:19.2.0] /Users/sanju/.gradle/caches/transforms-3/8b5483622f7ab8b3803c351fa2c68556/transformed/jetified-firebase-storage-ktx-19.2.0/AndroidManifest.xml:17:17-82
+118            <meta-data
+118-->[com.google.firebase:firebase-common-ktx:19.3.1] /Users/sanju/.gradle/caches/transforms-3/8259c32f87845d78fde0131dff86bd6f/transformed/jetified-firebase-common-ktx-19.3.1/AndroidManifest.xml:15:13-17:85
+119                android:name="com.google.firebase.components:com.google.firebase.ktx.FirebaseCommonKtxRegistrar"
+119-->[com.google.firebase:firebase-common-ktx:19.3.1] /Users/sanju/.gradle/caches/transforms-3/8259c32f87845d78fde0131dff86bd6f/transformed/jetified-firebase-common-ktx-19.3.1/AndroidManifest.xml:16:17-113
+120                android:value="com.google.firebase.components.ComponentRegistrar" />
+120-->[com.google.firebase:firebase-common-ktx:19.3.1] /Users/sanju/.gradle/caches/transforms-3/8259c32f87845d78fde0131dff86bd6f/transformed/jetified-firebase-common-ktx-19.3.1/AndroidManifest.xml:17:17-82
+121            <meta-data
+121-->[com.google.firebase:firebase-auth:19.4.0] /Users/sanju/.gradle/caches/transforms-3/da23e0d612c2341db2fde1c9c88adebf/transformed/jetified-firebase-auth-19.4.0/AndroidManifest.xml:36:13-38:85
+122                android:name="com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar"
+122-->[com.google.firebase:firebase-auth:19.4.0] /Users/sanju/.gradle/caches/transforms-3/da23e0d612c2341db2fde1c9c88adebf/transformed/jetified-firebase-auth-19.4.0/AndroidManifest.xml:37:17-109
+123                android:value="com.google.firebase.components.ComponentRegistrar" />
+123-->[com.google.firebase:firebase-auth:19.4.0] /Users/sanju/.gradle/caches/transforms-3/da23e0d612c2341db2fde1c9c88adebf/transformed/jetified-firebase-auth-19.4.0/AndroidManifest.xml:38:17-82
+124            <meta-data
+124-->[com.google.firebase:firebase-storage:19.2.0] /Users/sanju/.gradle/caches/transforms-3/1df58e631478cd2cf06d4c15c8b1a6f1/transformed/jetified-firebase-storage-19.2.0/AndroidManifest.xml:33:13-35:85
+125                android:name="com.google.firebase.components:com.google.firebase.storage.StorageRegistrar"
+125-->[com.google.firebase:firebase-storage:19.2.0] /Users/sanju/.gradle/caches/transforms-3/1df58e631478cd2cf06d4c15c8b1a6f1/transformed/jetified-firebase-storage-19.2.0/AndroidManifest.xml:34:17-107
+126                android:value="com.google.firebase.components.ComponentRegistrar" />
+126-->[com.google.firebase:firebase-storage:19.2.0] /Users/sanju/.gradle/caches/transforms-3/1df58e631478cd2cf06d4c15c8b1a6f1/transformed/jetified-firebase-storage-19.2.0/AndroidManifest.xml:35:17-82
+127            <meta-data
+127-->[com.google.firebase:firebase-firestore:21.7.0] /Users/sanju/.gradle/caches/transforms-3/cbfb5210690588b51a00629bc22c265b/transformed/jetified-firebase-firestore-21.7.0/AndroidManifest.xml:20:13-22:85
+128                android:name="com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar"
+128-->[com.google.firebase:firebase-firestore:21.7.0] /Users/sanju/.gradle/caches/transforms-3/cbfb5210690588b51a00629bc22c265b/transformed/jetified-firebase-firestore-21.7.0/AndroidManifest.xml:21:17-111
+129                android:value="com.google.firebase.components.ComponentRegistrar" />
+129-->[com.google.firebase:firebase-firestore:21.7.0] /Users/sanju/.gradle/caches/transforms-3/cbfb5210690588b51a00629bc22c265b/transformed/jetified-firebase-firestore-21.7.0/AndroidManifest.xml:22:17-82
+130        </service>
+131
+132        <activity
+132-->[com.google.firebase:firebase-auth:19.4.0] /Users/sanju/.gradle/caches/transforms-3/da23e0d612c2341db2fde1c9c88adebf/transformed/jetified-firebase-auth-19.4.0/AndroidManifest.xml:24:9-31:50
+133            android:name="com.google.firebase.auth.internal.FederatedSignInActivity"
+133-->[com.google.firebase:firebase-auth:19.4.0] /Users/sanju/.gradle/caches/transforms-3/da23e0d612c2341db2fde1c9c88adebf/transformed/jetified-firebase-auth-19.4.0/AndroidManifest.xml:25:13-85
+134            android:excludeFromRecents="true"
+134-->[com.google.firebase:firebase-auth:19.4.0] /Users/sanju/.gradle/caches/transforms-3/da23e0d612c2341db2fde1c9c88adebf/transformed/jetified-firebase-auth-19.4.0/AndroidManifest.xml:26:13-46
+135            android:exported="true"
+135-->[com.google.firebase:firebase-auth:19.4.0] /Users/sanju/.gradle/caches/transforms-3/da23e0d612c2341db2fde1c9c88adebf/transformed/jetified-firebase-auth-19.4.0/AndroidManifest.xml:27:13-36
+136            android:launchMode="singleTask"
+136-->[com.google.firebase:firebase-auth:19.4.0] /Users/sanju/.gradle/caches/transforms-3/da23e0d612c2341db2fde1c9c88adebf/transformed/jetified-firebase-auth-19.4.0/AndroidManifest.xml:28:13-44
+137            android:permission="com.google.firebase.auth.api.gms.permission.LAUNCH_FEDERATED_SIGN_IN"
+137-->[com.google.firebase:firebase-auth:19.4.0] /Users/sanju/.gradle/caches/transforms-3/da23e0d612c2341db2fde1c9c88adebf/transformed/jetified-firebase-auth-19.4.0/AndroidManifest.xml:29:13-102
+138            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+138-->[com.google.firebase:firebase-auth:19.4.0] /Users/sanju/.gradle/caches/transforms-3/da23e0d612c2341db2fde1c9c88adebf/transformed/jetified-firebase-auth-19.4.0/AndroidManifest.xml:30:13-72
+139        <activity
+139-->[com.google.android.gms:play-services-base:17.1.0] /Users/sanju/.gradle/caches/transforms-3/cdac3a8a965459aa558fa0990c790362/transformed/jetified-play-services-base-17.1.0/AndroidManifest.xml:23:9-26:75
+140            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+140-->[com.google.android.gms:play-services-base:17.1.0] /Users/sanju/.gradle/caches/transforms-3/cdac3a8a965459aa558fa0990c790362/transformed/jetified-play-services-base-17.1.0/AndroidManifest.xml:24:13-79
+141            android:exported="false"
+141-->[com.google.android.gms:play-services-base:17.1.0] /Users/sanju/.gradle/caches/transforms-3/cdac3a8a965459aa558fa0990c790362/transformed/jetified-play-services-base-17.1.0/AndroidManifest.xml:25:13-37
+142            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+142-->[com.google.android.gms:play-services-base:17.1.0] /Users/sanju/.gradle/caches/transforms-3/cdac3a8a965459aa558fa0990c790362/transformed/jetified-play-services-base-17.1.0/AndroidManifest.xml:26:13-72
+143
+144        <provider
+144-->[com.google.firebase:firebase-common:19.3.1] /Users/sanju/.gradle/caches/transforms-3/c3424ff5b953f2bc3d029f0580b59fe9/transformed/jetified-firebase-common-19.3.1/AndroidManifest.xml:26:9-31:39
+145            android:name="com.google.firebase.provider.FirebaseInitProvider"
+145-->[com.google.firebase:firebase-common:19.3.1] /Users/sanju/.gradle/caches/transforms-3/c3424ff5b953f2bc3d029f0580b59fe9/transformed/jetified-firebase-common-19.3.1/AndroidManifest.xml:27:13-77
+146            android:authorities="com.serviceapps.shopping.firebaseinitprovider"
+146-->[com.google.firebase:firebase-common:19.3.1] /Users/sanju/.gradle/caches/transforms-3/c3424ff5b953f2bc3d029f0580b59fe9/transformed/jetified-firebase-common-19.3.1/AndroidManifest.xml:28:13-72
+147            android:directBootAware="true"
+147-->[com.google.firebase:firebase-common:19.3.1] /Users/sanju/.gradle/caches/transforms-3/c3424ff5b953f2bc3d029f0580b59fe9/transformed/jetified-firebase-common-19.3.1/AndroidManifest.xml:29:13-43
+148            android:exported="false"
+148-->[com.google.firebase:firebase-common:19.3.1] /Users/sanju/.gradle/caches/transforms-3/c3424ff5b953f2bc3d029f0580b59fe9/transformed/jetified-firebase-common-19.3.1/AndroidManifest.xml:30:13-37
+149            android:initOrder="100" />
+149-->[com.google.firebase:firebase-common:19.3.1] /Users/sanju/.gradle/caches/transforms-3/c3424ff5b953f2bc3d029f0580b59fe9/transformed/jetified-firebase-common-19.3.1/AndroidManifest.xml:31:13-36
+150
+151        <meta-data
+151-->[com.google.android.gms:play-services-basement:17.0.0] /Users/sanju/.gradle/caches/transforms-3/56832048e69589f4026f3a17628257a1/transformed/jetified-play-services-basement-17.0.0/AndroidManifest.xml:23:9-25:69
+152            android:name="com.google.android.gms.version"
+152-->[com.google.android.gms:play-services-basement:17.0.0] /Users/sanju/.gradle/caches/transforms-3/56832048e69589f4026f3a17628257a1/transformed/jetified-play-services-basement-17.0.0/AndroidManifest.xml:24:13-58
+153            android:value="@integer/google_play_services_version" />
+153-->[com.google.android.gms:play-services-basement:17.0.0] /Users/sanju/.gradle/caches/transforms-3/56832048e69589f4026f3a17628257a1/transformed/jetified-play-services-basement-17.0.0/AndroidManifest.xml:25:13-66
+154    </application>
+155
+156</manifest>

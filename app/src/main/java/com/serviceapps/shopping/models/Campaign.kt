@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
  */
 @Parcelize
 data class Campaign(
-    val user_id: String = "",
+    var user_id: String = "",
     val user_name: String = "",
     val title: String = "",
     val description: String = "",

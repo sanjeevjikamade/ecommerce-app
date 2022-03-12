@@ -1046,29 +1046,29 @@ class FirestoreClass {
      */
     fun getSellersList(fragment: Fragment) {
         // The collection name for PRODUCTS
-        mFireStore.collection(Constants.CAMPAIGNS)
-            .whereEqualTo(Constants.USER_ID, getCurrentUserID())
+        mFireStore.collection(Constants.USERS)
+            .whereEqualTo("userType", "seller")
             .get() // Will get the documents snapshots.
             .addOnSuccessListener { document ->
 
                 // Here we get the list of boards in the form of documents.
-                Log.e("Campaigns List", document.documents.toString())
+                Log.e("Users List", document.documents.toString())
 
                 // Here we have created a new instance for Campaign ArrayList.
-                val campaignList: ArrayList<Campaign> = ArrayList()
+                val usersList: ArrayList<User> = ArrayList()
 
                 // A for loop as per the list of documents to convert them into Products ArrayList.
                 for (i in document.documents) {
 
-                    val campaign = i.toObject(Campaign::class.java)
-                    campaign!!.campaign_id = i.id
+                    var users = i.toObject(User::class.java)
+                    users!!.id = i.id
 
-                    campaignList.add(campaign)
+                    usersList.add(users)
                 }
 
                 when (fragment) {
                     is SellersFragment -> {
-                        fragment.successSellersListFromFireStore(campaignList)
+                        fragment.successSellersListFromFireStore(usersList)
                     }
                 }
             }
@@ -1080,7 +1080,7 @@ class FirestoreClass {
                     }
                 }
 
-                Log.e("Get Product List", "Error while getting product list.", e)
+                Log.e("Get seller List", "Error while getting seller list.", e)
             }
     }
 

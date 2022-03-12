@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.serviceapps.shopping.R
 import com.serviceapps.shopping.models.Campaign
+import com.serviceapps.shopping.models.User
 import com.serviceapps.shopping.ui.activities.SellerProductsActivity
 import com.serviceapps.shopping.ui.fragments.SellersFragment
 import com.serviceapps.shopping.utils.Constants
@@ -23,7 +24,7 @@ import kotlinx.android.synthetic.main.item_list_layout_campaigns.view.*
  */
 open class sellerListAdapter(
     private val context: Context,
-    private var list: ArrayList<Campaign>,
+    private var list: ArrayList<User>,
     private val fragment: SellersFragment
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -36,7 +37,7 @@ open class sellerListAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MyViewHolder(
             LayoutInflater.from(context).inflate(
-                R.layout.item_list_layout_campaigns,
+                R.layout.item_list_layout_sellers,
                 parent,
                 false
             )
@@ -60,14 +61,14 @@ open class sellerListAdapter(
 
             GlideLoader(context).loadProductPicture(model.image, holder.itemView.iv_item_image)
 
-            holder.itemView.tv_campaign_name.text = model.title
-            holder.itemView.tv_campaign_description.text = "${model.description}"
+            holder.itemView.tv_campaign_name.text = model.firstName + " " + model.lastName
+//            holder.itemView.tv_campaign_description.text = "${model.description}"
+            holder.itemView.tv_campaign_description.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
 
             holder.itemView.setOnClickListener {
                 // Launch Product details screen.
                 val intent = Intent(context, SellerProductsActivity::class.java)
-                intent.putExtra(Constants.EXTRA_PRODUCT_ID, model.campaign_id)
-                intent.putExtra(Constants.EXTRA_PRODUCT_OWNER_ID, model.user_id)
+                intent.putExtra(Constants.EXTRA_PRODUCT_OWNER_ID, model.id)
                 context.startActivity(intent)
             }
         }

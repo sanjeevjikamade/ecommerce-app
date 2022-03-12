@@ -191,7 +191,7 @@ class CheckoutActivity : BaseActivity() {
             seller_id = mCartItemsList[0].seller_id,
             mCartItemsList,
             mAddressDetails!!,
-            "My order ${System.currentTimeMillis()}",
+            mCartItemsList[0].title,
             mCartItemsList[0].image,
             mSubTotal.toString(),
             "0.0", // The Shipping Charge is fixed as 0 for now in our case.

@@ -1,0 +1,2 @@
+com/serviceapps/shopping/BuildConfig.java
+ com.serviceapps.shopping.BuildConfig
