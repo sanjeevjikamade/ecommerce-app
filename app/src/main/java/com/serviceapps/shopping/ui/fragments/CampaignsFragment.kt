@@ -41,6 +41,10 @@ class CampaignsFragment : BaseFragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.add_campaign_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
+
+        val addCampaign = menu.findItem(R.id.action_add_campaign)
+
+        addCampaign.isVisible = getActivity()?.let { FirestoreClass().getCurrentUserType(it) } == "seller"
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -50,6 +54,7 @@ class CampaignsFragment : BaseFragment() {
             startActivity(Intent(activity, AddCampaignActivity::class.java))
             return true
         }
+
         return super.onOptionsItemSelected(item)
     }
 

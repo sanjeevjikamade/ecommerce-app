@@ -1040,6 +1040,52 @@ class FirestoreClass {
 
 
     /**
+     * A function to get the campaign list from cloud firestore.
+     *
+     * @param fragment The fragment is passed as parameter as the function is called from fragment and need to the success result.
+     */
+    fun getSellersList(fragment: Fragment) {
+        // The collection name for PRODUCTS
+        mFireStore.collection(Constants.CAMPAIGNS)
+            .whereEqualTo(Constants.USER_ID, getCurrentUserID())
+            .get() // Will get the documents snapshots.
+            .addOnSuccessListener { document ->
+
+                // Here we get the list of boards in the form of documents.
+                Log.e("Campaigns List", document.documents.toString())
+
+                // Here we have created a new instance for Campaign ArrayList.
+                val campaignList: ArrayList<Campaign> = ArrayList()
+
+                // A for loop as per the list of documents to convert them into Products ArrayList.
+                for (i in document.documents) {
+
+                    val campaign = i.toObject(Campaign::class.java)
+                    campaign!!.campaign_id = i.id
+
+                    campaignList.add(campaign)
+                }
+
+                when (fragment) {
+                    is SellersFragment -> {
+                        fragment.successSellersListFromFireStore(campaignList)
+                    }
+                }
+            }
+            .addOnFailureListener { e ->
+                // Hide the progress dialog if there is any error based on the base class instance.
+                when (fragment) {
+                    is SellersFragment -> {
+                        fragment.hideProgressDialog()
+                    }
+                }
+
+                Log.e("Get Product List", "Error while getting product list.", e)
+            }
+    }
+
+
+    /**
      * A function to make an entry of the user's campaigns in the cloud firestore database.
      */
     fun uploadCampaignDetails(activity: AddCampaignActivity, campaignInfo: Campaign) {
