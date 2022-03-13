@@ -9,6 +9,7 @@ import com.serviceapps.shopping.firestore.FirestoreClass
 import com.serviceapps.shopping.models.Product
 import com.serviceapps.shopping.ui.activities.CartListActivity
 import com.serviceapps.shopping.ui.activities.ProductDetailsActivity
+import com.serviceapps.shopping.ui.activities.SellerProductsActivity
 import com.serviceapps.shopping.ui.activities.SettingsActivity
 import com.serviceapps.shopping.ui.adapters.DashboardItemsListAdapter
 import com.serviceapps.shopping.utils.Constants
@@ -69,8 +70,20 @@ class DashboardFragment : BaseFragment() {
     private fun getDashboardItemsList() {
         // Show the progress dialog.
         showProgressDialog(resources.getString(R.string.please_wait))
+        try {
+            // Call the function of Firestore class.
+            val activity: SellerProductsActivity? = activity as SellerProductsActivity?
+            val sellerID: String? = activity?.getSellerId()
+            print("sellerID: " + sellerID)
+            if (sellerID != null) {
+                //TODO: SID: refactor code
+                FirestoreClass().getDashboardItemsList(this@DashboardFragment, sellerID)
+            }
+        }catch (e: Exception){
+            e.printStackTrace()
+            FirestoreClass().getDashboardItemsList(this@DashboardFragment, FirestoreClass().getCurrentUserID())
+        }
 
-        FirestoreClass().getDashboardItemsList(this@DashboardFragment)
     }
 
     /**

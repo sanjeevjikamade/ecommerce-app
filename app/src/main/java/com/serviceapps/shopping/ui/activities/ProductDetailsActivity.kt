@@ -17,6 +17,12 @@ import com.serviceapps.shopping.utils.Constants
 import com.serviceapps.shopping.utils.GlideLoader
 import kotlinx.android.synthetic.main.activity_product_details.*
 import kotlinx.android.synthetic.main.item_cart_layout.view.*
+import android.telephony.PhoneNumberUtils
+
+import android.content.ComponentName
+import androidx.fragment.app.FragmentActivity
+import java.lang.Exception
+
 
 /**
  * Product Details Screen.
@@ -64,6 +70,28 @@ class ProductDetailsActivity : BaseActivity(), View.OnClickListener {
 
         btn_add_to_cart.setOnClickListener(this)
         btn_go_to_cart.setOnClickListener(this)
+
+        val fab: View = findViewById(R.id.fab_call)
+        fab.setOnClickListener { view ->
+            try {
+                if (intent.hasExtra(Constants.EXTRA_PRODUCT_ID)) {
+                    mProductId =
+                        intent.getStringExtra(Constants.EXTRA_PRODUCT_ID)!!
+                }
+
+                var number = "917738676791"
+                number = number.replace(" ", "").replace("+", "")
+                val sendIntent = Intent("android.intent.action.MAIN")
+                sendIntent.component = ComponentName("com.whatsapp", "com.whatsapp.Conversation")
+                sendIntent.putExtra(
+                    "jid",
+                    PhoneNumberUtils.stripSeparators(number) + "@s.whatsapp.net"
+                )
+                startActivity(sendIntent)
+            } catch (e: Exception) {
+                Log.e("ProductDetailsActivity", "ERROR_OPEN_MESSANGER$e")
+            }
+        }
 
         getProductDetails()
     }

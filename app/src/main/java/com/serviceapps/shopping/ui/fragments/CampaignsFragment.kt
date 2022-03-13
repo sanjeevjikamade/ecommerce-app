@@ -6,6 +6,7 @@ import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseUser
 import com.serviceapps.shopping.models.Product
 import com.serviceapps.shopping.ui.adapters.MyProductsListAdapter
 import com.serviceapps.shopping.R
@@ -13,6 +14,7 @@ import com.serviceapps.shopping.firestore.FirestoreClass
 import com.serviceapps.shopping.models.Campaign
 import com.serviceapps.shopping.ui.activities.AddCampaignActivity
 import com.serviceapps.shopping.ui.activities.AddProductActivity
+import com.serviceapps.shopping.ui.activities.SellerProductsActivity
 import com.serviceapps.shopping.ui.adapters.MyCampaignListAdapter
 import kotlinx.android.synthetic.main.fragment_campaigns.*
 import kotlinx.android.synthetic.main.fragment_products.*
@@ -67,9 +69,19 @@ class CampaignsFragment : BaseFragment() {
     private fun getCampaignListFromFireStore() {
         // Show the progress dialog.
         showProgressDialog(resources.getString(R.string.please_wait))
-
-        // Call the function of Firestore class.
-        FirestoreClass().getCampaignssList(this@CampaignsFragment)
+        try {
+            // Call the function of Firestore class.
+            val activity: SellerProductsActivity? = activity as SellerProductsActivity?
+            val sellerID: String? = activity?.getSellerId()
+            print("sellerID: " + sellerID)
+            if (sellerID != null) {
+                //TODO: SID: refactor code
+                FirestoreClass().getCampaignssList(this@CampaignsFragment, sellerID)
+            }
+        }catch (e: Exception){
+            e.printStackTrace()
+            FirestoreClass().getCampaignssList(this@CampaignsFragment, FirestoreClass().getCurrentUserID())
+        }
     }
 
     /**

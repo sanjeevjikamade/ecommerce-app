@@ -12,17 +12,23 @@ import com.serviceapps.shopping.R
 import com.serviceapps.shopping.ui.fragments.CampaignsFragment
 import com.serviceapps.shopping.ui.fragments.DashboardFragment
 import com.serviceapps.shopping.ui.fragments.ProductsFragment
+import com.serviceapps.shopping.utils.Constants.EXTRA_PRODUCT_OWNER_ID
 import kotlinx.android.synthetic.main.activity_seller_products.*
 
 class SellerProductsActivity : AppCompatActivity() {
 
+    var mSellerId = ""
+    var mSellerPhone = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seller_products)
 
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark))
+
+        mSellerId = intent.getStringExtra(EXTRA_PRODUCT_OWNER_ID).toString()
+        mSellerPhone = intent.getStringExtra("seller_phone").toString()
 
         setupViewPager(viewpager)
 
@@ -57,5 +63,12 @@ class SellerProductsActivity : AppCompatActivity() {
         override fun getPageTitle(position: Int): CharSequence {
             return mFragmentTitleList[position]
         }
+    }
+
+    fun getSellerId(): String? {
+        return mSellerId
+    }
+    fun getSellerPhone(): String? {
+        return mSellerPhone
     }
 }

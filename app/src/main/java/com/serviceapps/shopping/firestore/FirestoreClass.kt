@@ -375,9 +375,10 @@ class FirestoreClass {
     /**
      * A function to get the dashboard items list. The list will be an overall items list, not based on the user's id.
      */
-    fun getDashboardItemsList(fragment: DashboardFragment) {
+    fun getDashboardItemsList(fragment: DashboardFragment, sellerID: String) {
         // The collection name for PRODUCTS
         mFireStore.collection(Constants.PRODUCTS)
+            .whereEqualTo(Constants.USER_ID, sellerID)
             .get() // Will get the documents snapshots.
             .addOnSuccessListener { document ->
 
@@ -998,10 +999,11 @@ class FirestoreClass {
      *
      * @param fragment The fragment is passed as parameter as the function is called from fragment and need to the success result.
      */
-    fun getCampaignssList(fragment: Fragment) {
+    fun getCampaignssList(fragment: Fragment, sellerID: String) {
         // The collection name for PRODUCTS
         mFireStore.collection(Constants.CAMPAIGNS)
-            .whereEqualTo(Constants.USER_ID, getCurrentUserID())
+            .whereEqualTo(Constants.USER_ID, sellerID)
+//            .whereEqualTo(Constants.USER_ID, "WF6CZtdCZYaQNhwvw9OPp6enhuF2")
             .get() // Will get the documents snapshots.
             .addOnSuccessListener { document ->
 

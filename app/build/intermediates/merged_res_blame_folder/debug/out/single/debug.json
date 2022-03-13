@@ -64,6 +64,10 @@
         "source": "/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/res/drawable/ic_vector_add_photo.xml"
     },
     {
+        "merged": "/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/build/intermediates/merged_res/debug/drawable_item_background.xml.flat",
+        "source": "/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/res/drawable/item_background.xml"
+    },
+    {
         "merged": "/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/build/intermediates/merged_res/debug/drawable_ic_vector_remove.xml.flat",
         "source": "/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/res/drawable/ic_vector_remove.xml"
     },
@@ -198,6 +202,10 @@
     {
         "merged": "/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/build/intermediates/merged_res/debug/layout_activity_splash.xml.flat",
         "source": "/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/res/layout/activity_splash.xml"
+    },
+    {
+        "merged": "/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/build/intermediates/merged_res/debug/layout_test.xml.flat",
+        "source": "/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/src/main/res/layout/test.xml"
     },
     {
         "merged": "/Volumes/Programming/FL/services-app/workspace/GIT/Services/app/build/intermediates/merged_res/debug/drawable_ic_vector_cart.xml.flat",

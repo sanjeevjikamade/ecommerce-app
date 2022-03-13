@@ -69,6 +69,7 @@ open class sellerListAdapter(
                 // Launch Product details screen.
                 val intent = Intent(context, SellerProductsActivity::class.java)
                 intent.putExtra(Constants.EXTRA_PRODUCT_OWNER_ID, model.id)
+                intent.putExtra("seller_phone", model.mobile)
                 context.startActivity(intent)
             }
         }
