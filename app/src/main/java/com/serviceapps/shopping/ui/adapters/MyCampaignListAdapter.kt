@@ -64,6 +64,7 @@ open class MyCampaignListAdapter(
             holder.itemView.tv_campaign_name.text = model.title
             holder.itemView.tv_campaign_description.text = "${model.description}"
 
+
             holder.itemView.ib_delete_campaign.setOnClickListener {
 
                 fragment.deleteCampaign(model.campaign_id)

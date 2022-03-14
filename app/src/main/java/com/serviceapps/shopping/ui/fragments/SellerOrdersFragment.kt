@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_orders.*
 /**
  * Order listing fragment.
  */
-class OrdersFragment : BaseFragment() {
+class SellerOrdersFragment : BaseFragment() {
     private var mContext: Context? = null
 
     override fun onCreateView(
@@ -48,7 +48,7 @@ class OrdersFragment : BaseFragment() {
     private fun getMyOrdersList() {
         // Show the progress dialog.
         showProgressDialog(resources.getString(R.string.please_wait))
-        FirestoreClass().getMyOrdersList(this@OrdersFragment)
+        FirestoreClass().getMyOrdersListSeller(this@SellerOrdersFragment)
     }
 
     /**
