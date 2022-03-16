@@ -22,6 +22,7 @@ class CartListActivity : BaseActivity() {
 
     // A global variable for the product list.
     private lateinit var mProductsList: ArrayList<Product>
+    var mIsSingleSellerProduct: Boolean = true
 
     // A global variable for the cart list items.
     private lateinit var mCartListItems: ArrayList<Cart>
@@ -42,9 +43,17 @@ class CartListActivity : BaseActivity() {
         setupActionBar()
 
         btn_checkout.setOnClickListener {
-            val intent = Intent(this@CartListActivity, AddressListActivity::class.java)
-            intent.putExtra(Constants.EXTRA_SELECT_ADDRESS, true)
-            startActivity(intent)
+            if(!mIsSingleSellerProduct) {
+                Toast.makeText(
+                    this@CartListActivity,
+                    "You can order items from a single seller at a time.",
+                    Toast.LENGTH_LONG
+                ).show()
+            } else {
+                val intent = Intent(this@CartListActivity, AddressListActivity::class.java)
+                intent.putExtra(Constants.EXTRA_SELECT_ADDRESS, true)
+                startActivity(intent)
+            }
         }
     }
 
@@ -110,9 +119,11 @@ class CartListActivity : BaseActivity() {
 
         // Hide progress dialog.
         hideProgressDialog()
-
+        mIsSingleSellerProduct = true
         for (product in mProductsList) {
             for (cart in cartList) {
+                if(cartList[0].seller_id != cart.seller_id)
+                    mIsSingleSellerProduct = false
                 if (product.product_id == cart.product_id) {
 
                     cart.stock_quantity = product.stock_quantity

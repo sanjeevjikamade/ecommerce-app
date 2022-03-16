@@ -3,8 +3,6 @@ package com.serviceapps.shopping.ui.activities
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -20,6 +18,8 @@ import kotlinx.android.synthetic.main.item_cart_layout.view.*
 import android.telephony.PhoneNumberUtils
 
 import android.content.ComponentName
+import android.view.*
+import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import java.lang.Exception
 
@@ -30,9 +30,10 @@ import java.lang.Exception
 class ProductDetailsActivity : BaseActivity(), View.OnClickListener {
 
     private lateinit var mProductDetails: Product
-
+    var productOwnerId: String = ""
     // A global variable for product id.
     private var mProductId: String = ""
+    private var mSellerPhone: String = ""
 
     /**
      * This function is auto created by Android when the Activity Class is created.
@@ -52,7 +53,10 @@ class ProductDetailsActivity : BaseActivity(), View.OnClickListener {
                 intent.getStringExtra(Constants.EXTRA_PRODUCT_ID)!!
         }
 
-        var productOwnerId: String = ""
+        if (intent.hasExtra(Constants.EXTRA_SELLER_PHONE)) {
+            mSellerPhone =
+                intent.getStringExtra(Constants.EXTRA_SELLER_PHONE)!!
+        }
 
         if (intent.hasExtra(Constants.EXTRA_PRODUCT_OWNER_ID)) {
             productOwnerId =
@@ -72,6 +76,10 @@ class ProductDetailsActivity : BaseActivity(), View.OnClickListener {
         btn_go_to_cart.setOnClickListener(this)
 
         val fab: View = findViewById(R.id.fab_call)
+
+        if(mSellerPhone.equals(""))
+            fab.isVisible = false
+
         fab.setOnClickListener { view ->
             try {
                 if (intent.hasExtra(Constants.EXTRA_PRODUCT_ID)) {
@@ -79,7 +87,8 @@ class ProductDetailsActivity : BaseActivity(), View.OnClickListener {
                         intent.getStringExtra(Constants.EXTRA_PRODUCT_ID)!!
                 }
 
-                var number = "917738676791"
+                var number = "91"+mSellerPhone
+
                 number = number.replace(" ", "").replace("+", "")
                 val sendIntent = Intent("android.intent.action.MAIN")
                 sendIntent.component = ComponentName("com.whatsapp", "com.whatsapp.Conversation")
@@ -241,5 +250,34 @@ class ProductDetailsActivity : BaseActivity(), View.OnClickListener {
         btn_add_to_cart.visibility = View.GONE
         // Show the GoToCart button if the item is already in the cart. User can update the quantity from the cart list screen if he wants.
         btn_go_to_cart.visibility = View.VISIBLE
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.edit_product_menu, menu)
+        var menuItem : MenuItem? = null
+
+        if(productOwnerId != FirestoreClass().getCurrentUserID())
+            menuItem = menu?.findItem(R.id.action_edit_product);
+            menuItem?.setVisible(false);
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+
+        if (id == R.id.action_edit_product) {
+            val intent = Intent(this, EditProductActivity::class.java)
+                intent.putExtra(Constants.EXTRA_PRODUCT_ID, mProductId)
+                intent.putExtra("product_image", mProductDetails.image)
+                intent.putExtra("seller_id", mProductDetails.user_id)
+                startActivity(intent)
+            finish()
+
+            return true
+        }
+
+
+        return super.onOptionsItemSelected(item)
     }
 }

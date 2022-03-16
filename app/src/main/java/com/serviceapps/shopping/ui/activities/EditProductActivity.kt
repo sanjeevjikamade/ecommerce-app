@@ -19,15 +19,21 @@ import com.serviceapps.shopping.models.Product
 import com.serviceapps.shopping.utils.Constants
 import com.serviceapps.shopping.utils.GlideLoader
 import kotlinx.android.synthetic.main.activity_add_product.*
+import kotlinx.android.synthetic.main.activity_product_details.*
 import java.io.IOException
 
 /**
  * Add Product screen of the app.
  */
-class AddProductActivity : BaseActivity(), View.OnClickListener {
+class EditProductActivity : BaseActivity(), View.OnClickListener {
 
     // A global variable for URI of a selected image from phone storage.
     private var mSelectedImageFileUri: Uri? = null
+    private var isAddImageClicked: Boolean = false
+    private var mProductId: String = ""
+    private var mProductImage: String = ""
+    private var mSellerId: String = ""
+    private lateinit var mProductDetails: Product
 
     // A global variable for uploaded product image URL.
     private var mProductImageURL: String = ""
@@ -42,11 +48,35 @@ class AddProductActivity : BaseActivity(), View.OnClickListener {
 
         setupActionBar()
 
+        if (intent.hasExtra(Constants.EXTRA_PRODUCT_ID)) {
+            mProductId =
+                intent.getStringExtra(Constants.EXTRA_PRODUCT_ID)!!
+            mProductImage =
+                intent.getStringExtra("product_image")!!
+            mSellerId =
+                intent.getStringExtra("seller_id")!!
+        }
+
         // Assign the click event to iv_add_update_product image.
         iv_add_update_product.setOnClickListener(this)
 
+        btn_submit.setText("Update Product")
         // Assign the click event to submit button.
         btn_submit.setOnClickListener(this)
+
+        getProductDetails()
+    }
+
+    /**
+     * A function to call the firestore class function that will get the product details from cloud firestore based on the product id.
+     */
+    private fun getProductDetails() {
+
+        // Show the product dialog
+        showProgressDialog(resources.getString(R.string.please_wait))
+
+        // Call the function of FirestoreClass to get the product details.
+        FirestoreClass().getProductDetailsForEdit(this@EditProductActivity, mProductId)
     }
 
     override fun onClick(v: View?) {
@@ -62,7 +92,7 @@ class AddProductActivity : BaseActivity(), View.OnClickListener {
                         )
                         == PackageManager.PERMISSION_GRANTED
                     ) {
-                        Constants.showImageChooser(this@AddProductActivity)
+                        Constants.showImageChooser(this@EditProductActivity)
                     } else {
                         /*Requests permissions to be granted to this application. These permissions
                          must be requested in your manifest, they should not be granted to your app,
@@ -77,12 +107,32 @@ class AddProductActivity : BaseActivity(), View.OnClickListener {
 
                 R.id.btn_submit -> {
                     if (validateProductDetails()) {
-
-                        uploadProductImage()
+                        if(isAddImageClicked)
+                            uploadProductImage()
+                        else
+                            uploadProductDetails()
                     }
                 }
             }
         }
+    }
+
+    fun productDetailsSuccess(product: Product) {
+        hideProgressDialog()
+
+        mProductDetails = product
+
+        // Populate the product details in the UI.
+        GlideLoader(this@EditProductActivity).loadProductPicture(
+            product.image,
+            iv_product_image
+        )
+
+        et_product_title.setText(product.title)
+        et_product_price.setText(product.price)
+        et_product_description.setText(product.description)
+        et_product_quantity.setText(product.stock_quantity)
+
     }
 
     /**
@@ -101,7 +151,7 @@ class AddProductActivity : BaseActivity(), View.OnClickListener {
         if (requestCode == Constants.READ_STORAGE_PERMISSION_CODE) {
             //If permission is granted
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Constants.showImageChooser(this@AddProductActivity)
+                Constants.showImageChooser(this@EditProductActivity)
             } else {
                 //Displaying another toast if permission is not granted
                 Toast.makeText(
@@ -119,11 +169,12 @@ class AddProductActivity : BaseActivity(), View.OnClickListener {
             && requestCode == Constants.PICK_IMAGE_REQUEST_CODE
             && data!!.data != null
         ) {
+            isAddImageClicked = true
 
             // Replace the add icon with edit icon once the image is selected.
             iv_add_update_product.setImageDrawable(
                 ContextCompat.getDrawable(
-                    this@AddProductActivity,
+                    this@EditProductActivity,
                     R.drawable.ic_vector_edit
                 )
             )
@@ -133,7 +184,7 @@ class AddProductActivity : BaseActivity(), View.OnClickListener {
 
             try {
                 // Load the product image in the ImageView.
-                GlideLoader(this@AddProductActivity).loadProductPicture(
+                GlideLoader(this@EditProductActivity).loadProductPicture(
                     mSelectedImageFileUri!!,
                     iv_product_image
                 )
@@ -165,10 +216,10 @@ class AddProductActivity : BaseActivity(), View.OnClickListener {
     private fun validateProductDetails(): Boolean {
         return when {
 
-            mSelectedImageFileUri == null -> {
-                showErrorSnackBar(resources.getString(R.string.err_msg_select_product_image), true)
-                false
-            }
+//            mSelectedImageFileUri == null -> {
+//                showErrorSnackBar(resources.getString(R.string.err_msg_select_product_image), true)
+//                false
+//            }
 
             TextUtils.isEmpty(et_product_title.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_product_title), true)
@@ -209,7 +260,7 @@ class AddProductActivity : BaseActivity(), View.OnClickListener {
         showProgressDialog(resources.getString(R.string.please_wait))
 
         FirestoreClass().uploadImageToCloudStorage(
-            this@AddProductActivity,
+            this@EditProductActivity,
             mSelectedImageFileUri,
             Constants.PRODUCT_IMAGE
         )
@@ -221,6 +272,7 @@ class AddProductActivity : BaseActivity(), View.OnClickListener {
     fun imageUploadSuccess(imageURL: String) {
 
         // Initialize the global image url variable.
+        isAddImageClicked = true
         mProductImageURL = imageURL
 
         uploadProductDetails()
@@ -234,18 +286,19 @@ class AddProductActivity : BaseActivity(), View.OnClickListener {
                 .getString(Constants.LOGGED_IN_USERNAME, "")!!
 
         // Here we get the text from editText and trim the space
-        val product = Product(
-            FirestoreClass().getCurrentUserID(),
-            username,
-            et_product_title.text.toString().trim { it <= ' ' },
-            et_product_price.text.toString().trim { it <= ' ' },
-            et_product_description.text.toString().trim { it <= ' ' },
-            et_product_quantity.text.toString().trim { it <= ' ' },
-            product_id = FirestoreClass().getRandomString(10),
-            image = mProductImageURL
-        )
+        val productInfo = HashMap<String, Any>()
 
-        FirestoreClass().uploadProductDetails(this@AddProductActivity, product)
+        productInfo["user_id"] = mSellerId
+        productInfo["user_name"] = username
+        productInfo["title"] = et_product_title.text.toString().trim { it <= ' ' }
+        productInfo["price"] = et_product_price.text.toString().trim { it <= ' ' }
+        productInfo["description"] = et_product_description.text.toString().trim { it <= ' ' }
+        productInfo["stock_quantity"] = et_product_quantity.text.toString().trim { it <= ' ' }
+        productInfo["image"] = if(mProductImageURL.equals("")) mProductImage else mProductImageURL
+
+        productInfo["product_id"] = mProductId
+
+        FirestoreClass().updateProductDetails(this@EditProductActivity, productInfo, mProductId)
     }
 
     /**
@@ -257,11 +310,15 @@ class AddProductActivity : BaseActivity(), View.OnClickListener {
         hideProgressDialog()
 
         Toast.makeText(
-            this@AddProductActivity,
+            this@EditProductActivity,
             resources.getString(R.string.product_uploaded_success_message),
             Toast.LENGTH_SHORT
         ).show()
 
+        val intent = Intent(this, ProductDetailsActivity::class.java)
+        intent.putExtra(Constants.EXTRA_PRODUCT_ID, mProductId)
+        intent.putExtra(Constants.EXTRA_PRODUCT_OWNER_ID, mSellerId)
+        startActivity(intent)
         finish()
     }
 }

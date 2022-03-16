@@ -61,15 +61,16 @@ open class sellerListAdapter(
 
             GlideLoader(context).loadProductPicture(model.image, holder.itemView.iv_item_image)
 
-            holder.itemView.tv_campaign_name.text = model.firstName + " " + model.lastName
+            holder.itemView.tv_campaign_name.text = model.firstName
 //            holder.itemView.tv_campaign_description.text = "${model.description}"
-            holder.itemView.tv_campaign_description.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+            holder.itemView.tv_campaign_description.text = model.lastName   //storing description in lname for seller
 
             holder.itemView.setOnClickListener {
-                // Launch Product details screen.
+                // Launch Product details screen.`
+                print("seller_mobile"+model.mobile.toString().toString())
                 val intent = Intent(context, SellerProductsActivity::class.java)
                 intent.putExtra(Constants.EXTRA_PRODUCT_OWNER_ID, model.id)
-                intent.putExtra("seller_phone", model.mobile)
+                intent.putExtra(Constants.EXTRA_SELLER_PHONE, model.mobile.toString())
                 context.startActivity(intent)
             }
         }

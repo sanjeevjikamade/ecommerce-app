@@ -16,6 +16,7 @@ import com.serviceapps.shopping.utils.Constants
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 
 class DashboardFragment : BaseFragment() {
+    var mSellerPhone: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,6 +75,7 @@ class DashboardFragment : BaseFragment() {
             // Call the function of Firestore class.
             val activity: SellerProductsActivity? = activity as SellerProductsActivity?
             val sellerID: String? = activity?.getSellerId()
+            mSellerPhone = activity?.getSellerPhone()
             print("sellerID: " + sellerID)
             if (sellerID != null) {
                 //TODO: SID: refactor code
@@ -114,6 +116,7 @@ class DashboardFragment : BaseFragment() {
                     val intent = Intent(context, ProductDetailsActivity::class.java)
                     intent.putExtra(Constants.EXTRA_PRODUCT_ID, product.product_id)
                     intent.putExtra(Constants.EXTRA_PRODUCT_OWNER_ID, product.user_id)
+                    intent.putExtra(Constants.EXTRA_SELLER_PHONE, mSellerPhone)
                     startActivity(intent)
                 }
             })

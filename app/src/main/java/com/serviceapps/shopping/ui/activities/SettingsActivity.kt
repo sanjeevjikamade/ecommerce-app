@@ -116,8 +116,11 @@ class SettingsActivity : BaseActivity(), View.OnClickListener {
 
         // Load the image using the Glide Loader class.
         GlideLoader(this@SettingsActivity).loadUserPicture(user.image, iv_user_photo)
+        if(FirestoreClass().getCurrentUserType(this) == "seller")
+            tv_name.text = "${user.firstName}"
+        else
+            tv_name.text = "${user.firstName} ${user.lastName}"
 
-        tv_name.text = "${user.firstName} ${user.lastName}"
         tv_gender.text = user.gender
         tv_email.text = user.email
         tv_mobile_number.text = "${user.mobile}"

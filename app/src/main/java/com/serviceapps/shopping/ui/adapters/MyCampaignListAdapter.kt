@@ -5,8 +5,10 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.serviceapps.shopping.R
+import com.serviceapps.shopping.firestore.FirestoreClass
 import com.serviceapps.shopping.models.Campaign
 import com.serviceapps.shopping.models.Product
 import com.serviceapps.shopping.ui.activities.ProductDetailsActivity
@@ -69,6 +71,10 @@ open class MyCampaignListAdapter(
 
                 fragment.deleteCampaign(model.campaign_id)
             }
+
+            if(model.user_id != FirestoreClass().getCurrentUserID())
+                holder.itemView.ib_delete_campaign.isVisible = false
+
             //TODO:: Define what to do when clicked on campaign item
 //            holder.itemView.setOnClickListener {
 //                // Launch Product details screen.

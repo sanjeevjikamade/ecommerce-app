@@ -81,7 +81,7 @@ class ProductsFragment : BaseFragment() {
             rv_my_product_items.setHasFixedSize(true)
 
             val adapterProducts =
-                MyProductsListAdapter(requireActivity(), productsList, this@ProductsFragment)
+                MyProductsListAdapter(requireActivity(), productsList, this@ProductsFragment, )
             rv_my_product_items.adapter = adapterProducts
         } else {
             rv_my_product_items.visibility = View.GONE

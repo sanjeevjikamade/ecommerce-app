@@ -37,8 +37,8 @@ class SellerOrdersBaseFragment : BaseFragment() {
 
     private fun setUpViewPager(viewPager: ViewPager?) {
         val adapter = SellerOrderPagerAdapter(childFragmentManager)
-        adapter.addFragment(OrdersFragment(), "Customer Orders")
-        adapter.addFragment(SellerOrdersFragment(), "Your Orders")
+        adapter.addFragment(SellerOrdersFragment(), "Customer Orders")
+        adapter.addFragment(OrdersFragment(), "Your Orders")
         viewPager!!.adapter = adapter
     }
 

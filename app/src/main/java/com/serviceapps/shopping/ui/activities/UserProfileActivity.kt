@@ -52,6 +52,12 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
             mUserDetails = intent.getParcelableExtra(Constants.EXTRA_USER_DETAILS)!!
         }
 
+        //Updating UI for Seller
+        if(FirestoreClass().getCurrentUserType(this) == "seller") {
+            til_first_name.setHint("Shop Name")
+            til_last_name.setHint("Description")
+        }
+
         // If the profile is incomplete then user is from login screen and wants to complete the profile.
         if (mUserDetails.profileCompleted == 0) {
             // Update the title of the screen to complete profile.
@@ -84,7 +90,7 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
             et_email.isEnabled = false
             et_email.setText(mUserDetails.email)
 
-            if (mUserDetails.mobile != 0L) {
+            if (mUserDetails.mobile != "") {
                 et_mobile_number.setText(mUserDetails.mobile.toString())
             }
             if (mUserDetails.gender == Constants.MALE) {

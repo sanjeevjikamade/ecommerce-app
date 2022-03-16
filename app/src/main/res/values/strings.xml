@@ -184,5 +184,6 @@
     <string name="title_activity_seller_products">Purchase</string>
     <string name="tab_text_purchase">Purchase</string>
     <string name="tab_text_campaigns">Campaigns</string>
+    <string name="EXTRA_SELLER_PHONE">seller_phone</string>
 
 </resources>

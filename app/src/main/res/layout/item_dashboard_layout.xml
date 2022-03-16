@@ -5,9 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/item_dashboard_margin"
-    android:background="@drawable/item_dashboard_background"
+    android:background="@drawable/item_background"
     android:gravity="center"
     android:orientation="vertical"
+    android:elevation="4dp"
     android:padding="@dimen/item_dashboard_padding">
 
     <ImageView
@@ -33,19 +34,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/view_divider"
-        android:background="@color/dashboard_item_details_bg"
+        android:background="@color/colorWhite"
         android:orientation="vertical"
-        android:paddingStart="@dimen/dashboard_item_paddingStartEnd"
-        android:paddingTop="@dimen/dashboard_item_paddingTopBottom"
-        android:paddingEnd="@dimen/dashboard_item_paddingStartEnd"
-        android:paddingBottom="@dimen/dashboard_item_paddingTopBottom">
+        android:padding="8dp">
 
         <com.serviceapps.shopping.utils.MSPTextViewBold
             android:id="@+id/tv_dashboard_item_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/item_value_text_color"
-            android:textSize="@dimen/dashboard_item_textSize"
+            android:textSize="16sp"
             android:textStyle="bold"
             tools:text="Item Name" />
 
@@ -53,10 +51,10 @@
             android:id="@+id/tv_dashboard_item_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dashboard_item_price_marginTop"
+            android:layout_marginTop="8dp"
             android:textColor="@color/item_value_text_color"
-            android:textSize="@dimen/dashboard_item_textSize"
+            android:textSize="14sp"
             android:textStyle="bold"
-            tools:text="$100.00" />
+            tools:text="Description" />
     </LinearLayout>
 </RelativeLayout>

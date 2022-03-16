@@ -45,58 +45,65 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/iv_product_detail_image"
+            <RelativeLayout
+                android:id="@+id/rl_product_details_top"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/product_detail_image_height"
-                android:layout_marginTop="4dp"
-                android:background="@color/colorImageViewBackground"
-                android:contentDescription="@string/content_description"
-                android:scaleType="fitXY"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="wrap_content">
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab_call"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|bottom"
-                android:layout_marginEnd="16dp"
-                android:contentDescription=""
-                android:src="@android:drawable/ic_menu_call"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iv_product_detail_image" />
+                <ImageView
+                    android:id="@+id/iv_product_detail_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/product_detail_image_height"
+                    android:background="@color/colorImageViewBackground"
+                    android:contentDescription="@string/content_description"
+                    android:scaleType="fitXY"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
-                android:id="@+id/ll_product_details_title_price"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/product_details_title_price_marginTop"
-                android:background="@color/dashboard_item_details_bg"
-                android:orientation="vertical"
-                android:padding="@dimen/product_details_title_price_padding"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_product_detail_image">
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_call"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginEnd="16dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="-26dp"
+                    android:layout_below="@+id/iv_product_detail_image"
+                    android:contentDescription=""
+                    android:src="@android:drawable/ic_menu_call" />
 
-                <com.serviceapps.shopping.utils.MSPTextViewBold
-                    android:id="@+id/tv_product_details_title"
+                <LinearLayout
+                    android:id="@+id/ll_product_details_title_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/item_value_text_color"
-                    android:textSize="@dimen/product_details_title_textSize"
-                    tools:text="Product Title" />
+                    android:layout_marginTop="@dimen/product_details_title_price_marginTop"
+                    android:background="@color/dashboard_item_details_bg"
+                    android:orientation="vertical"
+                    android:padding="@dimen/product_details_title_price_padding"
+                    android:layout_below="@+id/iv_product_detail_image"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_product_detail_image">
 
-                <com.serviceapps.shopping.utils.MSPTextView
-                    android:id="@+id/tv_product_details_price"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/item_value_text_color"
-                    android:textSize="@dimen/product_details_price_textSize"
-                    tools:text="$100" />
-            </LinearLayout>
+                    <com.serviceapps.shopping.utils.MSPTextViewBold
+                        android:id="@+id/tv_product_details_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/item_value_text_color"
+                        android:textSize="@dimen/product_details_title_textSize"
+                        tools:text="Product Title" />
+
+                    <com.serviceapps.shopping.utils.MSPTextView
+                        android:id="@+id/tv_product_details_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/item_value_text_color"
+                        android:textSize="@dimen/product_details_price_textSize"
+                        tools:text="$100" />
+                </LinearLayout>
+            </RelativeLayout>
 
             <com.serviceapps.shopping.utils.MSPTextViewBold
                 android:id="@+id/tv_product_details_label"
@@ -108,7 +115,7 @@
                 android:textSize="@dimen/product_details_label_textSize"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ll_product_details_title_price" />
+                app:layout_constraintTop_toBottomOf="@id/rl_product_details_top" />
 
             <com.serviceapps.shopping.utils.MSPTextView
                 android:id="@+id/tv_product_details_description"

@@ -227,6 +227,9 @@ class FirestoreClass {
                             is AddCampaignActivity -> {
                                 activity.imageUploadSuccess(uri.toString())
                             }
+                            is EditProductActivity -> {
+                                activity.imageUploadSuccess(uri.toString())
+                            }
                         }
                     }
             }
@@ -276,6 +279,34 @@ class FirestoreClass {
                 )
             }
     }
+
+    /**
+     * A function to make an entry of the user's product in the cloud firestore database.
+     */
+    fun updateProductDetails(activity: EditProductActivity, productInfo: HashMap<String, Any>, productId: String) {
+
+        mFireStore.collection(Constants.PRODUCTS)
+            .document(productId)
+            // Here the userInfo are Field and the SetOption is set to merge. It is for if we wants to merge
+            // A HashMap of fields which are to be updated.
+            .update(productInfo)
+            .addOnSuccessListener {
+
+                // Here call a function of base activity for transferring the result to it.
+                activity.productUploadSuccess()
+            }
+            .addOnFailureListener { e ->
+
+                activity.hideProgressDialog()
+
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while uploading the product details.",
+                    e
+                )
+            }
+    }
+
 
     /**
      * A function to get the products list from cloud firestore.
@@ -462,6 +493,34 @@ class FirestoreClass {
      * A function to get the product details based on the product id.
      */
     fun getProductDetails(activity: ProductDetailsActivity, productId: String) {
+
+        // The collection name for PRODUCTS
+        mFireStore.collection(Constants.PRODUCTS)
+            .document(productId)
+            .get() // Will get the document snapshots.
+            .addOnSuccessListener { document ->
+
+                // Here we get the product details in the form of document.
+                Log.e(activity.javaClass.simpleName, document.toString())
+
+                // Convert the snapshot to the object of Product data model class.
+                val product = document.toObject(Product::class.java)!!
+
+                activity.productDetailsSuccess(product)
+            }
+            .addOnFailureListener { e ->
+
+                // Hide the progress dialog if there is an error.
+                activity.hideProgressDialog()
+
+                Log.e(activity.javaClass.simpleName, "Error while getting the product details.", e)
+            }
+    }
+
+    /**
+     * A function to get the product details based on the product id.
+     */
+    fun getProductDetailsForEdit(activity: EditProductActivity, productId: String) {
 
         // The collection name for PRODUCTS
         mFireStore.collection(Constants.PRODUCTS)
@@ -898,7 +957,7 @@ class FirestoreClass {
      */
     fun getMyOrdersListSeller(fragment: SellerOrdersFragment) {
         mFireStore.collection(Constants.ORDERS)
-            .whereEqualTo(Constants.USER_ID, getCurrentUserID())
+            .whereEqualTo(Constants.SELLER_ID, getCurrentUserID())
             .get() // Will get the documents snapshots.
             .addOnSuccessListener { document ->
                 Log.e(fragment.javaClass.simpleName, document.documents.toString())
@@ -928,7 +987,7 @@ class FirestoreClass {
      */
     fun getMyOrdersList(fragment: OrdersFragment) {
         mFireStore.collection(Constants.ORDERS)
-            .whereEqualTo(Constants.SELLER_ID, getCurrentUserID())
+            .whereEqualTo(Constants.USER_ID, getCurrentUserID())
             .get() // Will get the documents snapshots.
             .addOnSuccessListener { document ->
                 Log.e(fragment.javaClass.simpleName, document.documents.toString())
@@ -1141,5 +1200,12 @@ class FirestoreClass {
                     e
                 )
             }
+    }
+
+    fun getRandomString(length: Int) : String {
+        val charset = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz0123456789"
+        return (1..length)
+            .map { charset.random() }
+            .joinToString("")
     }
 }

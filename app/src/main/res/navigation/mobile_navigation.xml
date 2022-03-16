@@ -38,7 +38,7 @@
     <fragment
         android:id="@+id/navigation_seller_orders"
         android:name="com.serviceapps.shopping.ui.fragments.SellerOrdersBaseFragment"
-        android:label="@string/app_name"
+        android:label="@string/title_orders"
         tools:layout="@layout/seller_orders_base_layout" />
 
 <!--    <fragment-->

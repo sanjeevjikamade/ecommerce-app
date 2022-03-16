@@ -12,6 +12,7 @@ import com.serviceapps.shopping.R
 import com.serviceapps.shopping.ui.fragments.CampaignsFragment
 import com.serviceapps.shopping.ui.fragments.DashboardFragment
 import com.serviceapps.shopping.ui.fragments.ProductsFragment
+import com.serviceapps.shopping.utils.Constants
 import com.serviceapps.shopping.utils.Constants.EXTRA_PRODUCT_OWNER_ID
 import kotlinx.android.synthetic.main.activity_seller_products.*
 
@@ -28,7 +29,7 @@ class SellerProductsActivity : AppCompatActivity() {
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark))
 
         mSellerId = intent.getStringExtra(EXTRA_PRODUCT_OWNER_ID).toString()
-        mSellerPhone = intent.getStringExtra("seller_phone").toString()
+        mSellerPhone = intent.getStringExtra(Constants.EXTRA_SELLER_PHONE).toString()
 
         setupViewPager(viewpager)
 
