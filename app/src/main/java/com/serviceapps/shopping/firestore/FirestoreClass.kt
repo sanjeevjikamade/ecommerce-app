@@ -8,6 +8,7 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -957,6 +958,7 @@ class FirestoreClass {
      */
     fun getMyOrdersListSeller(fragment: SellerOrdersFragment) {
         mFireStore.collection(Constants.ORDERS)
+            .orderBy("order_datetime", Query.Direction.DESCENDING)
             .whereEqualTo(Constants.SELLER_ID, getCurrentUserID())
             .get() // Will get the documents snapshots.
             .addOnSuccessListener { document ->
@@ -987,6 +989,7 @@ class FirestoreClass {
      */
     fun getMyOrdersList(fragment: OrdersFragment) {
         mFireStore.collection(Constants.ORDERS)
+            .orderBy("order_datetime", Query.Direction.DESCENDING)
             .whereEqualTo(Constants.USER_ID, getCurrentUserID())
             .get() // Will get the documents snapshots.
             .addOnSuccessListener { document ->
