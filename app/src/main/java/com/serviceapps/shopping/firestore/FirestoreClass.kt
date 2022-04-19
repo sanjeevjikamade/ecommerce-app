@@ -1211,4 +1211,35 @@ class FirestoreClass {
             .map { charset.random() }
             .joinToString("")
     }
+
+    /**
+     * A function to update the order status in the cloud firestore.
+     *
+     * @param activity activity class.
+     * @param id order_id of the item.
+     * @param itemHashMap to be updated values.
+     */
+    /**
+     * A function to make an entry of the user's product in the cloud firestore database.
+     */
+    fun updateOrderStatus(activity: MyOrderDetailsActivity, orderInfo: Order, orderId: String) {
+
+        mFireStore.collection(Constants.ORDERS)
+            .document(orderId)
+            // Here the userInfo are Field and the SetOption is set to merge. It is for if we wants to merge
+            .set(orderInfo, SetOptions.merge())
+            .addOnSuccessListener {
+
+                // Here call a function of base activity for transferring the result to it.
+                activity.itemUpdateSuccess()
+            }
+            .addOnFailureListener { e ->
+                activity.hideProgressDialog()
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while updating the status.",
+                    e
+                )
+            }
+    }
 }

@@ -104,9 +104,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_name"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/settings_info_marginTop"
+            android:layout_marginTop="@dimen/regular_margin"
             android:textColor="@color/colorSecondaryText"
-            android:textSize="@dimen/settings_info_textSize"
+            android:textSize="@dimen/regular_text_size"
             tools:text="Male" />
 
         <com.serviceapps.shopping.utils.MSPTextView
@@ -115,9 +115,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_gender"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/settings_info_marginTop"
+            android:layout_marginTop="@dimen/regular_margin"
             android:textColor="@color/colorSecondaryText"
-            android:textSize="@dimen/settings_info_textSize"
+            android:textSize="@dimen/regular_text_size"
             tools:text="denis.panjuta@gmail.com" />
 
         <com.serviceapps.shopping.utils.MSPTextView
@@ -126,9 +126,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_email"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/settings_info_marginTop"
+            android:layout_marginTop="@dimen/regular_margin"
             android:textColor="@color/colorSecondaryText"
-            android:textSize="@dimen/settings_info_textSize"
+            android:textSize="@dimen/regular_text_size"
             tools:text="123456789" />
 
         <LinearLayout
@@ -149,7 +149,7 @@
                 android:layout_weight="1"
                 android:text="@string/lbl_addresses"
                 android:textColor="@color/colorSecondaryText"
-                android:textSize="@dimen/settings_lbl_addresses_textSize" />
+                android:textSize="@dimen/regular_text_size" />
 
             <ImageView
                 android:layout_width="wrap_content"

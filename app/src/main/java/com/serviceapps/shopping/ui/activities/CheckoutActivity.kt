@@ -196,7 +196,8 @@ class CheckoutActivity : BaseActivity() {
             mSubTotal.toString(),
             "0.0", // The Shipping Charge is fixed as 0 for now in our case.
             mTotalAmount.toString(),
-            System.currentTimeMillis()
+            System.currentTimeMillis(),
+            status = "pending"
         )
 
         FirestoreClass().placeOrder(this@CheckoutActivity, mOrderDetails)

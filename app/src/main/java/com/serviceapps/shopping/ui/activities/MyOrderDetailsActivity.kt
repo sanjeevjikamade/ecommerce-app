@@ -1,7 +1,8 @@
 package com.serviceapps.shopping.ui.activities
 
+import android.annotation.SuppressLint
+import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
@@ -14,12 +15,24 @@ import com.serviceapps.shopping.utils.Constants
 import kotlinx.android.synthetic.main.activity_my_order_details.*
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.concurrent.TimeUnit
+
+import android.content.DialogInterface
+import android.content.Intent
+import android.view.Menu
+import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
+import com.serviceapps.shopping.firestore.FirestoreClass
+import com.serviceapps.shopping.models.Address
+import com.serviceapps.shopping.models.Cart
+
 
 /**
  * My Order Details Screen.
  */
-class MyOrderDetailsActivity : AppCompatActivity() {
+class MyOrderDetailsActivity : BaseActivity() {
+
+    var mOrderDetails: Order? = null
+    var mMenuItem : MenuItem? = null
 
     /**
      * This function is auto created by Android when the Activity Class is created.
@@ -70,6 +83,7 @@ class MyOrderDetailsActivity : AppCompatActivity() {
     private fun setupUI(orderDetails: Order) {
 
         tv_order_details_id.text = orderDetails.title
+        mOrderDetails = orderDetails
 
         // Date Format in which the date will be displayed in the UI.
         val dateFormat = "dd MMM yyyy HH:mm"
@@ -88,39 +102,51 @@ class MyOrderDetailsActivity : AppCompatActivity() {
         // If the difference in hours is 2 or greater then 1 then the order status will be PROCESSING.
         // And, if the difference in hours is 3 or greater then the order status will be DELIVERED.
 
-        val diffInMilliSeconds: Long = System.currentTimeMillis() - orderDetails.order_datetime
-        val diffInHours: Long = TimeUnit.MILLISECONDS.toHours(diffInMilliSeconds)
-        Log.e("Difference in Hours", "$diffInHours")
+//        val diffInMilliSeconds: Long = System.currentTimeMillis() - orderDetails.order_datetime
+//        val diffInHours: Long = TimeUnit.MILLISECONDS.toHours(diffInMilliSeconds)
+//        Log.e("Difference in Hours", "$diffInHours")
+//
+//        when {
+//            diffInHours < 1 -> {
+//                tv_order_status.text = resources.getString(R.string.order_status_pending)
+//                tv_order_status.setTextColor(
+//                    ContextCompat.getColor(
+//                        this@MyOrderDetailsActivity,
+//                        R.color.colorAccent
+//                    )
+//                )
+//            }
+//            else -> {
+//                tv_order_status.text = resources.getString(R.string.order_status_complete)
+//                tv_order_status.setTextColor(
+//                    ContextCompat.getColor(
+//                        this@MyOrderDetailsActivity,
+//                        R.color.colorOrderStatusDelivered
+//                    )
+//                )
+//            }
+//        }
 
-        when {
-            diffInHours < 1 -> {
-                tv_order_status.text = resources.getString(R.string.order_status_pending)
-                tv_order_status.setTextColor(
-                    ContextCompat.getColor(
-                        this@MyOrderDetailsActivity,
-                        R.color.colorAccent
-                    )
+        tv_order_status.text = orderDetails.status
+        if(orderDetails.status.equals("pending")) {
+            tv_order_status.setTextColor(
+                ContextCompat.getColor(
+                    this@MyOrderDetailsActivity,
+                    R.color.colorOrderStatusPending
                 )
-            }
-            diffInHours < 2 -> {
-                tv_order_status.text = resources.getString(R.string.order_status_in_process)
-                tv_order_status.setTextColor(
-                    ContextCompat.getColor(
-                        this@MyOrderDetailsActivity,
-                        R.color.colorOrderStatusInProcess
-                    )
-                )
-            }
-            else -> {
-                tv_order_status.text = resources.getString(R.string.order_status_delivered)
-                tv_order_status.setTextColor(
-                    ContextCompat.getColor(
-                        this@MyOrderDetailsActivity,
-                        R.color.colorOrderStatusDelivered
-                    )
-                )
-            }
-        }
+            )
+        }else
+            tv_order_status.setTextColor(ContextCompat.getColor(
+                this@MyOrderDetailsActivity,
+                R.color.colorOrderStatusComplete
+            ))
+
+//        tv_order_status.setOnClickListener(View.OnClickListener {
+//            if(FirestoreClass().getCurrentUserType(this).equals("seller")
+//                && orderDetails.seller_id.equals(FirestoreClass().getCurrentUserID())
+//                && !tv_order_status.text.equals("complete"))
+//                showDialog("Update Order Status", this, orderDetails)
+//        })
 
         rv_my_order_items_list.layoutManager = LinearLayoutManager(this@MyOrderDetailsActivity)
         rv_my_order_items_list.setHasFixedSize(true)
@@ -146,5 +172,94 @@ class MyOrderDetailsActivity : AppCompatActivity() {
         tv_order_details_sub_total.text = orderDetails.sub_total_amount
         tv_order_details_shipping_charge.text = orderDetails.shipping_charge
         tv_order_details_total_amount.text = orderDetails.total_amount
+    }
+
+    @SuppressLint("WrongConstant")
+    private fun showDialog(title: String, context: MyOrderDetailsActivity, orderDetails: Order) {
+        var builder = AlertDialog.Builder(context)
+        builder.setTitle(title)
+        builder.setPositiveButton("complete",
+            DialogInterface.OnClickListener {
+                    dialog, id -> dialog.cancel()
+                    showProgressDialog(resources.getString(R.string.please_wait))
+
+                    val orderModel = Order(
+                        orderDetails.user_id,
+                        orderDetails.seller_id,
+                        orderDetails.items,
+                        orderDetails.address,
+                        orderDetails.title,
+                        orderDetails.image,
+                        orderDetails.sub_total_amount,
+                        orderDetails.shipping_charge,
+                        orderDetails.total_amount,
+                        orderDetails.order_datetime,
+                        orderDetails.id,
+                        status = "complete"
+                    )
+
+                    FirestoreClass().updateOrderStatus(
+                        this@MyOrderDetailsActivity,
+                        orderModel,
+                        orderDetails.id
+                    )
+
+            })
+
+//        builder.setNeutralButton("pending",
+//            DialogInterface.OnClickListener { dialog, id ->
+//
+//                //dialog.cancel();
+//            })
+
+        builder.setNegativeButton("Exit",
+            DialogInterface.OnClickListener { dialog, id -> dialog.cancel() })
+        builder.create().show()
+    }
+
+    /**
+     * A function to notify the user about the item quantity updated in the cart list.
+     */
+    fun itemUpdateSuccess() {
+        hideProgressDialog()
+        tv_order_status.text = "complete"
+        tv_order_status.setTextColor(ContextCompat.getColor(
+            this@MyOrderDetailsActivity,
+            R.color.colorOrderStatusComplete
+        ))
+        mMenuItem?.setVisible(false)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.edit_product_menu, menu)
+        var menuItem : MenuItem? = null
+        menuItem = menu?.findItem(R.id.action_edit_product)
+
+        if(!FirestoreClass().getCurrentUserType(this).equals("seller")
+            || !mOrderDetails?.seller_id.equals(FirestoreClass().getCurrentUserID())
+            || tv_order_status.text.equals("complete")) {
+
+            menuItem?.setVisible(false)
+        }
+        mMenuItem = menuItem
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+
+        if (id == R.id.action_edit_product) {
+
+            if(FirestoreClass().getCurrentUserType(this).equals("seller")
+                && mOrderDetails?.seller_id.equals(FirestoreClass().getCurrentUserID())
+                && !tv_order_status.text.equals("complete"))
+                mOrderDetails?.let { showDialog("Update Order Status", this, it) }
+
+            return true
+        }
+
+
+        return super.onOptionsItemSelected(item)
     }
 }

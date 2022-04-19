@@ -4,20 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/item_list_marginTop"
     android:layout_margin="8dp"
+    android:layout_marginTop="@dimen/item_list_marginTop"
     android:background="@drawable/item_background"
-    android:orientation="vertical"
     android:elevation="4dp"
+    android:orientation="vertical"
     android:padding="@dimen/item_list_padding">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/ll_item_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/rv_item_image_background"
-        android:padding="@dimen/item_image_padding"
         android:gravity="right"
+        android:padding="@dimen/item_image_padding"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -28,7 +28,13 @@
             android:layout_height="@dimen/item_image_height_campaign"
             android:contentDescription="@string/content_description"
             android:scaleType="fitXY" />
-    </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_image_height_campaign"
+            android:background="#80000000" />
+
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/ll_product_details"
@@ -36,10 +42,10 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/ib_delete_campaign"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ll_item_image"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="@+id/ll_item_image">
 
         <com.serviceapps.shopping.utils.MSPTextViewBold
             android:id="@+id/tv_campaign_name"

@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="@dimen/cart_item_details_marginStart"
-        android:layout_marginEnd="@dimen/cart_item_details_marginEnd"
+        android:layout_marginEnd="@dimen/regular_small_margin"
         android:layout_weight="1"
         android:orientation="vertical">
 

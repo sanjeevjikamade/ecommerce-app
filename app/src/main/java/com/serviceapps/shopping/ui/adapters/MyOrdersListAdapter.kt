@@ -12,6 +12,12 @@ import com.serviceapps.shopping.ui.activities.MyOrderDetailsActivity
 import com.serviceapps.shopping.utils.Constants
 import com.serviceapps.shopping.utils.GlideLoader
 import kotlinx.android.synthetic.main.item_list_layout.view.*
+import java.lang.Exception
+import java.text.DateFormat
+import java.text.DateFormat.getDateTimeInstance
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 open class MyOrdersListAdapter(
     private val context: Context,
@@ -57,6 +63,7 @@ open class MyOrdersListAdapter(
 
             holder.itemView.tv_item_name.text = model.title
             holder.itemView.tv_item_price.text = "₹${model.total_amount}"
+            holder.itemView.tv_item_date.text = getTimeDate(model.order_datetime)
 
             holder.itemView.ib_delete_product.visibility = View.GONE
 
@@ -79,5 +86,15 @@ open class MyOrdersListAdapter(
      * A ViewHolder describes an item view and metadata about its place within the RecyclerView.
      */
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)
+}
+
+fun getTimeDate(timeStamp: Long): String? {
+    return try {
+        val dateFormat: DateFormat = getDateTimeInstance()
+        val netDate = Date(timeStamp)
+        dateFormat.format(netDate)
+    } catch (e: Exception) {
+        "date"
+    }
 }
 // END

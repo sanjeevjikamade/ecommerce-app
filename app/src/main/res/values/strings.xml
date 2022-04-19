@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Services</string>
+    <string name="app_name">Fundrasia</string>
     <string name="content_description">image</string>
     <string name="title_login">LOGIN</string>
     <string name="et_hint_email_id">Email ID</string>
@@ -154,7 +154,7 @@
 
     <string name="no_orders_placed_yet">No orders placed yet!</string>
 
-    <string name="title_my_order_details">MY ORDER DETAILS</string>
+    <string name="title_my_order_details">ORDER DETAILS</string>
     <string name="order_details_lbl">Order Details</string>
     <string name="order_details_lbl_order_id">Order ID</string>
     <string name="order_details_lbl_order_date">Order Date</string>
@@ -163,7 +163,7 @@
     <string name="order_details_lbl_shipping_address">Shipping Address</string>
 
     <string name="order_status_in_process">In Process</string>
-    <string name="order_status_delivered">Delivered</string>
+    <string name="order_status_complete">Complete</string>
 
     <string name="title_sold_products">Sold Products</string>
     <string name="no_products_sold_out_yet">No products sold out yet!</string>

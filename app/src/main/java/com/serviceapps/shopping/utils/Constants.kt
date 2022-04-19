@@ -31,6 +31,7 @@ object Constants {
     const val EXTRA_USER_DETAILS: String = "extra_user_details"
     const val EXTRA_PRODUCT_ID: String = "extra_product_id"
     const val EXTRA_SELLER_PHONE: String = "extra_seller_phone"
+    const val EXTRA_SELLER_NAME: String = "extra_seller_name"
     const val EXTRA_PRODUCT_OWNER_ID: String = "extra_product_owner_id"
     const val EXTRA_ADDRESS_DETAILS: String = "AddressDetails"
     const val EXTRA_SELECT_ADDRESS: String = "extra_select_address"

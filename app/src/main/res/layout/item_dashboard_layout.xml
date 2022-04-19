@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/item_dashboard_margin"
+    android:layout_margin="8dp"
     android:background="@drawable/item_background"
     android:gravity="center"
     android:orientation="vertical"
@@ -34,26 +34,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/view_divider"
-        android:background="@color/colorWhite"
+        android:background="@drawable/item_background"
         android:orientation="vertical"
         android:padding="8dp">
 
         <com.serviceapps.shopping.utils.MSPTextViewBold
             android:id="@+id/tv_dashboard_item_title"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
             android:textColor="@color/item_value_text_color"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             tools:text="Item Name" />
 
         <com.serviceapps.shopping.utils.MSPTextView
             android:id="@+id/tv_dashboard_item_price"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:paddingLeft="8dp"
             android:textColor="@color/item_value_text_color"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             tools:text="Description" />
     </LinearLayout>

@@ -297,7 +297,7 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
         }
 
         if (mobileNumber.isNotEmpty() && mobileNumber != mUserDetails.mobile.toString()) {
-            userHashMap[Constants.MOBILE] = mobileNumber.toLong()
+            userHashMap[Constants.MOBILE] = mobileNumber.toString()
         }
 
         if (gender.isNotEmpty() && gender != mUserDetails.gender) {

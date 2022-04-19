@@ -117,6 +117,7 @@ class DashboardFragment : BaseFragment() {
                     intent.putExtra(Constants.EXTRA_PRODUCT_ID, product.product_id)
                     intent.putExtra(Constants.EXTRA_PRODUCT_OWNER_ID, product.user_id)
                     intent.putExtra(Constants.EXTRA_SELLER_PHONE, mSellerPhone)
+                    intent.putExtra(Constants.EXTRA_SELLER_NAME, mSellerPhone)
                     startActivity(intent)
                 }
             })

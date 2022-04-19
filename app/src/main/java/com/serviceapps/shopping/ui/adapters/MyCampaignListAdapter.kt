@@ -1,24 +1,19 @@
 package com.serviceapps.shopping.ui.adapters
 
 import android.content.Context
-import android.content.Intent
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import com.serviceapps.shopping.R
 import com.serviceapps.shopping.firestore.FirestoreClass
 import com.serviceapps.shopping.models.Campaign
-import com.serviceapps.shopping.models.Product
-import com.serviceapps.shopping.ui.activities.ProductDetailsActivity
 import com.serviceapps.shopping.ui.fragments.CampaignsFragment
-import com.serviceapps.shopping.utils.Constants
 import com.serviceapps.shopping.utils.GlideLoader
-import kotlinx.android.synthetic.main.item_list_layout.view.*
-import kotlinx.android.synthetic.main.item_list_layout.view.ib_delete_product
 import kotlinx.android.synthetic.main.item_list_layout.view.iv_item_image
-import kotlinx.android.synthetic.main.item_list_layout.view.tv_item_name
 import kotlinx.android.synthetic.main.item_list_layout_campaigns.view.*
 
 /**
@@ -39,10 +34,11 @@ open class MyCampaignListAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MyViewHolder(
             LayoutInflater.from(context).inflate(
-                R.layout.item_list_layout_campaigns,
+                com.serviceapps.shopping.R.layout.item_list_layout_campaigns,
                 parent,
                 false
             )
+
         )
     }
 
@@ -56,12 +52,13 @@ open class MyCampaignListAdapter(
      * of the given type. You can either create a new View manually or inflate it from an XML
      * layout file.
      */
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val model = list[position]
 
         if (holder is MyViewHolder) {
 
-            GlideLoader(context).loadProductPicture(model.image, holder.itemView.iv_item_image)
+            GlideLoader(context).loadProductPicture(model.image, holder.itemView.iv_item_image as ImageView)
 
             holder.itemView.tv_campaign_name.text = model.title
             holder.itemView.tv_campaign_description.text = "${model.description}"

@@ -42,16 +42,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/my_order_details_content_marginStartEnd"
             android:orientation="vertical">
 
             <com.serviceapps.shopping.utils.MSPTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/my_order_details_content_marginStartEnd"
-                android:layout_marginTop="@dimen/my_order_details_content_marginTopBottom"
-                android:layout_marginEnd="@dimen/my_order_details_content_marginStartEnd"
+                android:layout_marginTop="@dimen/my_order_details_content_marginStartEnd"
+                android:layout_marginBottom="@dimen/my_order_details_content_marginStartEnd"
                 android:paddingTop="@dimen/my_order_details_content_lbl_padding"
-                android:paddingBottom="@dimen/my_order_details_content_lbl_padding"
+                android:elevation="@dimen/regular_small_elevation"
+                android:paddingBottom="@dimen/regular_margin"
                 android:text="@string/order_details_lbl"
                 android:textColor="@color/colorSecondaryText"
                 android:textSize="@dimen/my_order_details_lbl_textSize" />
@@ -61,6 +63,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite"
                 android:orientation="vertical"
+                android:elevation="@dimen/regular_small_elevation"
                 android:paddingStart="@dimen/my_order_details_content_paddingStartEnd"
                 android:paddingTop="@dimen/my_order_details_content_paddingTopBottom"
                 android:paddingEnd="@dimen/my_order_details_content_paddingStartEnd"
@@ -71,13 +74,13 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <com.serviceapps.shopping.utils.MSPTextView
+                    <com.serviceapps.shopping.utils.MSPTextViewBold
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/order_details_lbl_order_id"
                         android:textColor="@color/colorDarkGrey"
-                        android:textSize="@dimen/my_order_details_label_value_textSize" />
+                        android:textSize="@dimen/regular_text_size" />
 
                     <com.serviceapps.shopping.utils.MSPTextView
                         android:id="@+id/tv_order_details_id"
@@ -85,22 +88,23 @@
                         android:layout_height="wrap_content"
                         android:textAlignment="center"
                         android:textColor="@color/colorSecondaryText"
-                        android:textSize="@dimen/my_order_details_label_value_textSize"
+                        android:textSize="@dimen/regular_text_size"
                         tools:text="123456" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/regular_margin"
                     android:orientation="horizontal">
 
-                    <com.serviceapps.shopping.utils.MSPTextView
+                    <com.serviceapps.shopping.utils.MSPTextViewBold
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/order_details_lbl_order_date"
                         android:textColor="@color/colorDarkGrey"
-                        android:textSize="@dimen/my_order_details_label_value_textSize" />
+                        android:textSize="@dimen/regular_text_size" />
 
                     <com.serviceapps.shopping.utils.MSPTextView
                         android:id="@+id/tv_order_details_date"
@@ -108,22 +112,23 @@
                         android:layout_height="wrap_content"
                         android:textAlignment="center"
                         android:textColor="@color/colorSecondaryText"
-                        android:textSize="@dimen/my_order_details_label_value_textSize"
+                        android:textSize="@dimen/regular_text_size"
                         tools:text="20 Oct 2020" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/regular_margin"
                     android:orientation="horizontal">
 
-                    <com.serviceapps.shopping.utils.MSPTextView
+                    <com.serviceapps.shopping.utils.MSPTextViewBold
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/order_details_lbl_order_status"
                         android:textColor="@color/colorDarkGrey"
-                        android:textSize="@dimen/my_order_details_label_value_textSize" />
+                        android:textSize="@dimen/regular_text_size" />
 
                     <com.serviceapps.shopping.utils.MSPTextView
                         android:id="@+id/tv_order_status"
@@ -132,7 +137,7 @@
                         android:text="@string/order_status_pending"
                         android:textAlignment="center"
                         android:textColor="@color/colorAccent"
-                        android:textSize="@dimen/my_order_details_label_value_textSize" />
+                        android:textSize="@dimen/regular_text_size" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -140,26 +145,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/my_order_details_content_marginStartEnd"
-                android:layout_marginTop="@dimen/my_order_details_content_marginTopBottom"
-                android:layout_marginEnd="@dimen/my_order_details_content_marginStartEnd"
+                android:layout_marginTop="@dimen/my_order_details_content_marginStartEnd"
+                android:layout_marginBottom="@dimen/my_order_details_content_marginStartEnd"
                 android:paddingTop="@dimen/my_order_details_content_lbl_padding"
-                android:paddingBottom="@dimen/my_order_details_content_lbl_padding"
                 android:text="@string/checkout_lbl_product_items"
                 android:textColor="@color/colorSecondaryText"
                 android:textSize="@dimen/my_order_details_lbl_textSize" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_my_order_items_list"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:orientation="vertical"
+                android:elevation="@dimen/regular_small_elevation"
+                android:paddingStart="@dimen/my_order_details_content_paddingStartEnd"
+                android:paddingTop="@dimen/my_order_details_content_paddingTopBottom"
+                android:paddingEnd="@dimen/my_order_details_content_paddingStartEnd"
+                android:paddingBottom="@dimen/my_order_details_content_paddingTopBottom">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_my_order_items_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
 
             <com.serviceapps.shopping.utils.MSPTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/my_order_details_content_marginStartEnd"
-                android:layout_marginTop="@dimen/my_order_details_content_marginTopBottom"
+                android:layout_marginTop="@dimen/my_order_details_content_marginStartEnd"
                 android:layout_marginEnd="@dimen/my_order_details_content_marginStartEnd"
-                android:layout_marginBottom="@dimen/my_order_details_content_marginTopBottom"
+                android:layout_marginBottom="@dimen/my_order_details_content_marginStartEnd"
                 android:paddingTop="@dimen/my_order_details_content_lbl_padding"
                 android:paddingBottom="@dimen/my_order_details_content_lbl_padding"
                 android:text="@string/order_details_lbl_shipping_address"
@@ -171,6 +188,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite"
                 android:orientation="vertical"
+                android:elevation="@dimen/regular_small_elevation"
                 android:paddingStart="@dimen/my_order_details_content_paddingStartEnd"
                 android:paddingTop="@dimen/my_order_details_content_paddingTopBottom"
                 android:paddingEnd="@dimen/my_order_details_content_paddingStartEnd"
@@ -187,19 +205,20 @@
                     android:textStyle="bold"
                     tools:text="Home" />
 
-                <com.serviceapps.shopping.utils.MSPTextViewBold
+                <com.serviceapps.shopping.utils.MSPTextView
                     android:id="@+id/tv_my_order_details_full_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/regular_margin"
                     android:textColor="@color/item_value_text_color"
-                    android:textSize="@dimen/item_address_name_textSize"
+                    android:textSize="@dimen/regular_text_size"
                     tools:text="Denis Panjuta" />
 
                 <com.serviceapps.shopping.utils.MSPTextView
                     android:id="@+id/tv_my_order_details_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/address_details_marginTop"
+                    android:layout_marginTop="@dimen/regular_margin"
                     android:textColor="@color/item_value_text_color"
                     android:textSize="@dimen/address_details_textSize"
                     tools:text="XYZ" />
@@ -208,7 +227,7 @@
                     android:id="@+id/tv_my_order_details_additional_note"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/address_details_marginTop"
+                    android:layout_marginTop="@dimen/regular_margin"
                     android:textColor="@color/item_value_text_color"
                     android:textSize="@dimen/address_details_textSize"
                     tools:text="XYZ" />
@@ -217,7 +236,7 @@
                     android:id="@+id/tv_my_order_details_other_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/address_details_marginTop"
+                    android:layout_marginTop="@dimen/regular_margin"
                     android:textColor="@color/item_value_text_color"
                     android:textSize="@dimen/address_details_textSize"
                     tools:text="XYZ" />
@@ -226,7 +245,7 @@
                     android:id="@+id/tv_my_order_details_mobile_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/address_details_marginTop"
+                    android:layout_marginTop="@dimen/regular_margin"
                     android:textColor="@color/item_value_text_color"
                     android:textSize="@dimen/address_details_textSize"
                     tools:text="+64 123456789" />
@@ -238,7 +257,7 @@
                 android:layout_marginStart="@dimen/my_order_details_content_marginStartEnd"
                 android:layout_marginTop="@dimen/my_order_details_content_marginTopBottom"
                 android:layout_marginEnd="@dimen/my_order_details_content_marginStartEnd"
-                android:layout_marginBottom="@dimen/my_order_details_content_marginTopBottom"
+                android:layout_marginBottom="@dimen/my_order_details_content_marginStartEnd"
                 android:paddingTop="@dimen/my_order_details_content_lbl_padding"
                 android:paddingBottom="@dimen/my_order_details_content_lbl_padding"
                 android:text="@string/checkout_lbl_items_receipt"
@@ -250,11 +269,13 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite"
                 android:orientation="vertical"
+                android:elevation="@dimen/regular_small_elevation"
                 android:padding="@dimen/my_order_details_items_receipt">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/regular_margin"
                     android:orientation="horizontal">
 
                     <com.serviceapps.shopping.utils.MSPTextView
@@ -263,7 +284,7 @@
                         android:layout_weight="1"
                         android:text="@string/lbl_subtotal"
                         android:textColor="@color/colorDarkGrey"
-                        android:textSize="@dimen/my_order_details_label_value_textSize" />
+                        android:textSize="@dimen/regular_text_size" />
 
                     <com.serviceapps.shopping.utils.MSPTextView
                         android:id="@+id/tv_order_details_sub_total"
@@ -271,7 +292,7 @@
                         android:layout_height="wrap_content"
                         android:textAlignment="center"
                         android:textColor="@color/colorSecondaryText"
-                        android:textSize="@dimen/my_order_details_label_value_textSize"
+                        android:textSize="@dimen/regular_text_size"
                         tools:text="$100" />
                 </LinearLayout>
 
@@ -287,7 +308,7 @@
                         android:layout_weight="1"
                         android:text="@string/lbl_shipping_charge"
                         android:textColor="@color/colorDarkGrey"
-                        android:textSize="@dimen/my_order_details_label_value_textSize" />
+                        android:textSize="@dimen/regular_text_size" />
 
                     <com.serviceapps.shopping.utils.MSPTextView
                         android:id="@+id/tv_order_details_shipping_charge"
@@ -295,13 +316,14 @@
                         android:layout_height="wrap_content"
                         android:textAlignment="center"
                         android:textColor="@color/colorSecondaryText"
-                        android:textSize="@dimen/my_order_details_label_value_textSize"
+                        android:textSize="@dimen/regular_text_size"
                         tools:text="$10.0" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/regular_margin"
                     android:orientation="horizontal">
 
                     <com.serviceapps.shopping.utils.MSPTextViewBold
@@ -310,7 +332,7 @@
                         android:layout_weight="1"
                         android:text="@string/lbl_total_amount"
                         android:textColor="@color/colorDarkGrey"
-                        android:textSize="@dimen/my_order_details_label_value_textSize" />
+                        android:textSize="@dimen/regular_text_size" />
 
                     <com.serviceapps.shopping.utils.MSPTextViewBold
                         android:id="@+id/tv_order_details_total_amount"
@@ -318,38 +340,35 @@
                         android:layout_height="wrap_content"
                         android:textAlignment="center"
                         android:textColor="@color/colorDarkGrey"
-                        android:textSize="@dimen/my_order_details_label_value_textSize"
+                        android:textSize="@dimen/regular_text_size"
                         tools:text="$110" />
                 </LinearLayout>
-            </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/my_order_details_content_marginTopBottom"
-                android:layout_marginBottom="@dimen/my_order_details_content_marginTopBottom"
-                android:background="@color/colorWhite"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingTop="@dimen/my_order_details_content_lbl_padding"
-                android:paddingBottom="@dimen/my_order_details_content_lbl_padding">
 
-                <com.serviceapps.shopping.utils.MSPTextViewBold
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/my_order_details_content_marginStartEnd"
-                    android:layout_weight="1"
-                    android:text="@string/lbl_payment_mode"
-                    android:textColor="@color/item_value_text_color"
-                    android:textSize="@dimen/lbl_order_details_textSize" />
+                    android:layout_marginTop="@dimen/regular_margin"
+                    android:layout_marginBottom="@dimen/add_edit_address_radio_button_marginStartEnd"
+                    android:orientation="horizontal">
 
-                <com.serviceapps.shopping.utils.MSPTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/my_order_details_content_marginStartEnd"
-                    android:text="@string/lbl_cash_on_delivery"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="@dimen/lbl_order_details_textSize" />
+                    <com.serviceapps.shopping.utils.MSPTextViewBold
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/lbl_payment_mode"
+                        android:textColor="@color/colorDarkGrey"
+                        android:textSize="@dimen/lbl_order_details_textSize" />
+
+                    <com.serviceapps.shopping.utils.MSPTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/my_order_details_content_marginStartEnd"
+                        android:text="@string/lbl_cash_on_delivery"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="@dimen/lbl_order_details_textSize" />
+                </LinearLayout>
+
             </LinearLayout>
 
         </LinearLayout>

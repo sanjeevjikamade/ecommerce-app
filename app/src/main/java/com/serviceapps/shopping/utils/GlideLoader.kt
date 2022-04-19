@@ -1,7 +1,6 @@
 package com.serviceapps.shopping.utils
 
 import android.content.Context
-import android.net.Uri
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.serviceapps.shopping.R
@@ -44,4 +43,5 @@ class GlideLoader(val context: Context) {
             e.printStackTrace()
         }
     }
+
 }
